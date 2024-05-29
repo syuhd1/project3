@@ -36,5 +36,10 @@ route::get('admin/dashboard', [HomeController::class,'index'])->middleware(['aut
 route::get('staff/dashboard', [HomeController::class,'index2'])->middleware(['auth', 'staff']);
 
 //admin
-route::get('view_category', [AdminController::class,'view_category'])->middleware(['auth','admin']);
 //view_category on 2nd part after class is function on the controller
+route::get('view_category', [AdminController::class,'view_category'])->middleware(['auth','admin']);
+route::get('manage_product', [AdminController::class,'manage_product'])->middleware(['auth','admin']);
+route::get('manage_profile', [AdminController::class,'manage_profile'])->middleware(['auth','admin']);
+route::get('manage_order', [AdminController::class,'manage_order'])->middleware(['auth','admin']);
+route::get('manage_staff', [AdminController::class,'manage_staff'])->middleware(['auth','admin']);
+route::get('manage_report', [AdminController::class,'manage_report'])->middleware(['auth','admin']);
