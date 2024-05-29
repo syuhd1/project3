@@ -5,9 +5,16 @@ use Illuminate\Support\Facades\Route;
 //add
 use App\Http\Controllers\HomeController;
 
+/*
 Route::get('/', function () {
     return view('welcome');
-});
+}); */
+
+//add 29/5 - home screen template
+Route::get('/', [HomeController::class,'home']);
+/*Route::get('/', function () {
+    return view('home.index');
+}); */
 
 Route::get('/dashboard', function () {
     return view('dashboard');
