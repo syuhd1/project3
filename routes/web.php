@@ -39,6 +39,11 @@ route::get('staff/dashboard', [HomeController::class,'index2'])->middleware(['au
 //view_category on 2nd part after class is function on the controller
 route::get('view_category', [AdminController::class,'view_category'])->middleware(['auth','admin']);
 route::get('manage_product', [AdminController::class,'manage_product'])->middleware(['auth','admin']);
+route::get('add_product', [AdminController::class,'add_product'])->middleware(['auth','admin']);
+//add product post form
+route::post('upload_product', [AdminController::class,'upload_product'])->middleware(['auth','admin']);
+route::get('update_product', [AdminController::class,'update_product'])->middleware(['auth','admin']);
+route::get('delete_product', [AdminController::class,'delete_product'])->middleware(['auth','admin']);
 route::get('manage_profile', [AdminController::class,'manage_profile'])->middleware(['auth','admin']);
 route::get('manage_order', [AdminController::class,'manage_order'])->middleware(['auth','admin']);
 route::get('manage_staff', [AdminController::class,'manage_staff'])->middleware(['auth','admin']);
