@@ -46,24 +46,24 @@
         <div class="page-header">
           <div class="container-fluid">
           
-          <h1>Add Product</h1>
+          <h1>Update Product</h1>
 
           <div class="div_deg">
-            <form action="{{url('upload_product')}}" method="Post" enctype="multipart/form-data">
+            <form action="{{url('edit_product',$data->id)}}" method="Post" enctype="multipart/form-data">
                 @csrf 
                 <div class="input_deg">
                     <label for="">Product Title</label>
-                    <input type="text" name="title" required>
+                    <input type="text" name="title" value="{{$data->title}}" required>
                 </div>
 
                 <div class="input_deg">
                     <label for="">Description</label>
-                    <textarea name="description"></textarea>
+                    <textarea name="description">{{$data->description}}</textarea>
                 </div>
 
                 <div class="input_deg">
                     <label for="category">Category</label>
-                    <select name="category">
+                    <select name="category"  value="{{$data->category}}">
                         <option value="">Select a category</option>
                         <option value="t-shirt">T-Shirt</option>
                         <option value="polo">Polo</option>
@@ -76,17 +76,17 @@
 
                 <div class="input_deg">
                     <label for="price">Price</label>
-                    <input type="text" name="price">
+                    <input type="text" name="price" value="{{$data->price}}">
                 </div>
 
                 <div class="input_deg">
                     <label for="quantity">Quantity</label>
-                    <input type="number" name="quantity" value="">
+                    <input type="number" name="quantity" value="{{$data->quantity}}">
                 </div>
 
                 <div class="input_deg">
                     <label for="material">Material</label>
-                    <select name="material">
+                    <select name="material"  value="{{$data->material}}">
                         <option value="">Select a material</option>
                         <option value="cotton">Cotton</option>
                         <option value="polyester">Polyester</option>
@@ -97,14 +97,17 @@
                         <!-- Add more materials as needed -->
                     </select>
                 </div>
-
+                <div>
+                    <label for="">Current Image</label>
+                    <img width="150" src="/products/{{$data->image}}" alt="">
+                </div>
                 <div class="input_deg">
-                    <label for="image">Image</label>
+                    <label for="image">Upload Image</label>
                     <input type="file" name="image">
                 </div>
 
                 <div class="input_deg">
-                    <input class="btn btn-success" type="submit" value="Add Product">
+                    <input class="btn btn-success" type="submit" value="Update Product">
                 </div>
             </form>
           </div>

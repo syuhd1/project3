@@ -42,8 +42,10 @@ route::get('manage_product', [AdminController::class,'manage_product'])->middlew
 route::get('add_product', [AdminController::class,'add_product'])->middleware(['auth','admin']);
 //add product post form
 route::post('upload_product', [AdminController::class,'upload_product'])->middleware(['auth','admin']);
-route::get('update_product', [AdminController::class,'update_product'])->middleware(['auth','admin']);
-route::get('delete_product', [AdminController::class,'delete_product'])->middleware(['auth','admin']);
+route::get('update_product/{id}', [AdminController::class,'update_product'])->middleware(['auth','admin']);
+route::post('edit_product/{id}', [AdminController::class,'edit_product'])->middleware(['auth','admin']);
+route::get('delete_product/{id}', [AdminController::class,'delete_product'])->middleware(['auth','admin']);
+
 route::get('manage_profile', [AdminController::class,'manage_profile'])->middleware(['auth','admin']);
 route::get('manage_order', [AdminController::class,'manage_order'])->middleware(['auth','admin']);
 route::get('manage_staff', [AdminController::class,'manage_staff'])->middleware(['auth','admin']);
