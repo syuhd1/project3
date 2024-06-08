@@ -21,6 +21,13 @@
                     <a href="{{url('manage_product')}}"> <i class="icon-list-1"></i>Manage Product</a>
                 </li>
 
+                <li>
+                    <a href="{{url('manage_staff')}}"> <i class="icon-user-1"></i>Manage Staff</a>
+                </li>
+                <li>
+                    <a href="{{url('manage_order')}}"> <i class="icon-paper-and-pencil"></i>Manage Order</a>
+                </li>
+                <!--  
                 <li><a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-windows"></i>Products</a>
                   <ul id="exampledropdownDropdown" class="collapse list-unstyled ">
                   <li>
@@ -31,10 +38,8 @@
                     <li><a href="{{url('delete_product')}}">Delete Products</a></li>
                   </ul>
                 </li>
-
-                <li>
-                    <a href="{{url('manage_order')}}"> <i class="icon-paper-and-pencil"></i>Manage Order</a>
-                </li>
+                -->
+                
                 <!--  
                 <li>
                     <a href="{{url('manage_profile')}}"> <i class="icon-user"></i>Manage Profile</a>

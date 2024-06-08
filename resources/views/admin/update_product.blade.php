@@ -26,7 +26,7 @@
     }
 
     input[type='text']{
-        width:350px;
+        width:450px;
         height: 50px;
     }
 
@@ -65,11 +65,11 @@
                     <label for="category">Category</label>
                     <select name="category"  value="{{$data->category}}">
                         <option value="">Select a category</option>
-                        <option value="t-shirt">T-Shirt</option>
-                        <option value="polo">Polo</option>
-                        <option value="dress-shirt">Dress Shirt</option>
-                        <option value="casual-shirt">Casual Shirt</option>
-                        <option value="sweatshirt">Sweatshirt</option>
+                        <option value="t-shirt" {{ $data->category == 't-shirt' ? 'selected' : '' }}>T-Shirt</option>
+                        <option value="polo" {{ $data->category == 'polo' ? 'selected' : '' }}>Polo</option>
+                        <option value="dress-shirt" {{ $data->category == 'dress-shirt' ? 'selected' : '' }}>Dress Shirt</option>
+                        <option value="casual-shirt" {{ $data->category == 'casual-shirt' ? 'selected' : '' }}>Casual Shirt</option>
+                        <option value="sweatshirt" {{ $data->category == 'sweatshirt' ? 'selected' : '' }}>Sweatshirt</option>
                         <!-- Add more categories as needed -->
                     </select>
                 </div>
@@ -87,14 +87,15 @@
                 <div class="input_deg">
                     <label for="material">Material</label>
                     <select name="material"  value="{{$data->material}}">
-                        <option value="">Select a material</option>
-                        <option value="cotton">Cotton</option>
-                        <option value="polyester">Polyester</option>
-                        <option value="wool">Wool</option>
-                        <option value="silk">Silk</option>
-                        <option value="linen">Linen</option>
-                        <option value="denim">Denim</option>
-                        <!-- Add more materials as needed -->
+                    <option value="">Select a material</option>
+                        <option value="cotton" {{ $data->material == 'cotton' ? 'selected' : '' }}>Cotton</option>
+                        <option value="polyester" {{ $data->material == 'polyester' ? 'selected' : '' }}>Polyester</option>
+                        <option value="wool" {{ $data->material == 'wool' ? 'selected' : '' }}>Wool</option>
+                        <option value="silk" {{ $data->material == 'silk' ? 'selected' : '' }}>Silk</option>
+                        <option value="linen" {{ $data->material == 'linen' ? 'selected' : '' }}>Linen</option>
+                        <option value="denim" {{ $data->material == 'denim' ? 'selected' : '' }}>Denim</option>
+                        
+                    <!-- Add more materials as needed -->
                     </select>
                 </div>
                 <div>
@@ -107,6 +108,7 @@
                 </div>
 
                 <div class="input_deg">
+                    <button class="btn btn-danger" type="button" onclick="window.history.back()">Cancel</button>
                     <input class="btn btn-success" type="submit" value="Update Product">
                 </div>
             </form>

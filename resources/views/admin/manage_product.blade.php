@@ -8,6 +8,8 @@
         justify-content: center;
         align-items: center;
         margin-top: 15px;
+        margin-bottom: 15px;
+        flex-direction: column; 
     }
 
     .table_deg{
@@ -17,7 +19,41 @@
     td{
       /* color: white; */
     }
-    
+
+    .top-right {
+            background-color: #007bff; /* Blue color */
+            color: white;
+            padding: 10px 20px;
+            margin-left: 170px;
+            text-decoration: none;
+            border-radius: 5px;
+            align-self: flex-end;
+    }
+
+        .top-left {
+            /* display: flex; */
+            /* align-items: center; */
+            align-self: flex-start;
+        }
+
+        input[type='search'] {
+            width: 500px;
+            height: 40px;
+            margin-right: 10px;
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            align-self: flex-start;
+        }
+
+        .boxbtn-vertical{
+          text-align: center;
+          vertical-align: middle;
+        }
+
+        .pagination-wrapper {
+            margin-top: 20px;
+        }
     </style>
     <!-- Latest compiled and minified CSS -->
 <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
@@ -38,6 +74,19 @@
             <!-- lg is for large screen, laptop, 12 is 12 column -->
                 <div class="block">
                   <!-- <div class="title"><strong>Striped table with hover effect</strong></div> -->
+                 <div class="div_deg">
+                  <form action="{{url('product_search')}}" method="get" class="top-left">
+                    @csrf
+                      <input type="search" name="search" placeholder="Search...">
+                      <input type="submit" class="btn btn-secondary" value="Search">
+                      
+                      <a class="top-right" href="{{ url('add_product') }}">Add Product</a>
+                    </form>
+                      
+                    
+                    
+                 </div>
+                    
                   <div class="table-responsive"> 
 
                     <table class="table table-striped table-hover table_deg">
@@ -47,11 +96,11 @@
                           <th>Title</th>
                           <th>Description</th>
                           <th>Category</th>
-                          <th>Price</th>
+                          <th>Price (RM)</th>
                           <th>Quantity</th>
                           <th>Material</th>
                           <th>image</th>
-                          <th>Action</th>
+                          <th style="text-align: center;">Action</th>
                         </tr>
                       </thead>
 
@@ -69,9 +118,9 @@
                           <td>{{$products->price}}</td>
                           <td>{{$products->quantity}}</td>
                           <td>{{$products->material}}</td>
-                          <td><img height="60" width="60" src="products/{{$products->image}}" alt=""></td>
-                          <td>
-                            <a class="btn btn-success" href="{{url('update_product', $products->id)}}">Update</a>
+                          <td><img height="70" width="70" src="products/{{$products->image}}" alt=""></td>
+                          <td class="boxbtn-vertical">
+                            <a class="btn btn-secondary" href="{{url('update_product', $products->id)}}">Update</a>
                             <a class="btn btn-danger" onclick="confirmation(event)" href="{{url('delete_product', $products->id)}}">Delete</a>
 
                           </td>

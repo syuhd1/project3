@@ -29,6 +29,15 @@ class AdminController extends Controller
         return view('admin.add_product');
     }
 
+    public function product_search(Request $request)
+    {
+        $search = $request->search;
+        $product = Product::where('title', 'LIKE', '%'.$search.'%')
+        ->orWhere('id', 'LIKE', '%'.$search.'%')->orWhere('category', 'LIKE', '%'.$search.'%')
+        ->orWhere('material', 'LIKE', '%'.$search.'%')->paginate(6);
+        return view('admin.manage_product',compact('product'));
+    }
+
     public function upload_product(Request $request)
     {
         // return view('');

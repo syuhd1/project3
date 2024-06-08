@@ -26,7 +26,7 @@
     }
 
     input[type='text']{
-        width:350px;
+        width:450px;
         height: 50px;
     }
 
@@ -38,6 +38,11 @@
     .input_deg{
         padding: 15px;
     }
+
+    .shortbox{
+        width: 200px;
+        height: 80px;
+    }
   </style>
 
   @include('admin.sidebar')
@@ -46,7 +51,7 @@
         <div class="page-header">
           <div class="container-fluid">
           
-          <h1>Add Product</h1>
+          <h2>Add Product</h2>
 
           <div class="div_deg">
             <form action="{{url('upload_product')}}" method="Post" enctype="multipart/form-data">
@@ -104,6 +109,7 @@
                 </div>
 
                 <div class="input_deg">
+                    <button class="btn btn-danger" type="button" onclick="window.history.back()">Cancel</button>
                     <input class="btn btn-success" type="submit" value="Add Product">
                 </div>
             </form>
