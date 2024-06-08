@@ -12,14 +12,18 @@ Route::get('/', function () {
 }); */
 
 //add 29/5 - home screen template
-Route::get('/', [HomeController::class,'home']);
+Route::get('/', [HomeController::class,'home']); //->name('home');
 /*Route::get('/', function () {
     return view('home.index');
 }); */
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('home.index'); //redirect to home instead of dashboard
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+// Route::get('/dashboard', function () {  //above og code
+//     return view('home.index'); //redirect to home instead of dashboard
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -49,5 +53,13 @@ route::get('product_search', [AdminController::class,'product_search'])->middlew
 
 route::get('manage_profile', [AdminController::class,'manage_profile'])->middleware(['auth','admin']);
 route::get('manage_order', [AdminController::class,'manage_order'])->middleware(['auth','admin']);
+
 route::get('manage_staff', [AdminController::class,'manage_staff'])->middleware(['auth','admin']);
+route::get('add_staff', [AdminController::class,'add_staff'])->middleware(['auth','admin']);
+route::post('upload_staff', [AdminController::class,'upload_staff'])->middleware(['auth','admin']);
+route::get('update_staff/{id}', [AdminController::class,'update_staff'])->middleware(['auth','admin']);
+route::post('edit_staff/{id}', [AdminController::class,'edit_staff'])->middleware(['auth','admin']);
+route::get('delete_staff/{id}', [AdminController::class,'delete_staff'])->middleware(['auth','admin']);
+route::get('staff_search', [AdminController::class,'staff_search'])->middleware(['auth','admin']);
+
 route::get('manage_report', [AdminController::class,'manage_report'])->middleware(['auth','admin']);
