@@ -34,21 +34,11 @@
             </li>
           </ul>
           <div class="user_option">
-            <a href="{{url('/login')}}"> <!-- link to laravel inbuilt login-->
-              <i class="fa fa-user" aria-hidden="true"></i>
-              <span>
-                Login
-              </span>
-            </a>
 
-            <a href="{{url('/register')}}"> <!-- link to laravel inbuilt register-->
-              <i class="fa fa-vcard" aria-hidden="true"></i>  <!-- vcard is icon -->
-              <span>
-                Register
-              </span>
-            </a>
+            @if (Route::has('login'))
+              @auth
 
-            <a href="">
+              <a href="">
               <i class="fa fa-shopping-bag" aria-hidden="true"></i>
             </a>
             <form class="form-inline ">
@@ -56,6 +46,33 @@
                 <i class="fa fa-search" aria-hidden="true"></i>
               </button>
             </form>
+
+                <form style="margin-left: 20px; padding: 10px;" method="POST" action="{{ route('logout') }}">
+                      @csrf
+
+                      <input class="btn btn-secondary" type="submit" value="logout">
+                      
+                </form>
+  
+            @else
+                  <a href="{{url('/login')}}"> <!-- link to laravel inbuilt login-->
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                    <span>
+                      Login
+                    </span>
+                  </a>
+
+                  <a href="{{url('/register')}}"> <!-- link to laravel inbuilt register-->
+                    <i class="fa fa-vcard" aria-hidden="true"></i>  <!-- vcard is icon -->
+                    <span>
+                      Register
+                    </span>
+                  </a>
+
+              @endauth
+            @endif
+
+            
           </div>
         </div>
       </nav>

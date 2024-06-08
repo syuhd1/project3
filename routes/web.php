@@ -12,13 +12,13 @@ Route::get('/', function () {
 }); */
 
 //add 29/5 - home screen template
-Route::get('/', [HomeController::class,'home']); //->name('home');
+Route::get('/', [HomeController::class,'home'])->name('home');
 /*Route::get('/', function () {
     return view('home.index');
 }); */
 
 Route::get('/dashboard', function () {
-    return view('home.index'); //redirect to home instead of dashboard
+    return redirect()->route('home'); //redirect to home instead of dashboard
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 // Route::get('/dashboard', function () {  //above og code
@@ -35,10 +35,6 @@ require __DIR__.'/auth.php';
 
 //add 28/5 //admin auth
 route::get('admin/dashboard', [HomeController::class,'index'])->middleware(['auth','admin']);
-
-//test for staff , add 28/5 auth
-route::get('staff/dashboard', [HomeController::class,'index2'])->middleware(['auth', 'staff']);
-
 //admin
 //view_category on 2nd part after class is function on the controller
 route::get('view_category', [AdminController::class,'view_category'])->middleware(['auth','admin']);
@@ -63,3 +59,7 @@ route::get('delete_staff/{id}', [AdminController::class,'delete_staff'])->middle
 route::get('staff_search', [AdminController::class,'staff_search'])->middleware(['auth','admin']);
 
 route::get('manage_report', [AdminController::class,'manage_report'])->middleware(['auth','admin']);
+
+//test for staff , add 28/5 auth
+route::get('staff/dashboard', [HomeController::class,'index2'])->middleware(['auth', 'staff']);
+

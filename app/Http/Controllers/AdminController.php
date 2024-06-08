@@ -131,6 +131,11 @@ class AdminController extends Controller
         return view('admin.manage_staff');
     }
 
+    public function add_staff()
+    {
+        return view('admin.add_staff');
+    }
+
     public function manage_report()
     {
         return view('admin.manage_report');
