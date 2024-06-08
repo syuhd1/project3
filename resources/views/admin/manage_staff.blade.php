@@ -12,7 +12,7 @@
         <div class="page-header">
           <div class="container-fluid">
           <h2>Manage Staff</h2>
-          @include('admin.body')
+          
 
         </div>   
       </div>
