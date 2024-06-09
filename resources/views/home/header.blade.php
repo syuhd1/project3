@@ -38,6 +38,16 @@
             @if (Route::has('login'))
               @auth
 
+                @if (Auth::user()->role == 'admin')
+                    <!-- Display dashboard button only for admin -->
+                    <a href="{{ url('/admin/dashboard') }}">
+                        <i class="fa fa-dashboard" aria-hidden="true"></i>
+                        <span>
+                            Dashboard
+                        </span>
+                    </a>
+                @endif
+                
               <a href="">
               <i class="fa fa-shopping-bag" aria-hidden="true"></i>
             </a>

@@ -30,7 +30,7 @@
                 </li>
 
                 <li>
-                    <a href="{{url('manage_profile')}}"> <i class="icon-user"></i>Manage Profile</a>
+                    <a href="{{url('profile')}}"> <i class="icon-user"></i>Manage Profile</a>
                 </li>
               
                 <li>
