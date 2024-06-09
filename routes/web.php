@@ -63,3 +63,6 @@ route::get('manage_report', [AdminController::class,'manage_report'])->middlewar
 //test for staff , add 28/5 auth
 route::get('staff/dashboard', [HomeController::class,'index2'])->middleware(['auth', 'staff']);
 
+//home links
+route::get('product_details/{id}', [HomeController::class,'product_details']);
+
