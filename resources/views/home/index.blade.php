@@ -3,6 +3,12 @@
 
 <head>
     @include('home.css')
+    <!-- box product color change from gray to white, override, didnt work -->
+    <style>
+        .box {
+            background-color: white; /* Change the background color to white */
+        }
+    </style>
   </head>
 
 <body>

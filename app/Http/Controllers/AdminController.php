@@ -128,7 +128,8 @@ class AdminController extends Controller
 
     public function manage_staff()
     {
-        return view('admin.manage_staff');
+        $product = Product::paginate(6);
+        return view('admin.manage_staff',compact('product'));
     }
 
     public function add_staff()
