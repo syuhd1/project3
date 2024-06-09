@@ -17,9 +17,12 @@ Route::get('/', [HomeController::class,'home'])->name('home');
     return view('home.index');
 }); */
 
-Route::get('/dashboard', function () {
-    return redirect()->route('home'); //redirect to home instead of dashboard
-})->middleware(['auth', 'verified'])->name('dashboard');
+//below added trying to fix the below, may remove
+Route::get('dashboard', [HomeController::class,'login_home'])->middleware(['auth','verified'])->name('dashboard');
+
+// Route::get('/dashboard', function () {
+//     return redirect()->route('home'); //redirect to home instead of dashboard
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 // Route::get('/dashboard', function () {  //above og code
 //     return view('home.index'); //redirect to home instead of dashboard
@@ -65,4 +68,4 @@ route::get('staff/dashboard', [HomeController::class,'index2'])->middleware(['au
 
 //home links
 route::get('product_details/{id}', [HomeController::class,'product_details']);
-
+route::get('add_cart/{id}', [HomeController::class,'add_cart'])->middleware(['auth', 'verified']);; //user login
