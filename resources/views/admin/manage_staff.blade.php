@@ -75,12 +75,12 @@
                 <div class="block">
                   <!-- <div class="title"><strong>Striped table with hover effect</strong></div> -->
                  <div class="div_deg">
-                  <form action="{{url('product_search')}}" method="get" class="top-left">
+                  <form action="{{url('staff_search')}}" method="get" class="top-left">
                     @csrf
                       <input type="search" name="search" placeholder="Search...">
                       <input type="submit" class="btn btn-secondary" value="Search">
                       
-                      <a class="top-right" href="{{ url('add_product') }}">Add Product</a>
+                      <a class="top-right" href="{{ url('add_staff') }}">Add Staff</a>
                     </form>
                       
                     
@@ -92,36 +92,44 @@
                     <table class="table table-striped table-hover table_deg">
                       <thead>
                         <tr>
-                          <th>ID</th>
-                          <th>Staff Name</th>
-                          <th>Phone</th>
-                          <th>Address</th>
-                          <th>Price (RM)</th>
-                          <th>Quantity</th>
-                          <th>Material</th>
-                          <th>image</th>
-                          <th style="text-align: center;">Action</th>
+                        <th>ID</th>
+                        <!-- <th>Username</th> -->
+                        <th>Name</th>
+                        <!-- <th>Email</th> -->
+                        <th>Phone</th>
+                        <th>Address</th>
+                        <th>Department</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Account Status</th>
+                        <th>Image</th>
+                        <th style="text-align: center;">Action</th>
                         </tr>
                       </thead>
 
                       
                       <tbody>
                         <!-- foreach to call product from db each row -->
-                      @foreach($product as $products) 
+                      @foreach($staff as $staffs) 
                       <!-- ^^this two $ must be diff, so db table name must be a lil diff than model name -add s -->
                         <tr>
                           <!-- <th scope="row">1</th> -->
-                          <td>{{$products->id}}</td>
-                          <td>{{$products->title}}</td>
-                          <td>{!!Str::limit($products->description,50)!!}</td>
-                          <td>{{$products->category}}</td>
-                          <td>{{$products->price}}</td>
-                          <td>{{$products->quantity}}</td>
-                          <td>{{$products->material}}</td>
-                          <td><img height="70" width="70" src="products/{{$products->image}}" alt=""></td>
+                          <td>{{$staffs->id}}</td>
+                          <!-- <td>{{$staffs->username}}</td> -->
+                          <td>{{$staffs->name}}</td>
+                          <!-- <td>{{$staffs->email}}</td> -->
+                          <td>{{$staffs->phone}}</td>
+                          <td>{!!Str::limit($staffs->address,50)!!}</td>
+                          <td>{{$staffs->department}}</td>
+                          <td>{{$staffs->start_date}}</td>
+                          <td>{{$staffs->end_date}}</td>
+                          <td>{{$staffs->acc_status}}</td>
+                          
+                          
+                          <td><img height="70" width="70" src="staffs/{{$staffs->image}}" alt=""></td>
                           <td class="boxbtn-vertical">
-                            <a class="btn btn-secondary" href="{{url('update_product', $products->id)}}">Update</a>
-                            <a class="btn btn-danger" onclick="confirmation(event)" href="{{url('delete_product', $products->id)}}">Delete</a>
+                            <a class="btn btn-secondary" href="{{url('update_staff', $staffs->id)}}">Update</a>
+                            <a class="btn btn-danger" onclick="confirmation(event)" href="{{url('delete_product', $staffs->id)}}">Delete</a>
 
                           </td>
                         </tr>
@@ -133,7 +141,7 @@
                   </div>
                   
                   <div class="div_deg pagination-wrapper">
-                    {{$product->onEachSide(1)->links()}}
+                    {{$staff->onEachSide(1)->links()}}
                     <!-- oneach side means ... in between last and first page, 1 can be changed, change how many per page on admincontroller, in method -->
                     <!-- link back to pagination on provider/appserviceprovider, get bootstrap cdn link-->
                   </div>

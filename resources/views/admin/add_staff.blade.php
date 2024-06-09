@@ -54,78 +54,85 @@
           <h2>Add Staff</h2>
 
           <div class="div_deg">
-            <form action="{{url('upload_product')}}" method="Post" enctype="multipart/form-data">
-                @csrf 
-                <div class="input_deg">
-                    <label for="">Name</label>
-                    <input type="text" name="name" required>
-                </div>
+          <form action="{{url('upload_staff')}}" method="post" enctype="multipart/form-data">
+                        @csrf 
+                        
+                        <div class="input_deg">
+                            <label for="name">Name</label>
+                            <input type="text" name="name" required>
+                        </div>
 
-                <div class="input_deg">
-                    <label for="">Username</label>
-                    <input type="text" name="username" required>
-                </div>
+                        
 
-                <div class="input_deg">
-                    <label for="">Email</label>
-                    <input type="text" name="email" required>
-                </div>
-                <div class="input_deg">
-                    <label for="">Phone</label>
-                    <input type="text" name="phone" required>
-                </div>
-                <div class="input_deg">
-                    <label for="">Address</label>
-                    <textarea name="address"></textarea>
-                </div>
+                        
+                        <!-- 
+                        <div class="input_deg">
+                            <label for="acc_status">Account Status</label>
+                            <select name="acc_status">
+                                <option value="">Select status</option>
+                                    <option value="active">Active</option>
+                                    <option value="inactive">Inactive</option>
+                            </select>
+                        </div> -->
 
-                <div class="input_deg">
-                    <label for="category">Category</label>
-                    <select name="category">
-                        <option value="">Select a category</option>
-                        <option value="t-shirt">T-Shirt</option>
-                        <option value="polo">Polo</option>
-                        <option value="dress-shirt">Dress Shirt</option>
-                        <option value="casual-shirt">Casual Shirt</option>
-                        <option value="sweatshirt">Sweatshirt</option>
-                        <!-- Add more categories as needed -->
-                    </select>
-                </div>
+                        <div class="input_deg">
+                            <label for="name">Phone</label>
+                            <input type="text" name="phone">
+                        </div>
 
-                <div class="input_deg">
-                    <label for="price">Price</label>
-                    <input type="text" name="price">
-                </div>
+                        <div class="input_deg">
+                            <label for="">Address</label>
+                            <textarea name="address"></textarea>
+                        </div>
 
-                <div class="input_deg">
-                    <label for="quantity">Quantity</label>
-                    <input type="number" name="quantity" value="">
-                </div>
+                        <div class="input_deg">
+                            <label for="department">Department</label>
+                            <select name="department">
+                                <option value="">Select a department</option>
+                                    <option value="sales">Sales</option>
+                                    <option value="design">Design</option>
+                                    <option value="production">Production</option>
 
-                <div class="input_deg">
-                    <label for="material">Material</label>
-                    <select name="material">
-                        <option value="">Select a material</option>
-                        <option value="cotton">Cotton</option>
-                        <option value="polyester">Polyester</option>
-                        <option value="wool">Wool</option>
-                        <option value="silk">Silk</option>
-                        <option value="linen">Linen</option>
-                        <option value="denim">Denim</option>
-                        <!-- Add more materials as needed -->
-                    </select>
-                </div>
+                            </select>
+                        </div>
 
-                <div class="input_deg">
-                    <label for="image">Image</label>
-                    <input type="file" name="image">
-                </div>
+                        <div class="input_deg">
+                            <label for="start_date">Start Date</label>
+                            <input type="date" name="start_date">
+                        </div>
 
-                <div class="input_deg">
-                    <button class="btn btn-danger" type="button" onclick="window.history.back()">Cancel</button>
-                    <input class="btn btn-success" type="submit" value="Add Product">
-                </div>
-            </form>
+                        <!-- <div class="input_deg">
+                            <label for="end_date">End Date</label>
+                            <input type="date" name="end_date">
+                        </div> -->
+
+                        <div class="input_deg">
+                            <label for="image">Image</label>
+                            <input type="file" name="image">
+                        </div>
+
+                        <div class="input_deg">
+                            <label for="email">Email</label>
+                            <input type="email" name="email" required>
+                        </div>
+
+                        <div class="input_deg">
+                            <label for="username">Username</label>
+                            <input type="text" name="username" required>
+                        </div>
+
+                        <div class="input_deg">
+                            <label for="password">Password</label>
+                            <input type="password" name="password" required>
+                        </div>
+
+                        <!-- Add more input fields for other staff details -->
+                        
+                        <div class="input_deg">
+                            <button class="btn btn-danger" type="button" onclick="window.history.back()">Cancel</button>
+                            <input class="btn btn-success" type="submit" value="Add Staff">
+                        </div>
+                    </form>
           </div>
 
         </div>   
