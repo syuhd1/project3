@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 //add every model here
 use App\Models\Product;
 use App\Models\Staff;
+use App\Models\Order;
 
 class AdminController extends Controller
 {
@@ -22,7 +23,7 @@ class AdminController extends Controller
         //call product data from db, compact product is how to call it
         // $product = product::all(); //display all from db in 1 page
         //paginate limit to numbers of item per page
-        $product = product::paginate(6);
+        $product = Product::paginate(6);
         return view('admin.manage_product',compact('product'));
     }
 
@@ -125,7 +126,8 @@ class AdminController extends Controller
 
     public function manage_order()
     {
-        return view('admin.manage_order');
+        $data = Order::paginate(6);
+        return view('admin.manage_order', compact('data'));
     }
 
     public function manage_staff()
