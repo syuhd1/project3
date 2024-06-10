@@ -73,11 +73,30 @@ class HomeController extends Controller
         $user = Auth::user(); //user logged in only, get user data , store in $user
         $user_id = $user->id; //store in id user_id
         
-        $data = new Cart;
-        $data->user_id = $user_id;
-        $data->product_id = $product_id;
+        $existedcart = Cart::where('user_id', $user_id)
+        ->where('product_id', $product_id)
+        // ->where('color',$color)
+        // ->where('size', $size)
+        ->first();
 
-        $data->save();
+        if ($existedcart) {
+            $existedcart->quantity += 1;
+            $existedcart->save();
+        } else {
+            $data = new Cart;
+            $data->user_id = $user_id;
+            $data->product_id = $product_id;
+            // $data->color = $color;
+            // $data->size = $size;
+            $data->quantity = 1; // Default quantity to 1
+            $data->save();
+        }
+
+        // $data = new Cart;
+        // $data->user_id = $user_id;
+        // $data->product_id = $product_id;
+        // $data->save();
+
         toastr()->timeOut(5000)->closeButton()->addSuccess('Product added to cart successfully');
 
         return redirect()->back();
@@ -96,6 +115,16 @@ class HomeController extends Controller
         }
 
         return view('home.mycart', compact('count', 'cart'));
+    }
+
+    public function update_cart(Request $request, $id)
+    {
+        $data = Cart::find($id);
+        if ($data) {
+            $data->quantity = $request->input('quantity');
+            $data->save();
+        }
+        return redirect()->back();
     }
 
     public function delete_cart($id)

@@ -9,6 +9,8 @@ class Cart extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['user_id', 'product_id', 'size', 'quantity'];
+
     //for unsigned , foreign key from carts table, make ref use this method
     public function user(){
         //return user id to cart on mycart.php

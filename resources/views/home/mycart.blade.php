@@ -14,6 +14,29 @@
             margin-bottom: 70px;
             padding: 18px;
         }
+
+        .quantity-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .quantity-wrapper input {
+            width: 40px; 
+            height: 35px;/* Adjust this width as needed */
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin: 2px;
+        }
+
+        .quantity-wrapper button {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 5px;
+            cursor: pointer;
+        }
         /* /other style on css.blade.php */
     </style>
   </head>
@@ -50,7 +73,17 @@
                 <td>{{$cart->color}}</td>
                 <td>{{$cart->product->size}}</td>
                 <td>{{$cart->product->price}}</td>
-                <td>{{$cart->quantity}}</td>
+                <!-- <td>{{$cart->quantity}}</td> -->
+                <td>
+                    <div class="quantity-wrapper">
+                            <form method="POST" action="{{ url('update_cart', $cart->id) }}" id="cart-form-{{$cart->id}}">
+                                @csrf
+                                <button type="button" class="btn-decrement" data-id="{{$cart->id}}">-</button>
+                                <input type="number" name="quantity" value="{{ $cart->quantity }}" min="1" >
+                                <button type="button" class="btn-increment" data-id="{{$cart->id}}">+</button>
+                            </form>
+                    </div>
+                </td>
                 <td>
                     <a class="btn btn-danger" href="{{url('delete_cart', $cart->id)}}">Remove</a>
                 </td>
@@ -77,6 +110,37 @@
   <!-- info section -->
 
   @include('home.footer')
+
+  <script>
+            // for + - quant button
+            document.querySelectorAll('.btn-decrement').forEach(button => {
+                button.addEventListener('click', function() {
+                    let form = document.getElementById('cart-form-' + this.dataset.id);
+                    let input = form.querySelector('input[name="quantity"]');
+                    if (parseInt(input.value) > 1) {
+                        input.value = parseInt(input.value) - 1;
+                        form.submit();
+                    }
+                });
+            });
+
+            document.querySelectorAll('.btn-increment').forEach(button => {
+                button.addEventListener('click', function() {
+                    let form = document.getElementById('cart-form-' + this.dataset.id);
+                    let input = form.querySelector('input[name="quantity"]');
+                    input.value = parseInt(input.value) + 1;
+                    form.submit();
+                });
+            });
+
+            // for manually typed quant input
+            document.querySelectorAll('input[name="quantity"]').forEach(input => {
+                input.addEventListener('change', function() {
+                    let form = document.getElementById('cart-form-' + this.closest('form').id.split('-').pop());
+                    form.submit();
+                });
+            });
+        </script>
   
 </body>
 
