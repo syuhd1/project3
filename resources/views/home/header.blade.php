@@ -48,7 +48,7 @@
                     </a>
                 @endif
                 
-              <a href="">
+              <a href="{{url('mycart')}}">
               <i class="fa fa-shopping-bag" aria-hidden="true"></i>
               [{{$count}}]
             </a>

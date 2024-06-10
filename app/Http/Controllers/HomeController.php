@@ -37,6 +37,8 @@ class HomeController extends Controller
     }
 
     public function login_home(){
+        $product = Product::all();
+
         if(Auth::id()){
             $user = Auth::user();
         $userid = $user->id;
@@ -80,4 +82,29 @@ class HomeController extends Controller
 
         return redirect()->back();
     }
+
+    public function mycart(){
+
+        if(Auth::id()){
+            $user = Auth::user();
+            $userid = $user->id;
+            $count = Cart::where('user_id', $userid)->count();
+            $cart = Cart::where('user_id', $userid)->get();
+        }
+        else{
+            $count='';
+        }
+
+        return view('home.mycart', compact('count', 'cart'));
+    }
+
+    public function delete_cart($id)
+    {
+        $data = Cart::find($id);
+        $data->delete();
+
+        // toastr()->timeOut(5000)->closeButton()->addSuccess('Item removed successfully');
+        return redirect()->back();
+    }
+
 }

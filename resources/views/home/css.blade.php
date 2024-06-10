@@ -13,6 +13,33 @@
     Giftos
   </title>
 
+  <style>
+    .div_deg{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 60px;
+    }
+    table{
+      border: 2px solid black;
+      text-align: center;
+      width: 800px;
+    }
+
+    th{
+      border: 2px solid black;
+      text-align: center;
+      color: white;
+      font-size: 20px;
+      font-weight: bold;
+      background-color: black;
+    }
+
+    td{
+      border: 1px solid skyblue;
+    }
+  </style>
+
   <!-- slider stylesheet -->
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
 

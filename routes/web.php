@@ -69,3 +69,6 @@ route::get('staff/dashboard', [HomeController::class,'index2'])->middleware(['au
 //home links
 route::get('product_details/{id}', [HomeController::class,'product_details']);
 route::get('add_cart/{id}', [HomeController::class,'add_cart'])->middleware(['auth', 'verified']);; //user login
+route::get('mycart', [HomeController::class,'mycart'])->middleware(['auth', 'verified']);; //user login
+route::get('delete_cart/{id}', [HomeController::class,'delete_cart'])->middleware(['auth','verified']);
+
