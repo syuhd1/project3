@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Product;
 use App\Models\Cart;
+use App\Models\Order;
 
 class HomeController extends Controller
 {
@@ -134,6 +135,69 @@ class HomeController extends Controller
 
         // toastr()->timeOut(5000)->closeButton()->addSuccess('Item removed successfully');
         return redirect()->back();
+    }
+
+    public function checkout($id){
+        $cart = Cart::find($id);
+
+        if(Auth::id()){
+            $user = Auth::user();
+            $userid = $user->id;
+            $count = Cart::where('user_id', $userid)->count();
+            }
+        else{
+            $count='';
+        }
+
+        // toastr()->timeOut(5000)->closeButton()->addSuccess('Item removed successfully');
+        return view('home.checkout',compact('cart','count'));
+    }
+
+    public function confirm_order(Request $request, $id){
+        $cart = Cart::find($id);
+
+        if(Auth::id()){
+            $user = Auth::user();
+            $userid = $user->id;
+            $count = Cart::where('user_id', $userid)->count();
+            }
+        else{
+            $count='';
+        }
+
+        $name = $request->name;
+        $phone = $request->phone;
+        $address = $request->address;
+
+
+        $userid = Auth::user()->id;
+        $cart = Cart::where('user_id', $userid)->get();
+
+        foreach($cart as $carts){
+            $order = new Order;
+            $order->name =$name;
+            $order->phone =$phone;
+            $order->address =$address;
+
+            $order->user_id = $userid;
+
+            $order->product_id = $carts->product_id;
+            $order->quantity = $carts->quantity;
+            $order->color = $carts->color;
+            $order->size = $carts->size;
+
+            $order->save();
+        }
+        $removecart = Cart::where('user_id', $userid)->get();
+        foreach ($removecart as $remove){
+            $data = Cart::find($remove->id);
+            $data->delete();
+        }
+        
+        toastr()->timeOut(5000)->closeButton()->addSuccess('Order has been placed successfully');
+
+        return redirect()->route('home');
+
     }
 
 }

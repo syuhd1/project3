@@ -50,6 +50,8 @@
 
 
     <div class="div_deg">
+
+    
         <table>
             <tr>
                 <th>Image</th>
@@ -95,6 +97,8 @@
             @endforeach
         </table>
     </div>
+
+   
    
      <div class="cartvalue">
         <h4>Total Price: RM {{$value}}</h4>
@@ -103,7 +107,7 @@
             <a class ="btn btn-primary" href="{{url('request_quote')}}">Request Quote</a>
         </span>
         <span>
-            <a class ="btn btn-success" href="{{url('checkout')}}">Checkout</a>
+            <a class ="btn btn-success" href="{{url('checkout/{id}')}}">Checkout</a>
         </span>
         
      </div>
