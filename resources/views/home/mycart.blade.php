@@ -50,7 +50,7 @@
 
     <h2>My Cart Item</h2>
 
-    @if(count($cart)>=1)
+    @if($count>=1)
     <div class="div_deg">
 
     
@@ -70,31 +70,31 @@
                 $value  = 0; 
             ?>
 
-            @foreach ($cart as $cart)
+            @foreach ($cart as $carts)
             <tr>
-                <td><img width="120" src="/products/{{$cart->product->image}}" alt=""></td>
-                <td>{{$cart->product->title}}</td>
-                <td>{{$cart->color}}</td>
-                <td>{{$cart->product->size}}</td>
-                <td>{{$cart->product->price}}</td>
-                <!-- <td>{{$cart->quantity}}</td> -->
+                <td><img width="120" src="/products/{{$carts->product->image}}" alt=""></td>
+                <td>{{$carts->product->title}}</td>
+                <td>{{$carts->color}}</td>
+                <td>{{$carts->product->size}}</td>
+                <td>{{$carts->product->price}}</td>
+                <!-- <td>{{$carts->quantity}}</td> -->
                 <td>
                     <div class="quantity-wrapper">
-                            <form method="POST" action="{{ url('update_cart', $cart->id) }}" id="cart-form-{{$cart->id}}">
+                            <form method="POST" action="{{ url('update_cart', $carts->id) }}" id="cart-form-{{$carts->id}}">
                                 @csrf
-                                <button type="button" class="btn-decrement" data-id="{{$cart->id}}">-</button>
-                                <input type="number" name="quantity" value="{{ $cart->quantity }}" min="1" >
-                                <button type="button" class="btn-increment" data-id="{{$cart->id}}">+</button>
+                                <button type="button" class="btn-decrement" data-id="{{$carts->id}}">-</button>
+                                <input type="number" name="quantity" value="{{ $carts->quantity }}" min="1" >
+                                <button type="button" class="btn-increment" data-id="{{$carts->id}}">+</button>
                             </form>
                     </div>
                 </td>
                 <td>
-                    <a class="btn btn-danger" href="{{url('delete_cart', $cart->id)}}">Remove</a>
+                    <a class="btn btn-danger" href="{{url('delete_cart', $carts->id)}}">Remove</a>
                 </td>
             </tr>
 
             <?php 
-                $value = $value + ($cart->product->price * $cart->quantity);
+                $value = $value + ($carts->product->price * $carts->quantity);
             ?>
             @endforeach
         </table>
@@ -121,8 +121,11 @@
     </div>
 
     @else
+
     <div><h5 class="shadowtxt">Cart is empty</h5></div>
+    
     @endif
+    
   <!-- info section -->
 
   @include('home.footer')
