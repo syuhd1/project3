@@ -52,6 +52,7 @@ route::get('product_search', [AdminController::class,'product_search'])->middlew
 
 route::get('manage_profile', [AdminController::class,'manage_profile'])->middleware(['auth','admin']);
 route::get('manage_order', [AdminController::class,'manage_order'])->middleware(['auth','admin']);
+Route::post('update_order/{id}', [AdminController::class,'update_order'])->middleware(['auth','admin']);
 
 route::get('manage_staff', [AdminController::class,'manage_staff'])->middleware(['auth','admin']);
 route::get('add_staff', [AdminController::class,'add_staff'])->middleware(['auth','admin']);

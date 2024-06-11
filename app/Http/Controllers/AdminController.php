@@ -130,6 +130,18 @@ class AdminController extends Controller
         return view('admin.manage_order', compact('data'));
     }
 
+    public function update_order(Request $request, $id)
+    {
+        $order = Order::find($id);
+        $order->status = $request->status;
+        $order->save();
+
+        toastr()->timeOut(5000)->closeButton()->addSuccess('Order status updated successfully');
+        return redirect()->back();
+    }
+
+// end order
+
     public function manage_staff()
     {
         $staff = Staff::paginate(6);
@@ -236,6 +248,9 @@ class AdminController extends Controller
 
         return view('admin.manage_staff', compact('staff'));
     }
+    
+// end staff manage
+
 
     public function manage_report()
     {
