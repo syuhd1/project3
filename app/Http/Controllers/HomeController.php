@@ -14,7 +14,14 @@ class HomeController extends Controller
 {
     //add 28/ //route to admin dash
     public function index(){
-        return view('admin.index');
+
+        $user = User::where('usertype', 'user')->get()->count();
+        $product = Product::all()->count();
+        $order = Order::all()->count();
+        $delivered = Order::where('status', 'completed')->get()->count();
+
+        
+        return view('admin.index', compact('user', 'product','order','delivered'));
     }
     //route to staff dash
     public function index2(){
