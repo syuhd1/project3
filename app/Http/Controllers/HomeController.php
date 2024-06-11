@@ -117,7 +117,7 @@ class HomeController extends Controller
             $user = Auth::user();
             $userid = $user->id;
             $count = Cart::where('user_id', $userid)->count();
-            $cart = Cart::where('user_id', $userid)->get();
+            $cart = Cart::where('user_id', $userid)->paginate(6);
         }
         else{
             $count='';
@@ -209,7 +209,28 @@ class HomeController extends Controller
         toastr()->timeOut(5000)->closeButton()->addSuccess('Order has been placed successfully');
 
         return redirect()->route('home');
+    }
 
+    
+    public function myorders(){
+
+        // if(Auth::id()){
+        //     $user = Auth::user();
+        //     $userid = $user->id;
+        //     $count = Cart::where('user_id', $userid)->count();
+        //     $cart = Cart::where('user_id', $userid)->get();
+        // }
+        // else{
+        //     $count='';
+        // }
+
+        $user = Auth::user()->id;
+       
+        $count = Cart::where('user_id', $user)->get()->count();
+
+        $order = Order::where('user_id', $user)->orderBy('created_at', 'desc')->paginate(6);
+
+        return view('home.order', compact('count','order'));
     }
 
 }

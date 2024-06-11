@@ -18,12 +18,12 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      margin: 60px;
+      margin: 10px;
     }
     table{
       border: 2px solid black;
       text-align: center;
-      width: 800px;
+      width: 1100px;
     }
 
     th{
@@ -37,6 +37,24 @@
 
     td{
       border: 1px solid skyblue;
+    }
+
+    h2{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 30px;
+      font-weight: bold;
+    }
+
+    .shadowtxt{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 200px;
+      color: grey;
+      
+
     }
   </style>
 

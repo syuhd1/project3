@@ -21,6 +21,8 @@
     @include('home.header')
     <!-- end header section, top option -->
   </div>
+
+  <h2>Checkout Item</h2>
   
   <div class="orderdeg">
         <form action="{{url('confirm_order/{id}')}}" method="Post">

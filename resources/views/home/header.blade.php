@@ -47,6 +47,11 @@
                         </span>
                     </a>
                 @endif
+
+                <a href="{{url('myorders')}}">
+              <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+              <!-- [{{$count}}] -->
+              </a>
                 
               <a href="{{url('mycart')}}">
               <i class="fa fa-shopping-bag" aria-hidden="true"></i>
