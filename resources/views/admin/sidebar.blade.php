@@ -34,7 +34,7 @@
                 </li>
               
                 <li>
-                    <a href="{{url('manage_report')}}"> <i class="icon-page"></i>Manage Report</a>
+                    <a href="{{url('generate_report')}}"> <i class="icon-page"></i>Manage Report</a>
                 </li>
                 <!--  
                 <li><a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-windows"></i>Products</a>

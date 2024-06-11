@@ -123,7 +123,7 @@
                                         <td class="boxbtn-vertical">
                                             <button class="btn btn-secondary" onclick="submitForm({{ $order->id }})">Update</button>
                                             <a class="btn btn-danger" onclick="confirmation(event)" href="{{ url('delete_order', $order->id) }}">Delete</a>
-                                            <!-- <a class="btn btn-secondary" href="{{url('print_pdf', $order->id)}}">Print</a> -->
+                                            <a class="btn btn-secondary" href="{{url('print_pdf', $order->id)}}">Print</a>
                                         </td>
                                     </tr>
                                     @endforeach

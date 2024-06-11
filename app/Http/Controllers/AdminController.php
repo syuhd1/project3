@@ -9,6 +9,8 @@ use App\Models\Product;
 use App\Models\Staff;
 use App\Models\Order;
 
+use Barryvdh\DomPDF\Facade\Pdf;
+
 class AdminController extends Controller
 {
     //
@@ -248,14 +250,24 @@ class AdminController extends Controller
 
         return view('admin.manage_staff', compact('staff'));
     }
-    
+
 // end staff manage
 
+//generate report 
 
-    public function manage_report()
+    public function generate_report()
     {
-        return view('admin.manage_report');
+        return view('admin.generate_report');
     }
+
+    public function print_pdf($id){
+
+        $data = Order::find($id);
+        $pdf = Pdf::loadView('admin.print_report', compact('data'));
+        
+        return $pdf->download('report.pdf');
+    }
+
     /*
     public function add_category(Request $request){
         $category = cnew ;

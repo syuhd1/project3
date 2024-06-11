@@ -62,7 +62,10 @@ route::post('edit_staff/{id}', [AdminController::class,'edit_staff'])->middlewar
 route::get('delete_staff/{id}', [AdminController::class,'delete_staff'])->middleware(['auth','admin']);
 route::get('staff_search', [AdminController::class,'staff_search'])->middleware(['auth','admin']);
 
-route::get('manage_report', [AdminController::class,'manage_report'])->middleware(['auth','admin']);
+//report
+route::get('generate_report', [AdminController::class,'generate_report'])->middleware(['auth','admin']);
+route::get('print_pdf/{id}', [AdminController::class,'print_pdf'])->middleware(['auth','admin']);
+
 
 //test for staff , add 28/5 auth
 route::get('staff/dashboard', [HomeController::class,'index2'])->middleware(['auth', 'staff']);
