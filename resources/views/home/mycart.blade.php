@@ -107,7 +107,7 @@
             <a class ="btn btn-primary" href="{{url('request_quote')}}">Request Quote</a>
         </span>
         <span>
-            <a class ="btn btn-success" href="{{url('checkout/{id}')}}">Checkout</a>
+            <a class ="btn btn-success" href="{{url('checkout/{id}', ['price'=> $value])}}">Checkout</a>
         </span>
         
      </div>

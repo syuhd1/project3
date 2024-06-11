@@ -96,11 +96,13 @@
                           <th>Customer</th>
                           <th>Phone</th>
                           <th>Address</th>
-                          <th>Total Price (RM)</th>
+                          <th>Status</th>
                           <th>Quantity</th>
                           <th>Size</th>
                           <th>Color</th>
-                          <th>Image</th>
+                          <th>Total Price (RM)</th>
+                          <!-- <th>Image</th> -->
+                          <th>Product</th>
                           <th style="text-align: center;">Action</th>
                         </tr>
                       </thead>
@@ -116,12 +118,16 @@
                           <td>{{$order->name}}</td>
                           <td>{{$order->phone}}</td>
                           <td>{{$order->address}}</td>
-                          <td>{{$order->product->title}}</td>
-                          <!-- <td>{{$order->product->price}}</td> -->
-                          <td>{{$order->quantity}}</td>
-                          <td>{{$order->color}}</td>
                           <td>{{$order->status}}</td>
-                          <td><img height="70" width="70" src="products/{{$order->product->image}}" alt=""></td>
+                          <td>{{$order->quantity}}</td>
+
+                          <td>{{$order->size}}</td>
+                          <td>{{$order->color}}</td>
+                          <td>{{$order->price}}</td>
+                          <td>
+                            <span>{{$order->product->title}}</span>
+                            <img height="70" width="70" src="products/{{$order->product->image}}" alt="">
+                          </td>
                           <td class="boxbtn-vertical">
                             <a class="btn btn-secondary" href="{{url('update_order', $order->id)}}">Update</a>
                             <a class="btn btn-danger" onclick="confirmation(event)" href="{{url('delete_order', $order->id)}}">Delete</a>

@@ -40,9 +40,15 @@
                 <textarea name="address" id="">{{Auth::user()->address}}</textarea>
             </div>
 
+            <input type="hidden" name="price" value="{{$price}}">
+
             <div><input type="submit" value="submit"></div>
         </form>
+
     </div>
+
+    <h4>Total Price: RM {{$price}}</h4>
+
 
   <!-- info section -->
 

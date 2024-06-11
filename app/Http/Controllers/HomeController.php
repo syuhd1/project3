@@ -90,6 +90,7 @@ class HomeController extends Controller
             // $data->color = $color;
             // $data->size = $size;
             $data->quantity = 1; // Default quantity to 1
+            // $data->total_price = $value;
             $data->save();
         }
 
@@ -137,7 +138,7 @@ class HomeController extends Controller
         return redirect()->back();
     }
 
-    public function checkout($id){
+    public function checkout(Request $request,$id){
         $cart = Cart::find($id);
 
         if(Auth::id()){
@@ -148,9 +149,9 @@ class HomeController extends Controller
         else{
             $count='';
         }
-
+        $price = $request->price;
         // toastr()->timeOut(5000)->closeButton()->addSuccess('Item removed successfully');
-        return view('home.checkout',compact('cart','count'));
+        return view('home.checkout',compact('cart','count','price'));
     }
 
     public function confirm_order(Request $request, $id){
@@ -168,6 +169,8 @@ class HomeController extends Controller
         $name = $request->name;
         $phone = $request->phone;
         $address = $request->address;
+        $price = $request->price;
+        // $address = $request->address;
 
 
         $userid = Auth::user()->id;
@@ -185,6 +188,8 @@ class HomeController extends Controller
             $order->quantity = $carts->quantity;
             $order->color = $carts->color;
             $order->size = $carts->size;
+            // $order->price = $carts->price;
+            $order->price = $carts->product->price * $carts->quantity;
 
             $order->save();
         }
