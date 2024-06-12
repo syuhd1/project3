@@ -75,7 +75,7 @@
                 <td><img width="120" src="/products/{{$carts->product->image}}" alt=""></td>
                 <td>{{$carts->product->title}}</td>
                 <td>{{$carts->color}}</td>
-                <td>{{$carts->product->size}}</td>
+                <td>{{$carts->size}}</td>
                 <td>{{$carts->product->price}}</td>
                 <!-- <td>{{$carts->quantity}}</td> -->
                 <td>
