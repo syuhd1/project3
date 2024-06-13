@@ -69,7 +69,7 @@
 
                         <div class="input_deg">
                             <label for="">Address</label>
-                            <textarea name="address" value="{{$data->address}}"></textarea>
+                            <textarea name="address" value="">{{$data->address}}</textarea>
                         </div>
 
                         <div class="input_deg">
