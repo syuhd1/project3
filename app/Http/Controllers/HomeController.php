@@ -76,6 +76,28 @@ class HomeController extends Controller
         return view('home.product_details', compact('data','count'));
     }
 
+    
+    public function home_search(Request $request)
+    {
+        if(Auth::id()){
+            $user = Auth::user();
+            $userid = $user->id;
+            $count = Cart::where('user_id', $userid)->count();
+            $cart = Cart::where('user_id', $userid)->paginate(6);
+        }
+        else{
+            $count='';
+        }
+
+        $search = $request->search;
+        $product = Product::where('title', 'LIKE', '%'.$search.'%')
+        ->orWhere('category', 'LIKE', '%'.$search.'%')
+        ->orWhere('material', 'LIKE', '%'.$search.'%')
+        ->paginate(12);
+        
+        return view('home.search',compact('product'));
+    }
+
     public function add_cart($id){
         $product_id = $id;
         $user = Auth::user(); //user logged in only, get user data , store in $user

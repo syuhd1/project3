@@ -19,7 +19,7 @@
                 Shop
               </a>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <a class="nav-link" href="why.html">
                 Why Us
               </a>
@@ -31,6 +31,19 @@
             </li>
             <li class="nav-item">
               <a class="nav-link" href="contact.html">Contact Us</a>
+            </li> -->
+
+            <li class="nav-item">
+      
+              <form  class="nav-link"  action="{{url('home_search')}}" method="get" class="top-left">
+                @csrf
+                  <input type="search" name="search" placeholder="Search products...">
+                  <!-- <input type="submit" class="btn btn-primary" value="Search"> -->
+                  <button class="btn nav_search-btn" type="submit">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                  </button>
+                </form>
+         
             </li>
           </ul>
           <div class="user_option">
@@ -38,7 +51,7 @@
             @if (Route::has('login'))
               @auth
 
-                @if (Auth::user()->role == 'admin')
+                @if (Auth::user()->usertype == 'admin')
                     <!-- Display dashboard button only for admin -->
                     <a href="{{ url('/admin/dashboard') }}">
                         <i class="fa fa-dashboard" aria-hidden="true"></i>
@@ -48,20 +61,25 @@
                     </a>
                 @endif
 
-                <a href="{{url('myorders')}}">
-              <i class="fa fa-shopping-bag" aria-hidden="true"></i>
-              <!-- [{{$count}}] -->
-              </a>
-                
               <a href="{{url('mycart')}}">
-              <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+              <i class="fa-solid fa-cart-shopping" aria-hidden="true" title="My Carts"></i>
               [{{$count}}]
-            </a>
-            <form class="form-inline ">
-              <button class="btn nav_search-btn" type="submit">
-                <i class="fa fa-search" aria-hidden="true"></i>
-              </button>
-            </form>
+              </a>
+            
+              <a href="{{url('myorders')}}">
+                <i class="fa-solid fa-scroll" aria-hidden="true" title="My Orders"></i>
+                <!-- [{{$count}}] -->
+                </a>
+                  
+              <a href="{{url('profile')}}">
+                <i class="fa solid fa-user" aria-hidden="true" title="Profile"></i>
+              </a>
+
+              <!-- <form class="form-inline ">
+                <button class="btn nav_search-btn" type="submit">
+                  <i class="fa fa-search" aria-hidden="true"></i>
+                </button> -->
+              </form>
 
                 <form style="margin-left: 20px; padding: 10px;" method="POST" action="{{ route('logout') }}">
                       @csrf

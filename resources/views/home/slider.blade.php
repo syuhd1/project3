@@ -12,7 +12,10 @@
                         Shop
                       </h1>
                       <p>
-                        Sequi perspiciatis nulla reiciendis, rem, tenetur impedit, eveniet non necessitatibus error distinctio mollitia suscipit. Nostrum fugit doloribus consequatur distinctio esse, possimus maiores aliquid repellat beatae cum, perspiciatis enim, accusantium perferendis.
+                      Transform Your Ideas into Custom Apparel
+Experience the finest in shirt printing services. Whether you need custom designs for your team, event, or 
+personal style, we provide high-quality prints that make your vision come to life. From bold graphics to subtle details, we cater to all your 
+printing needs with precision and creativity. Explore our collection and start creating your unique apparel today!
                       </p>
                       <a href="">
                         Contact Us
