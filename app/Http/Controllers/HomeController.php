@@ -101,11 +101,6 @@ class HomeController extends Controller
             $data->save();
         }
 
-        // $data = new Cart;
-        // $data->user_id = $user_id;
-        // $data->product_id = $product_id;
-        // $data->save();
-
         toastr()->timeOut(5000)->closeButton()->addSuccess('Product added to cart successfully');
 
         return redirect()->back();
@@ -141,7 +136,7 @@ class HomeController extends Controller
         $data = Cart::find($id);
         $data->delete();
 
-        // toastr()->timeOut(5000)->closeButton()->addSuccess('Item removed successfully');
+        toastr()->timeOut(5000)->closeButton()->addSuccess('Item has been removed from cart'); //previously commented
         return redirect()->back();
     }
 
@@ -213,16 +208,6 @@ class HomeController extends Controller
 
     
     public function myorders(){
-
-        // if(Auth::id()){
-        //     $user = Auth::user();
-        //     $userid = $user->id;
-        //     $count = Cart::where('user_id', $userid)->count();
-        //     $cart = Cart::where('user_id', $userid)->get();
-        // }
-        // else{
-        //     $count='';
-        // }
 
         $user = Auth::user()->id;
        

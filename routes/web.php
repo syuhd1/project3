@@ -67,6 +67,8 @@ route::get('staff_search', [AdminController::class,'staff_search'])->middleware(
 //report
 route::get('generate_report', [AdminController::class,'generate_report'])->middleware(['auth','admin']);
 route::get('print_pdf/{id}', [AdminController::class,'print_pdf'])->middleware(['auth','admin']);
+route::get('view_pdf/{id}', [AdminController::class,'print_pdf'])->middleware(['auth','admin']);
+
 
 
 //test for staff , add 28/5 auth

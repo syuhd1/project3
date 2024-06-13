@@ -58,7 +58,7 @@
     <div class="page-content">
         <div class="page-header">
             <div class="container-fluid">
-                <h2>Manage Order</h2>
+                <h2>Generate Report</h2>
                 <div class="col-lg-12">
                     <div class="block">
                         <div class="div_deg">
@@ -73,57 +73,20 @@
                                 <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>Customer</th>
-                                        <th>Phone</th>
-                                        <th>Address</th>
-                                        <th>Status</th>
-                                        <th>Quantity</th>
-                                        <th>Size</th>
-                                        <th>Color</th>
-                                        <th>Total Price (RM)</th>
-                                        <th>Product</th>
+                                        <th>Title</th>
+                                        <th>Date</th>
                                         <th style="text-align: center;">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($data as $order)
+                                    @foreach($data as $report)
                                     <tr>
-                                        <td>{{ $order->id }}</td>
-                                        <td>{{ $order->name }}</td>
-                                        <td>{{ $order->phone }}</td>
-                                        <td>{{ $order->address }}</td>
-                                        <td>
-                                            <form id="update-form-{{ $order->id }}" action="{{ url('update_order', $order->id) }}" method="POST">
-                                                @csrf
-                                                <select name="status" class="hidden">
-                                                    <option value="in progress" {{ $order->status == 'in progress' ? 'selected' : '' }}>In Progress</option>
-                                                    <option value="in production" {{ $order->status == 'in production' ? 'selected' : '' }}>In Production</option>
-                                                    <option value="to be delivered" {{ $order->status == 'to be delivered' ? 'selected' : '' }}>To Be Delivered</option>
-                                                    <option value="completed" {{ $order->status == 'completed' ? 'selected' : '' }}>Completed</option>
-                                                </select>
-                                            </form>
-                                            <div class="input_deg">
-                                                <select id="status-{{ $order->id }}" onchange="updateStatus({{ $order->id }})">
-                                                    <option value="">Select a status</option>
-                                                    <option value="in progress" {{ $order->status == 'in progress' ? 'selected' : '' }}>In Progress</option>
-                                                    <option value="in production" {{ $order->status == 'in production' ? 'selected' : '' }}>In Production</option>
-                                                    <option value="to be delivered" {{ $order->status == 'to be delivered' ? 'selected' : '' }}>To Be Delivered</option>
-                                                    <option value="completed" {{ $order->status == 'completed' ? 'selected' : '' }}>Completed</option>
-                                                </select>
-                                            </div>
-                                        </td>
-                                        <td>{{ $order->quantity }}</td>
-                                        <td>{{ $order->size }}</td>
-                                        <td>{{ $order->color }}</td>
-                                        <td>{{ $order->price }}</td>
-                                        <td>
-                                            <span>{{ $order->product->title }}</span>
-                                            <img height="70" width="70" src="products/{{ $order->product->image }}" alt="" />
-                                        </td>
+                                        <td>{{ $report->id }}</td>
+                                        <td>{{ $report->title }}</td>
+                                        <td>{{ $report->created_at }}</td>
                                         <td class="boxbtn-vertical">
-                                            <button class="btn btn-secondary" onclick="submitForm({{ $order->id }})">Update</button>
-                                            <a class="btn btn-danger" onclick="confirmation(event)" href="{{ url('delete_order', $order->id) }}">Delete</a>
-                                            <a class="btn btn-secondary" href="{{url('print_pdf', $order->id)}}">Print</a>
+                                        <a class="btn btn-secondary" href="{{url('view_pdf', $report->id)}}">View</a>
+                                            <a class="btn btn-success" href="{{url('print_pdf', $report->id)}}">Print</a>
                                         </td>
                                     </tr>
                                     @endforeach

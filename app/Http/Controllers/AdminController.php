@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\Product;
 use App\Models\Staff;
 use App\Models\Order;
+use App\Models\Report;
 
 use Barryvdh\DomPDF\Facade\Pdf;
 
@@ -142,7 +143,8 @@ class AdminController extends Controller
         return redirect()->back();
     }
 
-// end order
+// end order 
+//start staff
 
     public function manage_staff()
     {
@@ -166,7 +168,6 @@ class AdminController extends Controller
         $data->address = $request->address;
         $data->password = Hash::make($request->password);
         $data->start_date = $request->start_date;
-        // $data->end_date = $request->end_date;
         $data->department = $request->department;
         $data->acc_status = 'active';
         $image= $request->image;
@@ -257,16 +258,35 @@ class AdminController extends Controller
 
     public function generate_report()
     {
-        return view('admin.generate_report');
+        $data = Report::paginate(8);
+        return view('admin.generate_report', compact('data'));
     }
 
     public function print_pdf($id){
 
-        $data = Order::find($id);
+        $data = Report::find($id);
+       
         $pdf = Pdf::loadView('admin.print_report', compact('data'));
-        
         return $pdf->download('report.pdf');
     }
+
+    public function view_pdf($id)
+    {
+        $data = Report::find($id);
+
+        $pdf = Pdf::loadView('admin.print_report', compact('data'));
+        return $pdf->stream('report.pdf');
+    }
+
+
+    // public function print_pdf($id){
+
+    //     $data = Order::find($id); // this for test on order page
+        
+    //     $pdf = Pdf::loadView('admin.print_report', compact('data'));
+        
+    //     return $pdf->download('report.pdf');
+    // }
 
     /*
     public function add_category(Request $request){
