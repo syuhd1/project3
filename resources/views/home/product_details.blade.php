@@ -168,7 +168,7 @@
                         <div class="detail-box">
                             <p>{{$data->description}}</p>
                         </div>
-
+                        
                         <form action="{{url('confirm_order/{id}')}}" method="POST">
                             @csrf
                             <!-- Color selection -->
