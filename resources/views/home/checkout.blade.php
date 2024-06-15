@@ -4,13 +4,56 @@
 <head>
     @include('home.css')
     <!-- box product color change from gray to white, override, didnt work -->
-    <style>
+    <style type="text/css">
         .box {
             background-color: white; /* Change the background color to white */
         }
 
         .orderdeg{
+          margin-left: 30px;
 
+        }
+
+        .div_deg{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 60px;
+        }
+
+        h1{
+            /* color: white; */
+        }
+
+        label{
+            display: inline-black;
+            width: 100px;
+            font-size: 18px!important;
+            /* color: white; */
+        }
+
+        input[type='text']{
+            width:300px;
+            height: 30px;
+        }
+
+        textarea{
+            width: 300px;
+            height: 80px;
+        }
+
+        .input_deg{
+            padding: 15px;
+        }
+
+        .shortbox{
+            width: 200px;
+            height: 80px;
+        }
+
+        .container{
+          display: flex;
+          flex-direction: row;
         }
     </style>
   </head>
@@ -24,37 +67,43 @@
 
   <h2>Checkout Item</h2>
   
-  <div class="orderdeg">
-        <form action="{{url('confirm_order/{id}')}}" method="Post">
-            @csrf
-            <div>
-                <label for="">Name</label>
-                <input type="text" name="name" value="{{Auth::user()->name}}">
-            </div>
+  <div class="container">
 
-            <div>
-                <label for="">Phone</label>
-                <input type="text" name="phone" value="{{Auth::user()->phone}}">
-            </div>
+    <div class="orderdeg">
+      <form action="{{url('confirm_order/{id}')}}" method="Post">
+          @csrf
+          <div>
+              <label for="">Name</label>
+              <input type="text" name="name" value="{{Auth::user()->name}}">
+          </div>
 
-            <div>
-                <label for="">Address</label>
-                <textarea name="address" id="">{{Auth::user()->address}}</textarea>
-            </div>
+          <div>
+              <label for="">Phone</label>
+              <input type="text" name="phone" value="{{Auth::user()->phone}}">
+          </div>
 
-            <input type="hidden" name="price" value="{{$price}}">
+          <div>
+              <label for="">Address</label>
+              <textarea name="address" id="">{{Auth::user()->address}}</textarea>
+          </div>
 
-            <div><input type="submit" value="submit"></div>
-        </form>
+          <input type="hidden" name="price" value="{{$price}}">
 
+          <div><input type="submit" value="submit"></div>
+      </form>
     </div>
 
-    <h4>Total Price: RM {{$price}}</h4>
+    <!-- flex row next , put cart here-->
+   
+    
+  </div>
+    
+    <h4 class="orderdeg">Total Price: RM {{$price}}</h4>
 
+  
+    <!-- info section -->
 
-  <!-- info section -->
-
-  @include('home.footer')
+@include('home.footer')
   
 </body>
 
