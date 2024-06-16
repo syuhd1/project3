@@ -95,30 +95,80 @@ class HomeController extends Controller
         ->orWhere('material', 'LIKE', '%'.$search.'%')
         ->paginate(12);
         
-        return view('home.search',compact('product'));
+        return view('home.search',compact('product','count'));
+    }
+//home add cart
+public function add_cart($id){
+    $product_id = $id;
+    
+    $user = Auth::user(); //user logged in only, get user data , store in $user
+    $user_id = $user->id; //store in id user_id
+
+    // $color = $request->input('color');
+    // $size = $request->input('size');
+    // $quantity = $request->input('quantity',1); //default qunat 1
+    
+    // $color = $request->color;
+    // $size = $request->size;
+    // $quantity = $request->quantity;
+
+    $existedcart = Cart::where('user_id', $user_id)
+    ->where('product_id', $product_id)
+    // ->where('color', $color)
+    // ->where('size', $size)
+    ->first();
+
+    if ($existedcart) {
+        // $existedcart->quantity += $quantity;
+        $existedcart->quantity += 1; //original
+        $existedcart->save();
+    } else {
+        $data = new Cart;
+        $data->user_id = $user_id;
+        $data->product_id = $product_id;
+        // $data->color = $color;
+        // $data->size = $size;
+        $data->quantity = 1; // Default quantity to 1
+        // $data->total_price = $value;
+        $data->save();
     }
 
-    public function add_cart($id){
+    toastr()->timeOut(5000)->closeButton()->addSuccess('Product added to cart successfully');
+
+    return redirect()->back();
+}
+//product details add_cart
+    public function add_cart2(Request $request, $id){
         $product_id = $id;
+        
         $user = Auth::user(); //user logged in only, get user data , store in $user
         $user_id = $user->id; //store in id user_id
+
+        // $color = $request->input('color');
+        // $size = $request->input('size');
+        // $quantity = $request->input('quantity',1); //default qunat 1
         
+        $color = $request->color;
+        $size = $request->size;
+        $quantity = $request->quantity;
+
         $existedcart = Cart::where('user_id', $user_id)
         ->where('product_id', $product_id)
-        // ->where('color',$color)
-        // ->where('size', $size)
+        ->where('color', $color)
+        ->where('size', $size)
         ->first();
 
         if ($existedcart) {
-            $existedcart->quantity += 1;
+            $existedcart->quantity += $quantity;
+            // $existedcart->quantity += 1; //original
             $existedcart->save();
         } else {
             $data = new Cart;
             $data->user_id = $user_id;
             $data->product_id = $product_id;
-            // $data->color = $color;
-            // $data->size = $size;
-            $data->quantity = 1; // Default quantity to 1
+            $data->color = $color;
+            $data->size = $size;
+            $data->quantity = $quantity; // Default quantity to 1
             // $data->total_price = $value;
             $data->save();
         }

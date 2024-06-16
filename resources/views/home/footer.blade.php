@@ -1,5 +1,7 @@
 <section class="info_section  layout_padding2-top">
-    <div class="social_container">
+    <!-- social container -->
+
+    <!-- <div class="social_container">
       <div class="social_box">
         <a href="">
           <i class="fa fa-facebook" aria-hidden="true"></i>
@@ -14,7 +16,9 @@
           <i class="fa fa-youtube" aria-hidden="true"></i>
         </a>
       </div>
-    </div>
+    </div> -->
+
+    <!-- social end -->
     <div class="info_container ">
       <div class="container">
         <div class="row">

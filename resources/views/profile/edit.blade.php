@@ -71,8 +71,26 @@
             margin-bottom: 1rem;
         }
 
-        .container{
+        .container {
             display: flex;
+            gap: 1rem;
+        }
+
+        .flex-container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .flex-container > div {
+            flex: 1;
+            margin: 0.5rem;
+        }
+
+        .card-section {
+            padding: 1rem;
+            background: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
     </style>
   </head>
@@ -92,19 +110,20 @@
                 </div>
 
                 
-                <div class="container">
-                    <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+                <div class="flex-container">
+                    <div class="card-section">
                         <div class="max-w-xl">
                             @include('profile.partials.update-password-form')
                         </div>
                     </div>
 
-                    <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+                    <div class="card-section">
                         <div class="max-w-xl">
                             @include('profile.partials.delete-user-form')
                         </div>
                     </div>
                 </div>
+
             
         </div>
     </div>

@@ -10,7 +10,7 @@
   <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
 
   <title>
-    Giftos
+    T-Hub: Shirt Printing Service System
   </title>
 
   <style>
