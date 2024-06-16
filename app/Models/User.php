@@ -48,4 +48,13 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    // //idk correct or nay but add to enable count
+    // public function user(){
+    //     return $this->hasOne('App\Models\User', 'id','user_id');
+    // }
+
+    public function cart(){
+        return $this->hasOne('App\Models\Cart', 'id','cart_id');
+    }
 }

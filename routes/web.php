@@ -68,6 +68,8 @@ route::get('staff_search', [AdminController::class,'staff_search'])->middleware(
 route::get('generate_report', [AdminController::class,'generate_report'])->middleware(['auth','admin']);
 route::get('print_pdf/{id}', [AdminController::class,'print_pdf'])->middleware(['auth','admin']);
 route::get('view_pdf/{id}', [AdminController::class,'print_pdf'])->middleware(['auth','admin']);
+// test, delete later below
+route::get('print2', [AdminController::class,'print2'])->middleware(['auth','admin']);
 
 
 
@@ -76,8 +78,14 @@ route::get('staff/dashboard', [HomeController::class,'index2'])->middleware(['au
 
 //home links
 route::get('product_details/{id}', [HomeController::class,'product_details']);
-route::get('add_cart/{id}', [HomeController::class,'add_cart'])->middleware(['auth', 'verified']);; //user login
-route::get('mycart', [HomeController::class,'mycart'])->middleware(['auth', 'verified']);; //user login
+route::get('add_cart/{id}', [HomeController::class,'add_cart'])->middleware(['auth', 'verified']);; //for direct add cart homee
+route::post('add_cart2/{id}', [HomeController::class,'add_cart2'])->middleware(['auth', 'verified']);;  //user login
+// route::get('add_cart/{id}/{color}/{size}/{quantity}', [HomeController::class,'add_cart'])->middleware(['auth', 'verified']);; //for direct add cart homee
+
+route::get('home_search', [HomeController::class,'home_search'])->middleware(['auth','verified']);
+
+route::get('mycart', [HomeController::class,'mycart'])->middleware(['auth', 'verified']);; 
+
 route::get('delete_cart/{id}', [HomeController::class,'delete_cart'])->middleware(['auth','verified']);
 route::post('update_cart/{id}', [HomeController::class,'update_cart'])->middleware(['auth','verified'])->name('update_cart');
 route::get('checkout/{id}/{price}', [HomeController::class,'checkout'])->middleware(['auth','verified']);
