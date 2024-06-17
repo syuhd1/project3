@@ -268,6 +268,7 @@ class AdminController extends Controller
        
         $pdf = Pdf::loadView('admin.print_report', compact('data'));
         return $pdf->download('report.pdf');
+
     }
 
     public function view_pdf($id)
@@ -277,7 +278,13 @@ class AdminController extends Controller
         $pdf = Pdf::loadView('admin.print_report', compact('data'));
         return $pdf->stream('report.pdf');
     }
+//delete later
+    public function print2(){
 
+        $data = Order::all();
+        $pdf = Pdf::loadView('admin.print2', compact('data'));
+        return $pdf->download('test.pdf');
+    }
 
     // public function print_pdf($id){
 

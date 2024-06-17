@@ -67,72 +67,10 @@
         .color-option.selected {
             border-color: blue; /* Border color for selected option */
         }
-
-        /* Color options */
-        .color-option[data-color="#ffffff"] {
-            background-color: #ffffff; /* White */
-        }
-
-        .color-option[data-color="#000000"] {
-            background-color: #000000; /* Black */
-        }
-
-        .color-option[data-color="#ff0000"] {
-            background-color: #ff0000; /* Red */
-        }
-
-        .color-option[data-color="#00ff00"] {
-            background-color: #00ff00; /* Green */
-        }
-
-        .color-option[data-color="#0000ff"] {
-            background-color: #0000ff; /* Blue */
-        }
-
-        .color-option[data-color="#ffff00"] {
-            background-color: #ffff00; /* Yellow */
-        }
-
-        .color-option[data-color="#ff00ff"] {
-            background-color: #ff00ff; /* Magenta */
-        }
-
-        .color-option[data-color="#ffa500"] {
-            background-color: #ffa500; /* Orange */
-        }
-
-        .color-option[data-color="#ffc0cb"] {
-            background-color: #ffc0cb; /* Pink */
-        }
-
-        .color-option[data-color="#800080"] {
-            background-color: #800080; /* Purple */
-        }
-
-        .color-option[data-color="#ee82ee"] {
-            background-color: #ee82ee; /* Violet */
-        }
-
-        .color-option[data-color="#a52a2a"] {
-            background-color: #a52a2a; /* Brown */
-        }
-
-        .color-option[data-color="#d2b48c"] {
-            background-color: #d2b48c; /* Light Brown */
-        }
-
-        .color-option[data-color="#f5f5dc"] {
-            background-color: #f5f5dc; /* Beige */
-        }
-
-        .color-option[data-color="#808080"] {
-            background-color: #808080; /* Grey */
-        }
-
-        .color-option[data-color="#00ffff"] {
-            background-color: #00ffff; /* Cyan */
-        }
+        
     </style>
+
+    @include('home.colorcss')
 </head>
 
 <body>
@@ -169,7 +107,7 @@
                             <p>{{$data->description}}</p>
                         </div>
                         
-                        <form action="{{url('confirm_order/{id}')}}" method="POST">
+                        <form action="{{url('add_cart2', $data->id)}}" method="POST">
                             @csrf
                             <!-- Color selection -->
                             <div class="color-selector">
@@ -196,25 +134,58 @@
 
                             <!-- End Color selection -->
 
-                            <div class="quantity mb-3">
+                            <!-- <div class="input_deg">
+                                <label for="color">Color</label>
+                                <select name="color">
+                                    <option value="">Select color</option>
+                                    <option value="white">White</option>
+                                    <option value="black">Black</option>
+                                    <option value="red">Red</option>
+                                    <option value="green">Green</option>
+                                    <option value="blue">Blue</option>
+                                    <option value="yellow">Yellow</option>
+                                    <option value="magenta">Magenta</option>
+                                    <option value="orange">Orange</option>
+                                </select>
+                            </div> -->
+
+                            <div class="input_deg" style="padding: 15px;">
+                                <label for="size">Size</label>
+                                <select name="size">
+                                    <option value="">Select Size</option>
+                                    <option value="XS">XS (81-86 cm)</option>
+                                    <option value="S">S (86-91 cm)</option>
+                                    <option value="M">M (96-101 cm)</option>
+                                    <option value="L">L (106-111 cm)</option>
+                                    <option value="XL">XL (116-121 cm)</option>
+                                    <option value="XXL">XXL (127-132 cm)</option>
+                                    <option value="XXXL">XXXL (137-142 cm)</option>
+                                </select>
+                            </div>
+
+                            <div class="quantity mb-3" style="padding: 15px;">
                                 <button class="btn btn-sm btn-minus rounded-circle bg-light border" type="button">
                                     <i class="fa fa-minus"></i>
                                 </button>
-                                <input type="text" class="form-control form-control-sm text-center border-0" value="1">
+                                <input type="text" class="form-control form-control-sm text-center border-0" name="quantity" value="1">
                                 <button class="btn btn-sm btn-plus rounded-circle bg-light border" type="button">
                                     <i class="fa fa-plus"></i>
                                 </button>
                             </div>
+
 
                             <div class="button-container">
                                 <span>
                                     <a class="btn btn-primary" href="{{url('request_quote')}}">Request Quote</a>
                                 </span>
                                 <span>
-                                    <a class="btn btn-success" href="{{url('add_cart', $data->id , $data->color, $data->quantity)}}">Add to Cart</a>
+                                    <!-- <a class="btn btn-success" href="{{url('add_cart', $data->id , $data->color,  $data->size, $data->quantity)}}">Add to Cart</a> -->
+                                    <!-- <a class="btn btn-success" type="submit">Add to Cart</a> -->
+                                    <button type="submit" class="btn btn-success">Add to Cart</button>
                                 </span>
                             </div>
                         </form>
+
                     </div>
                 </div>
             </div>
@@ -249,12 +220,12 @@
         });
 
         $(document).ready(function() {
-            // Color selection handling
-            $('.color-option').click(function() {
-                $('.color-option').removeClass('selected');
-                $(this).addClass('selected');
-                var selectedColor = $(this).attr('data-color');
-                // Update logic for selected color if needed
+        // Color selection handling
+        $('.color-option').click(function() {
+            $('.color-option').removeClass('selected');
+            $(this).addClass('selected');
+            var selectedColor = $(this).attr('data-color');
+            $('#selected-color').val(selectedColor); // Update hidden input value
             });
         });
     </script>
