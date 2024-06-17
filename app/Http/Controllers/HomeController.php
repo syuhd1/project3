@@ -141,6 +141,9 @@ public function add_cart($id){
     public function add_cart2(Request $request, $id){
         $product_id = $id;
         
+         // below commented ===
+         $product = Product::find($id);
+        
         $user = Auth::user(); //user logged in only, get user data , store in $user
         $user_id = $user->id; //store in id user_id
 
@@ -152,6 +155,7 @@ public function add_cart($id){
         $size = $request->size;
         $quantity = $request->quantity;
 
+
         $existedcart = Cart::where('user_id', $user_id)
         ->where('product_id', $product_id)
         ->where('color', $color)
@@ -161,6 +165,10 @@ public function add_cart($id){
         if ($existedcart) {
             $existedcart->quantity += $quantity;
             // $existedcart->quantity += 1; //original
+
+            // below is commented ====
+            $existedcart->total_price = $existedcart->quantity * $product->price;
+
             $existedcart->save();
         } else {
             $data = new Cart;
@@ -169,7 +177,7 @@ public function add_cart($id){
             $data->color = $color;
             $data->size = $size;
             $data->quantity = $quantity; // Default quantity to 1
-            // $data->total_price = $value;
+            $data->total_price = $product->price * $quantity;
             $data->save();
         }
 
@@ -244,6 +252,8 @@ public function add_cart($id){
         $phone = $request->phone;
         $address = $request->address;
         $price = $request->price;
+        // $paymentmethod = $request->paymentmethod;
+        // shipmethod = $request->shipmethod;
         // $address = $request->address;
 
 
@@ -276,6 +286,20 @@ public function add_cart($id){
         toastr()->timeOut(5000)->closeButton()->addSuccess('Order has been placed successfully');
 
         return redirect()->route('home');
+    }
+
+    //quotation
+    public function request_quote(){
+
+        if(Auth::id()){
+            $user = Auth::user();
+            $userid = $user->id;
+            $count = Cart::where('user_id', $userid)->count();
+            }
+        else{
+            $count='';
+        }
+
     }
 
     

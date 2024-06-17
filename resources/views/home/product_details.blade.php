@@ -167,12 +167,11 @@
                                 <button class="btn btn-sm btn-minus rounded-circle bg-light border" type="button">
                                     <i class="fa fa-minus"></i>
                                 </button>
-                                <input type="text" class="form-control form-control-sm text-center border-0" name="quantity" value="1">
+                                <input type="text" class="form-control form-control-sm text-center border-0" name="quantity" id="quantity" value="1">
                                 <button class="btn btn-sm btn-plus rounded-circle bg-light border" type="button">
                                     <i class="fa fa-plus"></i>
                                 </button>
                             </div>
-
 
                             <div class="button-container">
                                 <span>
@@ -219,15 +218,25 @@
             });
         });
 
-        $(document).ready(function() {
-        // Color selection handling
+        $(document).ready(function() { //pas color title name
+            // Color selection handling
         $('.color-option').click(function() {
             $('.color-option').removeClass('selected');
             $(this).addClass('selected');
-            var selectedColor = $(this).attr('data-color');
+            var selectedColor = $(this).attr('title');
             $('#selected-color').val(selectedColor); // Update hidden input value
             });
         });
+
+        // $(document).ready(function() { //pas color code
+        //     // Color selection handling
+        // $('.color-option').click(function() {
+        //     $('.color-option').removeClass('selected');
+        //     $(this).addClass('selected');
+        //     var selectedColor = $(this).attr('data-color');
+        //     $('#selected-color').val(selectedColor); // Update hidden input value
+        //     });
+        // });
     </script>
 
 </body>

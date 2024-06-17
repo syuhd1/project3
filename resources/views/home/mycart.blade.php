@@ -37,6 +37,10 @@
             padding: 5px;
             cursor: pointer;
         }
+        .itemcenter{
+            text-align: center; 
+            align-items:center;
+        }
         /* /other style on css.blade.php */
     </style>
   </head>
@@ -52,8 +56,8 @@
 
     @if($count>=1)
     <div class="div_deg">
+        @include('home.colormap')
 
-    
         <table>
             <tr>
                 <th>Image</th>
@@ -74,7 +78,17 @@
             <tr>
                 <td><img width="120" src="/products/{{$carts->product->image}}" alt=""></td>
                 <td>{{$carts->product->title}}</td>
-                <td>{{$carts->color}}</td>
+                <td>
+                    <!-- {{$carts->color}} -->
+                    @php
+                        $colorName = $carts->color;
+                        $colorCode = isset($colorMapping[$colorName]) ? $colorMapping[$colorCode] : 'Unknown Color';
+                    @endphp
+                    <div style="display: flex; align-items: center;" class="itemcenter">
+                        <span style="display: inline-block; width: 20px; height: 20px; background-color: {{$colorName}}; border: 1px solid #000; margin-right: 5px;"></span>
+                        <span>{{$colorName}}</span>
+                    </div>
+                </td>
                 <td>{{$carts->size}}</td>
                 <td>{{$carts->product->price}}</td>
                 <!-- <td>{{$carts->quantity}}</td> -->

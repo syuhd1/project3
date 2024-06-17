@@ -54,8 +54,7 @@
     @if(count($order)>=1)
     <div>
         <div class="div_deg">
-
-        
+            @include('home.colormap')
             <table>
                 <tr>
                     <th>Image</th>
@@ -70,13 +69,21 @@
                     <th>Updated At</th>
                 </tr>
 
-
-
                 @foreach ($order as $orders)
                 <tr>
                     <td><img width="120" src="/products/{{$orders->product->image}}" alt=""></td>
                     <td>{{$orders->product->title}}</td>
-                    <td>{{$orders->color}}</td>
+                    <td>
+                        <!-- {{$orders->color}} -->
+                        @php
+                            $colorName = $orders->color;
+                            $colorCode = isset($colorMapping[$colorName]) ? $colorMapping[$colorCode] : 'Unknown Color';
+                        @endphp
+                        <div style="display: flex; align-items: center;" class="itemcenter">
+                            <span style="display: inline-block; width: 20px; height: 20px; background-color: {{$colorName}}; border: 1px solid #000; margin-right: 5px;"></span>
+                            <span>{{$colorName}}</span>
+                        </div>
+                    </td>
                     <td>{{$orders->size}}</td>
                     <td>{{$orders->quantity}}</td>
                     <td>{{$orders->price}}</td>

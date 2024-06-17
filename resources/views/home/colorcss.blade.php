@@ -63,4 +63,8 @@
         .color-option[data-color="#00ffff"] {
             background-color: #00ffff; /* Cyan */
         }
+
+        
 </style>
+
+
