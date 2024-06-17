@@ -140,7 +140,7 @@ public function add_cart($id){
 //product details add_cart
     public function add_cart2(Request $request, $id){
         $product_id = $id;
-        
+
          // below commented ===
          $product = Product::find($id);
         
@@ -192,7 +192,7 @@ public function add_cart($id){
             $user = Auth::user();
             $userid = $user->id;
             $count = Cart::where('user_id', $userid)->count();
-            $cart = Cart::where('user_id', $userid)->paginate(6);
+            $cart = Cart::where('user_id', $userid)->orderBy('created_at', 'desc')->paginate(6);
         }
         else{
             $count='';

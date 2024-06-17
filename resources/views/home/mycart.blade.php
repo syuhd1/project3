@@ -113,10 +113,14 @@
             @endforeach
         </table>
     </div>
-    
-   
-   
-     <div class="cartvalue">
+
+     <div class="div_deg pagination-wrapper">
+        {{$cart->onEachSide(1)->links()}}
+        <!-- oneach side means ... in between last and first page, 1 can be changed, change how many per page on admincontroller, in method -->
+        <!-- link back to pagination on provider/appserviceprovider, get bootstrap cdn link-->
+    </div>
+
+    <div class="cartvalue">
         <h4>Total Price: RM {{$value}}</h4>
         <!-- didnt add url in web.php -->
         <span>
@@ -127,13 +131,7 @@
         </span>
         
      </div>
-
-     <div class="div_deg pagination-wrapper">
-        {{$cart->onEachSide(1)->links()}}
-        <!-- oneach side means ... in between last and first page, 1 can be changed, change how many per page on admincontroller, in method -->
-        <!-- link back to pagination on provider/appserviceprovider, get bootstrap cdn link-->
-    </div>
-
+     
     @else
 
     <div><h5 class="shadowtxt">Cart is empty</h5></div>

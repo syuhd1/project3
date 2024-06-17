@@ -129,7 +129,7 @@ class AdminController extends Controller
 
     public function manage_order()
     {
-        $data = Order::paginate(6);
+        $data = Order::orderBy('created_at', 'desc')->paginate(6);
         return view('admin.manage_order', compact('data'));
     }
 

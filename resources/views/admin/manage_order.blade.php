@@ -69,6 +69,7 @@
                             </form>
                         </div>
                         <div class="table-responsive">
+                            @include('admin.colormap')
                             <table class="table table-striped table-hover table_deg">
                                 <thead>
                                     <tr>
@@ -114,7 +115,17 @@
                                         </td>
                                         <td>{{ $order->quantity }}</td>
                                         <td>{{ $order->size }}</td>
-                                        <td>{{ $order->color }}</td>
+                                        <td> 
+                                            @php
+                                                $colorName = $order->color;
+                                                $colorCode = isset($colorMapping[$colorName]) ? $colorMapping[$colorCode] : 'Unknown Color';
+                                            @endphp
+                                            <div style="display: flex; align-items: center;" class="itemcenter">
+                                                <span style="display: inline-block; width: 20px; height: 20px; background-color: {{$colorName}}; border: 1px solid #000; margin-right: 5px;"></span>
+                                                <!-- <span>{{$colorName}}</span> -->
+                                            </div>
+                                            {{ $order->color }}
+                                        </td>
                                         <td>{{ $order->price }}</td>
                                         <td>
                                             <span>{{ $order->product->title }}</span>
