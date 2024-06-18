@@ -221,12 +221,15 @@ public function add_cart($id){
     }
 
     public function checkout(Request $request,$id){
-        $cart = Cart::find($id);
+        // $cart = Cart::find($id);
+        // $cart = Cart::all();
+        // $product = Product::find($id);
 
         if(Auth::id()){
             $user = Auth::user();
             $userid = $user->id;
             $count = Cart::where('user_id', $userid)->count();
+            $cart = Cart::where('user_id', $userid)->get();
             }
         else{
             $count='';
