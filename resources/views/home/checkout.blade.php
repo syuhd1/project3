@@ -142,7 +142,17 @@
 
           <input type="hidden" name="price" value="{{$price}}">
 
-          <div><input class="btn btn-primary" type="submit" value="Place Order"></div>
+          <div>
+            <span>
+            <button class="btn btn-danger" type="button" onclick="window.history.back()">Cancel</button>
+            </span>
+
+            <span>
+            <input class="btn btn-primary" type="submit" value="Place Order">
+
+            </span>
+          </div>
+          
       </form>
     </div>
 
