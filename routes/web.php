@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 //add
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\StripePaymentController;
 
 /*
 Route::get('/', function () {
@@ -94,3 +95,17 @@ route::post('update_cart/{id}', [HomeController::class,'update_cart'])->middlewa
 route::get('checkout/{id}/{price}', [HomeController::class,'checkout'])->middleware(['auth','verified']);
 route::post('confirm_order/{id}', [HomeController::class,'confirm_order'])->middleware(['auth','verified'])->name('confirm_order');
 
+// stripe
+
+Route::controller(StripePaymentController::class)->group(function(){
+    Route::get('stripe/{value}', 'index');
+    Route::post('stripe/{value}', 'stripe')->name('stripe.post');
+});
+
+// Route::controller(HomeController::class)->group(function(){
+
+//     Route::get('stripe', 'stripe');
+
+//     Route::post('stripe', 'stripePost')->name('stripe.post');
+
+// });

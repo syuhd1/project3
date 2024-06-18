@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\Product;
 use App\Models\Cart;
 use App\Models\Order;
+use Stripe;
 
 class HomeController extends Controller
 {
@@ -315,6 +316,14 @@ public function add_cart($id){
         $order = Order::where('user_id', $user)->orderBy('created_at', 'desc')->paginate(6);
 
         return view('home.order', compact('count','order'));
+    }
+
+    // stripe
+    public function stripe($value)
+    {
+
+        return view('home.stripe', compact('value'));
+
     }
 
 }

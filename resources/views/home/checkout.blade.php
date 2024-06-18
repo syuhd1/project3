@@ -67,7 +67,7 @@
 
         .container{
           display: flex;
-          flex-direction: row;
+          flex-direction: row-reverse;
           justify-content: center;
           /* align-items: center; */
         }
@@ -121,40 +121,6 @@
   <h2>Checkout Item</h2>
   
   <div class="container">
-
-    <div class="orderdeg">
-      <form action="{{url('confirm_order/{id}')}}" method="Post">
-          @csrf
-          <div>
-              <label for="">Name</label>
-              <input type="text" name="name" value="{{Auth::user()->name}}">
-          </div>
-
-          <div>
-              <label for="">Phone</label>
-              <input type="text" name="phone" value="{{Auth::user()->phone}}">
-          </div>
-
-          <div>
-              <label for="">Address</label>
-              <textarea name="address" id="">{{Auth::user()->address}}</textarea>
-          </div>
-
-          <input type="hidden" name="price" value="{{$price}}">
-
-          <div>
-            <span>
-            <button class="btn btn-danger" type="button" onclick="window.history.back()">Cancel</button>
-            </span>
-
-            <span>
-            <input class="btn btn-primary" type="submit" value="Place Order">
-
-            </span>
-          </div>
-          
-      </form>
-    </div>
 
     <!-- flex row next , put cart here-->
   <div class="right-column">
@@ -217,10 +183,50 @@
             @endforeach
         </table>
     </div>
-    <div>
+    <div> 
         <h4 class="orderdeg">Total Price: RM {{$value}}</h4>
-        </div>
-      </div>
+    </div>
+  </div>
+
+  <!-- new row -->
+  <div class="orderdeg">
+      <form action="{{url('stripe', $value)}}" method="Post" id="payment-form">
+          @csrf
+          <div>
+              <label for="">Name:</label>
+              <input type="text" name="name" value="{{Auth::user()->name}}">
+          </div>
+
+          <div>
+              <label for="">Phone:</label>
+              <input type="text" name="phone" value="{{Auth::user()->phone}}">
+          </div>
+
+          <div>
+              <label for="">Address:</label>
+              <textarea name="address" id="">{{Auth::user()->address}}</textarea>
+          </div>
+
+          <div>
+              <label for="">Remarks:</label>
+              <textarea name="remarks" id="remarks"></textarea>
+          </div>
+
+          <input type="hidden" name="price" value="{{$price}}">
+          <input type="hidden" name="stripeToken" id="stripeToken">
+          <div>
+            <span>
+            <button class="btn btn-danger" type="button" onclick="window.history.back()">Cancel</button>
+            </span>
+
+            <span>
+            <input class="btn btn-primary" type="submit" value="Place Order">
+
+            </span>
+          </div>
+          
+      </form>
+    </div>
   </div>
     
 
@@ -229,6 +235,109 @@
 
 @include('home.footer')
   
+<!-- scripts -->
+<script src="https://js.stripe.com/v3/"></script>
+
+<script>
+      var stripe = Stripe('{{ env('STRIPE_KEY') }}');
+      var elements = stripe.elements();
+
+      var style = {
+          base: {
+              color: '#32325d',
+              lineHeight: '18px',
+              fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+              fontSmoothing: 'antialiased',
+              fontSize: '16px',
+              '::placeholder': {
+                  color: '#aab7c4'
+              }
+          },
+          invalid: {
+              color: '#fa755a',
+              iconColor: '#fa755a'
+          }
+      };
+
+      var card = elements.create('card', { style: style });
+      card.mount('#card-element');
+
+      card.addEventListener('change', function(event) {
+          var displayError = document.getElementById('card-errors');
+          if (event.error) {
+              displayError.textContent = event.error.message;
+          } else {
+              displayError.textContent = '';
+          }
+      });
+
+      var form = document.getElementById('payment-form');
+      form.addEventListener('submit', function(event) {
+          event.preventDefault();
+
+          stripe.createToken(card).then(function(result) {
+              if (result.error) {
+                  var errorElement = document.getElementById('card-errors');
+                  errorElement.textContent = result.error.message;
+              } else {
+                  document.getElementById('stripeToken').value = result.token.id;
+                  form.submit();
+              }
+          });
+      });
+  </script>
+
+<!-- prev -->
+<!-- <script>
+    var stripe = Stripe('{{ env('STRIPE_KEY') }}');
+    var elements = stripe.elements();
+
+    var style = {
+        base: {
+            color: '#32325d',
+            lineHeight: '18px',
+            fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+            fontSmoothing: 'antialiased',
+            fontSize: '16px',
+            '::placeholder': {
+                color: '#aab7c4'
+            }
+        },
+        invalid: {
+            color: '#fa755a',
+            iconColor: '#fa755a'
+        }
+    };
+
+    var card = elements.create('card', {style: style});
+    card.mount('#card-element');
+
+    card.addEventListener('change', function(event) {
+        var displayError = document.getElementById('card-errors');
+        if (event.error) {
+            displayError.textContent = event.error.message;
+        } else {
+            displayError.textContent = '';
+        }
+    });
+
+    var form = document.getElementById('payment-form');
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        stripe.createToken(card).then(function(result) {
+            if (result.error) {
+                var errorElement = document.getElementById('card-errors');
+                errorElement.textContent = result.error.message;
+            } else {
+                // Send the token to your server
+                document.getElementById('stripeToken').value = result.token.id;
+                form.submit();
+            }
+        });
+    });
+</script> -->
+
 </body>
 
 </html>
