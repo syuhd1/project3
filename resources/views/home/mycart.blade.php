@@ -124,14 +124,14 @@
         <h4>Total Price: RM {{$value}}</h4>
         <!-- didnt add url in web.php -->
         <span>
-            <a class ="btn btn-primary" href="{{url('request_quote')}}">Request Quote</a>
+            <a class ="btn btn-primary" href="{{route('request_quote', ['id' => $carts->id, 'price'=> $value])}}">Request Quote</a>
         </span>
         <span>
             <a class ="btn btn-success" href="{{url('checkout/{id}', ['price'=> $value])}}">Checkout</a>
         </span>
         
      </div>
-     
+
     @else
 
     <div><h5 class="shadowtxt">Cart is empty</h5></div>

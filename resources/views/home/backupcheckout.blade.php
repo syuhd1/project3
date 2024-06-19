@@ -27,7 +27,7 @@
 
         .right-column{
           display: flex;
-          justify-content: top;
+          justify-content: center;
           align-items: center;
           margin-top: 0px;
           max-width: 600px;
@@ -51,23 +51,13 @@
             height: 30px;
         }
 
-        input[type= 'email']{
-            width:300px;
-            height: 30px;
-        }
-
-        input[type= 'date']{
-            width:300px;
-            height: 30px;
-        }
-
         textarea{
             width: 300px;
             height: 80px;
         }
 
         .input_deg{
-            padding: 5px;
+            padding: 15px;
         }
 
         .shortbox{
@@ -128,7 +118,7 @@
     <!-- end header section, top option -->
   </div>
 
-  <h2>Request Customization</h2>
+  <h2>Checkout Item</h2>
   
   <div class="container">
 
@@ -145,6 +135,7 @@
                 <th>Size</th>
                 <th>Price</th>
                 <th>Quantity</th>
+                <th>Customization</th>
             </tr>
 
             <?php
@@ -193,81 +184,43 @@
         </table>
     </div>
     <div> 
-        <h4 class="orderdeg">Base Price: RM {{$value}}</h4>
+        <h4 class="orderdeg">Total Price: RM {{$value}}</h4>
     </div>
   </div>
 
   <!-- new row -->
   <div class="orderdeg">
-      <form action="{{url('send_quote', $value)}}" method="Post" id="payment-form">
+      <form action="{{url('stripe', $value)}}" method="Post" id="payment-form">
           @csrf
-          <div class="input_deg">
+          <div>
               <label for="">Name:</label>
               <input type="text" name="name" value="{{Auth::user()->name}}">
           </div>
 
-          <div class="input_deg">
+          <div>
               <label for="">Phone:</label>
               <input type="text" name="phone" value="{{Auth::user()->phone}}">
           </div>
 
-          <div class="input_deg">
-                <label for="email">Email:</label>
-                <input type="email" name="email" value="{{Auth::user()->email}}" >
-            </div>
-
-          <div class="input_deg">
+          <div>
               <label for="">Address:</label>
               <textarea name="address" id="">{{Auth::user()->address}}</textarea>
           </div>
 
-          <div class="input_deg">
-              <label for="">Description:</label>
-              <textarea name="description" id="description"></textarea>
+          <div>
+              <label for="">Remarks:</label>
+              <textarea name="remarks" id="remarks"></textarea>
           </div>
 
-          <div class="input_deg">
-                <label for="">Deadline (optional):</label>
-                <input type="date" name="deadline">
-            </div>
-
-            <div>
-                <label for="image">Reference</label>
-                <input type="file" name="reference">
-            </div>
-
-            
-
-          <!-- <div>
-            <label for="">Delivery Method:</label>
-            <div>
-                <input type="radio" id="delivery" name="delivery_method" value="delivery" checked >
-                <label for="delivery">Delivery</label>
-            </div> -->
-            <!--onclick="updateDeliveryFee()" -->
-            <!-- <div>
-                <input type="radio" id="pickup" name="delivery_method" value="pickup">
-                <label for="pickup">Pickup from Shop</label>
-            </div>
-          </div> -->
-
-        <!-- <div>
-            <label for="">Delivery Fee:</label>
-            <span id="delivery-fee">RM15</span>
-        </div> -->
-
-          
           <input type="hidden" name="price" value="{{$price}}">
-          <!-- <input type="hidden" name="delivery_fee" id="delivery_fee_hidden" value="15"> -->
-                
-          <!-- <input type="hidden" name="stripeToken" id="stripeToken"> -->
+          <input type="hidden" name="stripeToken" id="stripeToken">
           <div>
             <span>
             <button class="btn btn-danger" type="button" onclick="window.history.back()">Cancel</button>
             </span>
 
             <span>
-            <input class="btn btn-primary" type="submit" value="Send Quotation">
+            <input class="btn btn-primary" type="submit" value="Place Order">
 
             </span>
           </div>
@@ -284,6 +237,106 @@
   
 <!-- scripts -->
 <script src="https://js.stripe.com/v3/"></script>
+
+<script>
+      var stripe = Stripe('{{ env('STRIPE_KEY') }}');
+      var elements = stripe.elements();
+
+      var style = {
+          base: {
+              color: '#32325d',
+              lineHeight: '18px',
+              fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+              fontSmoothing: 'antialiased',
+              fontSize: '16px',
+              '::placeholder': {
+                  color: '#aab7c4'
+              }
+          },
+          invalid: {
+              color: '#fa755a',
+              iconColor: '#fa755a'
+          }
+      };
+
+      var card = elements.create('card', { style: style });
+      card.mount('#card-element');
+
+      card.addEventListener('change', function(event) {
+          var displayError = document.getElementById('card-errors');
+          if (event.error) {
+              displayError.textContent = event.error.message;
+          } else {
+              displayError.textContent = '';
+          }
+      });
+
+      var form = document.getElementById('payment-form');
+      form.addEventListener('submit', function(event) {
+          event.preventDefault();
+
+          stripe.createToken(card).then(function(result) {
+              if (result.error) {
+                  var errorElement = document.getElementById('card-errors');
+                  errorElement.textContent = result.error.message;
+              } else {
+                  document.getElementById('stripeToken').value = result.token.id;
+                  form.submit();
+              }
+          });
+      });
+  </script>
+
+<!-- prev -->
+<!-- <script>
+    var stripe = Stripe('{{ env('STRIPE_KEY') }}');
+    var elements = stripe.elements();
+
+    var style = {
+        base: {
+            color: '#32325d',
+            lineHeight: '18px',
+            fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+            fontSmoothing: 'antialiased',
+            fontSize: '16px',
+            '::placeholder': {
+                color: '#aab7c4'
+            }
+        },
+        invalid: {
+            color: '#fa755a',
+            iconColor: '#fa755a'
+        }
+    };
+
+    var card = elements.create('card', {style: style});
+    card.mount('#card-element');
+
+    card.addEventListener('change', function(event) {
+        var displayError = document.getElementById('card-errors');
+        if (event.error) {
+            displayError.textContent = event.error.message;
+        } else {
+            displayError.textContent = '';
+        }
+    });
+
+    var form = document.getElementById('payment-form');
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        stripe.createToken(card).then(function(result) {
+            if (result.error) {
+                var errorElement = document.getElementById('card-errors');
+                errorElement.textContent = result.error.message;
+            } else {
+                // Send the token to your server
+                document.getElementById('stripeToken').value = result.token.id;
+                form.submit();
+            }
+        });
+    });
+</script> -->
 
 </body>
 

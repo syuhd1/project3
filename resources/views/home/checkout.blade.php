@@ -27,7 +27,7 @@
 
         .right-column{
           display: flex;
-          justify-content: center;
+          justify-content: top;
           align-items: center;
           margin-top: 0px;
           max-width: 600px;
@@ -57,7 +57,7 @@
         }
 
         .input_deg{
-            padding: 15px;
+            padding: 5px;
         }
 
         .shortbox{
@@ -192,28 +192,49 @@
   <div class="orderdeg">
       <form action="{{url('stripe', $value)}}" method="Post" id="payment-form">
           @csrf
-          <div>
+          <div class="input_deg">
               <label for="">Name:</label>
               <input type="text" name="name" value="{{Auth::user()->name}}">
           </div>
 
-          <div>
+          <div class="input_deg">
               <label for="">Phone:</label>
               <input type="text" name="phone" value="{{Auth::user()->phone}}">
           </div>
 
-          <div>
+          <div class="input_deg">
               <label for="">Address:</label>
               <textarea name="address" id="">{{Auth::user()->address}}</textarea>
           </div>
 
-          <div>
+          <div class="input_deg">
               <label for="">Remarks:</label>
               <textarea name="remarks" id="remarks"></textarea>
           </div>
 
+          <div class="input_deg">
+            <label for="">Delivery Method:</label>
+            <div>
+                <input type="radio" id="delivery" name="delivery_method" value="delivery" checked >
+                <label for="delivery">Delivery</label>
+            </div>
+            <!--onclick="updateDeliveryFee()" -->
+            <div>
+                <input type="radio" id="pickup" name="delivery_method" value="pickup">
+                <label for="pickup">Pickup from Shop</label>
+            </div>
+          </div>
+
+        <!-- <div>
+            <label for="">Delivery Fee:</label>
+            <span id="delivery-fee">RM15</span>
+        </div> -->
+
+          
           <input type="hidden" name="price" value="{{$price}}">
-          <input type="hidden" name="stripeToken" id="stripeToken">
+          <!-- <input type="hidden" name="delivery_fee" id="delivery_fee_hidden" value="15"> -->
+                
+          <!-- <input type="hidden" name="stripeToken" id="stripeToken"> -->
           <div>
             <span>
             <button class="btn btn-danger" type="button" onclick="window.history.back()">Cancel</button>
@@ -237,8 +258,22 @@
   
 <!-- scripts -->
 <script src="https://js.stripe.com/v3/"></script>
-
 <script>
+function updateDeliveryFee() {
+            var deliveryFeeElement = document.getElementById('delivery-fee');
+            var deliveryFeeHiddenElement = document.getElementById('delivery_fee_hidden');
+            var deliveryMethod = document.querySelector('input[name="delivery_method"]:checked').value;
+            
+            if (deliveryMethod === 'delivery') {
+                deliveryFeeElement.textContent = 'RM15';
+                deliveryFeeHiddenElement.value = '15';
+            } else {
+                deliveryFeeElement.textContent = 'RM0';
+                deliveryFeeHiddenElement.value = '0';
+            }
+        }
+</script>
+<!-- <script>
       var stripe = Stripe('{{ env('STRIPE_KEY') }}');
       var elements = stripe.elements();
 
@@ -285,7 +320,7 @@
               }
           });
       });
-  </script>
+  </script> -->
 
 <!-- prev -->
 <!-- <script>

@@ -175,7 +175,7 @@
 
                             <div class="button-container">
                                 <span>
-                                    <a class="btn btn-primary" href="{{url('request_quote')}}">Request Quote</a>
+                                    <a class="btn btn-primary" type="submit" href="{{url('request_quote', $data->id)}}">Request Quote</a>
                                 </span>
                                 <span>
                                     <!-- <a class="btn btn-success" href="{{url('add_cart', $data->id , $data->color,  $data->size, $data->quantity)}}">Add to Cart</a> -->

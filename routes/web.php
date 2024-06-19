@@ -82,7 +82,8 @@ route::get('product_details/{id}', [HomeController::class,'product_details']);
 route::get('add_cart/{id}', [HomeController::class,'add_cart'])->middleware(['auth', 'verified']); //for direct add cart homee
 route::post('add_cart2/{id}', [HomeController::class,'add_cart2'])->middleware(['auth', 'verified']);  //user login
 // route::get('add_cart/{id}/{color}/{size}/{quantity}', [HomeController::class,'add_cart'])->middleware(['auth', 'verified']); //for direct add cart homee
-route::post('request_quote/{id}', [HomeController::class,'request_quote'])->middleware(['auth', 'verified']);
+route::get('request_quote/{id}', [HomeController::class,'request_quote'])->middleware(['auth', 'verified'])->name('request_quote');
+route::post('send_quote/{id}', [HomeController::class,'send_quote'])->middleware(['auth', 'verified']);
 
 
 
@@ -97,15 +98,17 @@ route::post('confirm_order/{id}', [HomeController::class,'confirm_order'])->midd
 
 // stripe
 
-Route::controller(StripePaymentController::class)->group(function(){
-    Route::get('stripe/{value}', 'index');
-    Route::post('stripe/{value}', 'stripe')->name('stripe.post');
-});
-
-// Route::controller(HomeController::class)->group(function(){
-
-//     Route::get('stripe', 'stripe');
-
-//     Route::post('stripe', 'stripePost')->name('stripe.post');
-
+//l11 way
+// Route::controller(StripePaymentController::class)->group(function(){
+//     Route::get('stripe/{value}', 'index');
+//     Route::post('stripe/{value}', 'stripe')->name('stripe.post');
 // });
+
+// l9 old
+Route::controller(HomeController::class)->group(function(){
+
+    Route::get('stripe/{value}', 'stripe');
+
+    Route::post('stripe/{value}', 'stripePost')->name('stripe.post');
+
+});

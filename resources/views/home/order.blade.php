@@ -86,7 +86,7 @@
                     </td>
                     <td>{{$orders->size}}</td>
                     <td>{{$orders->quantity}}</td>
-                    <td>{{$orders->price}}</td>
+                    <td>{{$orders->total_price}}</td>
                     <td>{{$orders->address}}</td>
                     <td>{{$orders->status}}</td>
                     <td>{{$orders->created_at}}</td>
