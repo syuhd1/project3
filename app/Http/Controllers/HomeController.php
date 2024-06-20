@@ -386,7 +386,52 @@ public function add_cart($id){
 
         return redirect()->route('home');
     }
+
+    public function add_custom_cart(Request $request, $id){
+        $quote_id = $id;
+
+         // below commented ===
+         $quote = Quotation::find($id);
+        
+        $user = Auth::user(); //user logged in only, get user data , store in $user
+        $user_id = $user->id; //store in id user_id
+
+        $color = $request->color;
+        $size = $request->size;
+        $quantity = $request->quantity;
+
+        $existedcart = Cart::where('user_id', $user_id)
+        ->where('product_id', $product_id)
+        ->where('color', $color)
+        ->where('size', $size)
+        ->first();
+
+        if ($existedcart) {
+            $existedcart->quantity += $quantity;
+            // $existedcart->quantity += 1; //original
+
+            // below is commented ====
+            $existedcart->total_price = $existedcart->quantity * $product->price;
+
+            $existedcart->save();
+        } else {
+            $data = new Cart;
+            $data->user_id = $user_id;
+            $data->product_id = $product_id;
+            $data->color = $color;
+            $data->size = $size;
+            $data->quantity = $quantity; // Default quantity to 1
+            $data->total_price = $product->price * $quantity;
+            $data->save();
+        }
+
+        toastr()->timeOut(5000)->closeButton()->addSuccess('Product added to cart successfully');
+
+        return redirect()->back();
+    }
     
+    // end quote
+
     public function myorders(){
 
         $user = Auth::user()->id;
@@ -395,7 +440,9 @@ public function add_cart($id){
 
         $order = Order::where('user_id', $user)->orderBy('created_at', 'desc')->paginate(6);
 
-        return view('home.order', compact('count','order'));
+        $quote = Quotation::where('user_id', $user)->orderBy('created_at', 'desc')->paginate(6);
+
+        return view('home.order', compact('count','order','quote'));
     }
 
     // stripe

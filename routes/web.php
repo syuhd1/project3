@@ -52,11 +52,11 @@ route::get('update_product/{id}', [AdminController::class,'update_product'])->mi
 route::post('edit_product/{id}', [AdminController::class,'edit_product'])->middleware(['auth','admin']);
 route::get('delete_product/{id}', [AdminController::class,'delete_product'])->middleware(['auth','admin']);
 route::get('product_search', [AdminController::class,'product_search'])->middleware(['auth','admin']);
-
+// profile
 route::get('manage_profile', [AdminController::class,'manage_profile'])->middleware(['auth','admin']);
 route::get('manage_order', [AdminController::class,'manage_order'])->middleware(['auth','admin']);
 Route::post('update_order/{id}', [AdminController::class,'update_order'])->middleware(['auth','admin']);
-
+// mng staff
 route::get('manage_staff', [AdminController::class,'manage_staff'])->middleware(['auth','admin']);
 route::get('add_staff', [AdminController::class,'add_staff'])->middleware(['auth','admin']);
 route::post('upload_staff', [AdminController::class,'upload_staff'])->middleware(['auth','admin']);
@@ -64,6 +64,14 @@ route::get('update_staff/{id}', [AdminController::class,'update_staff'])->middle
 route::post('edit_staff/{id}', [AdminController::class,'edit_staff'])->middleware(['auth','admin']);
 route::get('delete_staff/{id}', [AdminController::class,'delete_staff'])->middleware(['auth','admin']);
 route::get('staff_search', [AdminController::class,'staff_search'])->middleware(['auth','admin']);
+//quote
+route::get('manage_quotation', [AdminController::class,'manage_quotation'])->middleware(['auth','admin']);
+route::get('add_quotation', [AdminController::class,'add_quotation'])->middleware(['auth','admin']);
+route::post('upload_quotation/{id}', [AdminController::class,'upload_quotation'])->middleware(['auth','admin']);
+route::get('update_quotation/{id}', [AdminController::class,'update_quotation'])->middleware(['auth','admin']);
+route::post('edit_quotation/{id}', [AdminController::class,'edit_quotation'])->middleware(['auth','admin']);
+route::get('delete_quotation/{id}', [AdminController::class,'delete_quotation'])->middleware(['auth','admin']);
+route::get('quotation_search', [AdminController::class,'quotation_search'])->middleware(['auth','admin']);
 
 //report
 route::get('generate_report', [AdminController::class,'generate_report'])->middleware(['auth','admin']);
@@ -95,6 +103,10 @@ route::get('delete_cart/{id}', [HomeController::class,'delete_cart'])->middlewar
 route::post('update_cart/{id}', [HomeController::class,'update_cart'])->middleware(['auth','verified'])->name('update_cart');
 route::get('checkout/{id}/{price}', [HomeController::class,'checkout'])->middleware(['auth','verified']);
 route::post('confirm_order/{id}', [HomeController::class,'confirm_order'])->middleware(['auth','verified'])->name('confirm_order');
+
+// quotation
+route::post('add_custom_cart/{id}', [HomeController::class,'add_cart2'])->middleware(['auth', 'verified']);  //user login
+
 
 // stripe
 

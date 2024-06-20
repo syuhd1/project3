@@ -30,6 +30,10 @@
                 </li>
 
                 <li>
+                    <a href="{{url('manage_quotation')}}"> <i class="icon-paper-and-pencil"></i>Manage Quotation</a>
+                </li>
+
+                <li>
                     <a href="{{url('profile')}}"> <i class="icon-user"></i>Manage Profile</a>
                 </li>
               

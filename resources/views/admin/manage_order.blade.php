@@ -12,6 +12,7 @@
             flex-direction: column;
         }
         .table_deg {
+            max-width: 200px;
             /* border: 2px solid greenyellow; */
         }
         td {
@@ -70,7 +71,7 @@
                         </div>
                         <div class="table-responsive">
                             @include('admin.colormap')
-                            <table class="table table-striped table-hover table_deg">
+                            <table class="table table-striped table-hover table_deg" >
                                 <thead>
                                     <tr>
                                         <th>ID</th>

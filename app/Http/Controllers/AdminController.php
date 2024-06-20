@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\Staff;
 use App\Models\Order;
 use App\Models\Report;
+use App\Models\Quotation;
 
 use Barryvdh\DomPDF\Facade\Pdf;
 
@@ -144,6 +145,33 @@ class AdminController extends Controller
     }
 
 // end order 
+
+// start quotation
+public function manage_quotation()
+    {
+        $data = Quotation::orderBy('created_at', 'desc')->paginate(6);
+        return view('admin.manage_quotation', compact('data'));
+    }
+
+    public function update_quotation($id)
+    {
+        $data = Quotation::find($id);
+        return view('admin.update_quotation',compact('data'));
+    }
+
+    public function upload_quotation(Request $request, $id)
+    {
+        $quote = Quotation::find($id);
+        $addprice = $request->add_price;
+        $quote->add_price = $addprice;
+        $quote->total_price = ($addprice + $quote->product->price) * $quote->quantity;
+        $quote->save();
+
+        toastr()->timeOut(5000)->closeButton()->addSuccess('Fee updated successfully');
+        return redirect()->back();
+    }
+
+// end quotation
 //start staff
 
     public function manage_staff()

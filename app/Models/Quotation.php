@@ -14,6 +14,7 @@ class Quotation extends Model
     }
     
     public function product(){
+        // return $this->belongsTo('App\Models\Product', 'product_id', 'id');
         return $this->hasOne('App\Models\Product', 'id','product_id');
     }
 
