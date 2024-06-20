@@ -107,7 +107,7 @@
                             <p>{{$data->description}}</p>
                         </div>
                         
-                        <form action="{{url('add_cart2', $data->id)}}" method="POST">
+                        <form action="" method="POST" id="product-form">
                             @csrf
                             <!-- Color selection -->
                             <div class="color-selector">
@@ -175,12 +175,13 @@
 
                             <div class="button-container">
                                 <span>
-                                    <a class="btn btn-primary" type="submit" href="{{url('request_quote', $data->id)}}">Request Quote</a>
+                                    <button class="btn btn-primary" type="submit" onclick="submitForm('request_quote')">Request Quote</button>
                                 </span>
                                 <span>
                                     <!-- <a class="btn btn-success" href="{{url('add_cart', $data->id , $data->color,  $data->size, $data->quantity)}}">Add to Cart</a> -->
                                     <!-- <a class="btn btn-success" type="submit">Add to Cart</a> -->
-                                    <button type="submit" class="btn btn-success">Add to Cart</button>
+                                    <button type="submit"  class="btn btn-success" onclick="submitForm('add_cart2')">Add to Cart</button>
+                                    <!-- href="{{url('add_cart2', $data->id)}}" -->
                                 </span>
                             </div>
                         </form>
@@ -238,6 +239,28 @@
         //     });
         // });
     </script>
+
+<script>
+    function submitForm(action) {
+        var form = document.getElementById('product-form');
+        if (action === 'request_quote') {
+            form.action = "{{ url('request_quote', $data->id) }}";
+        } else if (action === 'add_cart2') {
+            form.action = "{{ url('add_cart2', $data->id) }}";
+        }
+        form.submit();
+    }
+
+    $(document).ready(function() {
+        $('.color-option').click(function() {
+            $('.color-option').removeClass('selected');
+            $(this).addClass('selected');
+            var selectedColor = $(this).attr('title');
+            $('#selected-color').val(selectedColor); // Update hidden input value
+        });
+    });
+</script>
+
 
 </body>
 

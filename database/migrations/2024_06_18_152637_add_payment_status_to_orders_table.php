@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('orders', function (Blueprint $table) {
             //
-            $table->string('remarks')->after('quantity')->nullable();
+            $table->text('remarks')->after('quantity')->nullable();
             $table->string('delivery_method')->after('price')->nullable();
             $table->string('payment_method')->after('size')->default('Online Payment');
             $table->decimal('total_price', 10, 2)->after('price')->nullable();            

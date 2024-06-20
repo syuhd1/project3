@@ -152,14 +152,14 @@
                 $value  = 0; 
             ?>
 
-            @foreach ($cart as $carts)
+            
             <tr>
-                <td><img width="80" src="/products/{{$carts->product->image}}" alt=""></td>
-                <td>{{$carts->product->title}}</td>
+                <td><img width="80" src="/products/{{$product->image}}" alt=""></td>
+                <td>{{$product->title}}</td>
                 <td>
-                    <!-- {{$carts->color}} -->
+                    <!-- {{$product->color}} -->
                     @php
-                        $colorName = $carts->color;
+                        $colorName = $color;
                         $colorCode = isset($colorMapping[$colorName]) ? $colorMapping[$colorCode] : 'Unknown Color';
                     @endphp
                     <div style="display: flex; align-items: center;" class="itemcenter">
@@ -167,29 +167,29 @@
                         <span>{{$colorName}}</span>
                     </div>
                 </td>
-                <td>{{$carts->size}}</td>
-                <td>{{$carts->product->price}}</td>
-                <!-- <td>{{$carts->quantity}}</td> -->
+                <td>{{$size}}</td>
+                <td>{{$price}}</td>
+                <!-- <td>{{$product->quantity}}</td> -->
                 <td>
-                    {{$carts->quantity}}
+                    {{$quantity}}
                     <!-- <div class="quantity-wrapper">
-                            <form method="POST" action="{{ url('update_cart', $carts->id) }}" id="cart-form-{{$carts->id}}">
+                            <form method="POST" action="{{ url('update_cart', $product->id) }}" id="cart-form-{{$product->id}}">
                                 @csrf
-                                <button type="button" class="btn-decrement" data-id="{{$carts->id}}">-</button>
-                                <input type="number" name="quantity" value="{{ $carts->quantity }}" min="1" >
-                                <button type="button" class="btn-increment" data-id="{{$carts->id}}">+</button>
+                                <button type="button" class="btn-decrement" data-id="{{$product->id}}">-</button>
+                                <input type="number" name="quantity" value="{{ $product->quantity }}" min="1" >
+                                <button type="button" class="btn-increment" data-id="{{$product->id}}">+</button>
                             </form>
                     </div> -->
                 </td>
                 <!-- <td>
-                    <a class="btn btn-danger" href="{{url('delete_cart', $carts->id)}}">Remove</a>
+                    <a class="btn btn-danger" href="{{url('delete_cart', $product->id)}}">Remove</a>
                 </td> -->
             </tr>
 
             <?php 
-                $value = $value + ($carts->product->price * $carts->quantity);
+                $value = $value + ($product->price * $quantity);
             ?>
-            @endforeach
+          
         </table>
     </div>
     <div> 
@@ -199,7 +199,7 @@
 
   <!-- new row -->
   <div class="orderdeg">
-      <form action="{{url('send_quote', $value)}}" method="Post" id="payment-form">
+      <form action="{{url('send_quote', $product->id)}}" method="Post" id="payment-form" enctype="multipart/form-data">
           @csrf
           <div class="input_deg">
               <label for="">Name:</label>
@@ -236,7 +236,11 @@
                 <input type="file" name="reference">
             </div>
 
-            
+            <!-- Hidden fields for price and any other necessary data -->
+            <input type="hidden" name="value" value="{{ $value }}">
+            <input type="hidden" name="color" value="{{ $color }}">
+            <input type="hidden" name="size" value="{{ $size }}">
+            <input type="hidden" name="quantity" value="{{ $quantity }}">
 
           <!-- <div>
             <label for="">Delivery Method:</label>

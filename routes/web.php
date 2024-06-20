@@ -82,7 +82,7 @@ route::get('product_details/{id}', [HomeController::class,'product_details']);
 route::get('add_cart/{id}', [HomeController::class,'add_cart'])->middleware(['auth', 'verified']); //for direct add cart homee
 route::post('add_cart2/{id}', [HomeController::class,'add_cart2'])->middleware(['auth', 'verified']);  //user login
 // route::get('add_cart/{id}/{color}/{size}/{quantity}', [HomeController::class,'add_cart'])->middleware(['auth', 'verified']); //for direct add cart homee
-route::get('request_quote/{id}', [HomeController::class,'request_quote'])->middleware(['auth', 'verified'])->name('request_quote');
+route::post('request_quote/{id}', [HomeController::class,'request_quote'])->middleware(['auth', 'verified'])->name('request_quote');
 route::post('send_quote/{id}', [HomeController::class,'send_quote'])->middleware(['auth', 'verified']);
 
 

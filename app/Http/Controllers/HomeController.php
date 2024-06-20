@@ -9,7 +9,10 @@ use App\Models\User;
 use App\Models\Product;
 use App\Models\Cart;
 use App\Models\Order;
+use App\Models\Quotation;
+
 use Stripe;
+use Session;
 
 class HomeController extends Controller
 {
@@ -293,7 +296,39 @@ public function add_cart($id){
     }
 
     //quotation
-    public function request_quote(){
+    public function request_quote(Request $request, $id){
+        $product_id = $id;
+        $product = Product::find($id);
+
+        if(Auth::id()){
+            $user = Auth::user();
+            $userid = $user->id;
+            $count = Cart::where('user_id', $userid)->count();
+            $cart = Cart::where('user_id', $userid)->get();
+            }
+        else{
+            $count='';
+        }
+        // $price = $request->price;
+
+        $color = $request->color;
+        $size = $request->size;
+        $quantity = $request->quantity;
+        $price = $product->price;
+        
+        // $quote = new Quotation();
+        // $quote->user_id = $userid;
+        // $quote->product_id = $product_id;
+        // $quote->base_price = $price;
+        // $quote->save();
+        
+        return view('home.request_quote', compact('count', 'cart', 'price','product','color','size','quantity'));
+
+    }
+
+    public function send_quote(Request $request, $id){
+        $product = Product::find($id);
+        $product_id = $id;
 
         if(Auth::id()){
             $user = Auth::user();
@@ -304,8 +339,53 @@ public function add_cart($id){
             $count='';
         }
 
-    }
+        $name = $request->name;
+        $phone = $request->phone;
+        $address = $request->address;
 
+        $value = $request->value;
+        $price = $request->price;
+        // $paymentmethod = $request->paymentmethod;
+        // shipmethod = $request->shipmethod;
+        // $address = $request->address;
+
+        $userid = Auth::user()->id;
+        // $cart = Cart::where('user_id', $userid)->get();
+
+            $quote = new Quotation;
+            $quote->name =$name;
+            $quote->phone =$phone;
+            $quote->address =$address;
+
+            $quote->user_id = $userid;
+            $quote->product_id = $product_id;
+
+            $quote->quantity = $request->quantity;
+            $quote->color = $request->color;
+            $quote->size = $request->size;
+            $quote->base_price = $product->price;
+
+            $quote->description = $request->description;
+            $quote->deadline = $request->deadline;
+
+            $reference = $request->reference;
+
+            if($reference){
+                $oriname = $reference->getClientOriginalName();
+                $extension = $reference->getClientOriginalExtension();
+                $refname = time() . '_' . $oriname;
+                // save image to public folder, use time() to have unique name for img
+                $request->reference->move('references', $refname);
+    
+                $quote->reference = $refname;
+            }
+
+            $quote->save();
+        
+        toastr()->timeOut(5000)->closeButton()->addSuccess('Request has been sent successfully');
+
+        return redirect()->route('home');
+    }
     
     public function myorders(){
 
@@ -326,4 +406,96 @@ public function add_cart($id){
 
     }
 
+    public function stripePost(Request $request, $value)
+
+    {
+
+        Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+
+    
+
+        Stripe\Charge::create ([
+
+                "amount" => $value * 100,
+
+                "currency" => "usd",
+
+                "source" => $request->stripeToken,
+
+                "description" => "Test payment from itsolutionstuff.com." 
+
+        ]);
+
+        // $cart = Cart::find($id);
+        
+        $name = Auth::user()->name;
+            $phone = Auth::user()->phone;
+            $address = Auth::user()->address;
+            $remarks = $request->remarks;
+            $delivery_method = $request->delivery_method;
+
+            // $delivery_fee = $request->delivery_fee;
+
+            $userid = Auth::user()->id;
+            $cart = Cart::where('user_id', $userid)->get();
+    
+            foreach($cart as $carts){
+                $order = new Order;
+                $order->name =$name;
+                $order->phone =$phone;
+                $order->address =$address;
+    
+            //     // same as above, just direct request t
+            //     $order = new Order;
+            //     $order->name =$request->name;
+            //     $order->phone =$request->phone;
+            //     $order->address =$request->address;
+            //     // end of above, comment later
+
+                $order->user_id = $userid;
+    
+                $order->product_id = $carts->product_id;
+                $order->quantity = $carts->quantity;
+                $order->color = $carts->color;
+                $order->size = $carts->size;
+                $order->delivery_method = $delivery_method;
+
+                // $order->price = $price;
+                // $order->shipping_fee = $delivery_fee;
+                // $order->shipping_fee =$request->delivery-fee;
+                $order->total_price = $value;
+
+                // $order->total_price = $carts->product->price * $carts->quantity;
+                $order->payment_method = "Stripe Payment";
+
+                $order->remarks = $remarks;
+
+
+                // $order->price = $carts->price;
+                // $order->price = $carts->product->price * $carts->quantity;
+    
+                $order->save();
+            }
+            $removecart = Cart::where('user_id', $userid)->get();
+            foreach ($removecart as $remove){
+                $data = Cart::find($remove->id);
+                $data->delete();
+            }
+            
+            toastr()->timeOut(5000)->closeButton()->addSuccess('Order has been placed successfully');
+    
+            // return redirect()->route('home');
+            return redirect()->back();
+
+                
+        // return back()->with('success', 'Payment has been successful');
+    }
+        // Session::flash('success', 'Payment successful!');
+
+              
+
+        // return back();
 }
+
+    
+
