@@ -168,7 +168,7 @@
             <form action="{{url('upload_quotation', $data->id)}}" method="Post" enctype="multipart/form-data">
                 @csrf 
                 <div class="input_deg">
-                    <label for="">Update Customization Fee (1 pc): </label>
+                    <label for="">Update Customization Fee (1 pcs): </label>
                     <input type="number" name="add_price" value="{{$data->add_price}}" required>
                 </div>
 

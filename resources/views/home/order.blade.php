@@ -71,12 +71,11 @@
     </div>
 
     <div class="nav-tabs">
-        <button class="tab-link active" onclick="openTab(event, 'transaction-history')">Transaction History</button>
-        <button class="tab-link" onclick="openTab(event, 'customization-request')">Customization Request</button>
+        <button class="tab-link active" onclick="openTab(event, 'customization-request')">Customization Request</button>
+        <button class="tab-link" onclick="openTab(event, 'transaction-history')">Transaction History</button>
     </div>
 
-    <div id="transaction-history" class="tab-content active">
-        <!-- <h2>Transaction History</h2> -->
+    <div id="transaction-history" class="tab-content">
         @if(count($order)>=1)
         <div>
             <div class="div_deg">
@@ -89,7 +88,7 @@
                         <th>Size</th>
                         <th>Quantity</th>
                         <th>Total Price</th>
-                        <th>Adress</th>
+                        <th>Address</th>
                         <th>Status</th>
                         <th>Order Time</th>
                         <th>Updated At</th>
@@ -102,7 +101,7 @@
                         <td>
                             @php
                             $colorName = $orders->color;
-                            $colorCode = isset($colorMapping[$colorName]) ? $colorMapping[$colorCode] : 'Unknown Color';
+                            $colorCode = isset($colorMapping[$colorName]) ? $colorMapping[$colorName] : 'Unknown Color';
                             @endphp
                             <div style="display: flex; align-items: center;" class="itemcenter">
                                 <span style="display: inline-block; width: 20px; height: 20px; background-color: {{$colorName}}; border: 1px solid #000; margin-right: 5px;"></span>
@@ -133,18 +132,15 @@
         @endif
     </div>
 
-    <!-- custom start -->
-    <div id="customization-request" class="tab-content">
-        <!-- <h2>Customization Request</h2> -->
-        <!-- Add content for Customization Request here -->
-
+    <div id="customization-request" class="tab-content active">
         @if(count($quote)>=1)
         <div>
             <div class="div_deg">
                 @include('home.colormap')
                 <table>
                     <tr>
-                        <th>Image</th>
+                        <th>ID</th>
+                        <th>Product</th>
                         <th>Title</th>
                         <th>Color</th>
                         <th>Size</th>
@@ -152,20 +148,19 @@
                         <th>Base Price</th>
                         <th>Customization Fee</th>
                         <th>Total Price</th>
-                        <!-- <th>Adress</th> -->
                         <th>Status</th>
-                        <!-- <th>Requested at</th> -->
                         <th>Action</th>
                     </tr>
 
                     @foreach ($quote as $quotes)
                     <tr>
+                        <td>{{$quotes->id}}</td>
                         <td><img width="120" src="/products/{{$quotes->product->image}}" alt=""></td>
                         <td>{{$quotes->product->title}}</td>
                         <td>
                             @php
                             $colorName = $quotes->color;
-                            $colorCode = isset($colorMapping[$colorName]) ? $colorMapping[$colorCode] : 'Unknown Color';
+                            $colorCode = isset($colorMapping[$colorName]) ? $colorMapping[$colorName] : 'Unknown Color';
                             @endphp
                             <div style="display: flex; align-items: center;" class="itemcenter">
                                 <span style="display: inline-block; width: 20px; height: 20px; background-color: {{$colorName}}; border: 1px solid #000; margin-right: 5px;"></span>
@@ -177,16 +172,12 @@
                         <td>{{$quotes->base_price}}</td>
                         <td>{{$quotes->add_price}}</td>
                         <td>{{$quotes->total_price}}</td>
-                        <!-- <td>{{$quotes->address}}</td> -->
                         <td>{{$quotes->status}}</td>
-                        <!-- <td>{{$quotes->created_at}}</td> -->
-                        <form action="{{url('add_custom_cart', $quotes->id)}}" method="post">
-                        <td>
-                            <!-- <a href="{{url('quotation_detail', $quotes->id)}}" class="btn btn-secondary">Details</a></br> -->
-                            <button type="submit" class="btn btn-primary">Add Cart</button>
-                        </td>
+                        <form action="{{url('add_custom_cart', $quotes->id)}}" method="get">
+                            <td>
+                                <button type="submit" class="btn btn-primary">Add Cart</button>
+                            </td>
                         </form>
-                        
                     </tr>
 
                     @endforeach
@@ -197,7 +188,6 @@
                 {{$quote->onEachSide(1)->links()}}
             </div>
         </div>
-
         @else
         <div>
             <h5 class="shadowtxt">There is no request</h5>
@@ -223,7 +213,7 @@
         }
 
         // Default open tab
-        document.getElementById("transaction-history").style.display = "block";
+        document.getElementById("customization-request").style.display = "block";
     </script>
 </body>
 

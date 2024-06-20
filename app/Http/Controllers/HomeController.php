@@ -144,26 +144,23 @@ public function add_cart($id){
 //product details add_cart
     public function add_cart2(Request $request, $id){
         $product_id = $id;
-
          // below commented ===
          $product = Product::find($id);
         
         $user = Auth::user(); //user logged in only, get user data , store in $user
         $user_id = $user->id; //store in id user_id
 
-        // $color = $request->input('color');
-        // $size = $request->input('size');
-        // $quantity = $request->input('quantity',1); //default qunat 1
-        
+      
         $color = $request->color;
         $size = $request->size;
         $quantity = $request->quantity;
-
+        $quote_id =
 
         $existedcart = Cart::where('user_id', $user_id)
         ->where('product_id', $product_id)
         ->where('color', $color)
         ->where('size', $size)
+        ->where('quote_id', null) ///added so custom cart
         ->first();
 
         if ($existedcart) {
@@ -218,6 +215,12 @@ public function add_cart($id){
     public function delete_cart($id)
     {
         $data = Cart::find($id);
+        if($data->quote_id !== null){
+            $quote = Quotation::find($data->quote_id);
+            //mark that this one has quotation, so change status if remove from cart, use in history/myorder
+            $quote->status = "Completed";
+            $quote->save();
+        }
         $data->delete();
 
         toastr()->timeOut(5000)->closeButton()->addSuccess('Item has been removed from cart'); //previously commented
@@ -387,45 +390,47 @@ public function add_cart($id){
         return redirect()->route('home');
     }
 
-    public function add_custom_cart(Request $request, $id){
+    public function add_custom_cart($id){
         $quote_id = $id;
 
          // below commented ===
          $quote = Quotation::find($id);
+         $product_id = $quote->product_id;
         
         $user = Auth::user(); //user logged in only, get user data , store in $user
         $user_id = $user->id; //store in id user_id
 
-        $color = $request->color;
-        $size = $request->size;
-        $quantity = $request->quantity;
+        // $existedcart = Cart::where('user_id', $user_id)
+        // ->where('product_id', $product_id)
+        // ->where('color', $color)
+        // ->where('size', $size)
+        // ->first();
 
-        $existedcart = Cart::where('user_id', $user_id)
-        ->where('product_id', $product_id)
-        ->where('color', $color)
-        ->where('size', $size)
-        ->first();
+        // if ($existedcart) {
+        //     $existedcart->quantity += $quantity;
+        //     // $existedcart->quantity += 1; //original
 
-        if ($existedcart) {
-            $existedcart->quantity += $quantity;
-            // $existedcart->quantity += 1; //original
+        //     // below is commented ====
+        //     $existedcart->total_price = $existedcart->quantity * $product->price;
 
-            // below is commented ====
-            $existedcart->total_price = $existedcart->quantity * $product->price;
-
-            $existedcart->save();
-        } else {
+        //     $existedcart->save();
+        // } else {
             $data = new Cart;
             $data->user_id = $user_id;
             $data->product_id = $product_id;
-            $data->color = $color;
-            $data->size = $size;
-            $data->quantity = $quantity; // Default quantity to 1
-            $data->total_price = $product->price * $quantity;
+            $data->quote_id = $quote_id;
+            $data->color = $quote->color;
+            $data->size = $quote->size;
+            $data->quantity = $quote->quantity; // Default quantity to 1
+            $data->total_price = $quote->base_price + $quote->add_price;
             $data->save();
-        }
+        // }
+        
 
         toastr()->timeOut(5000)->closeButton()->addSuccess('Product added to cart successfully');
+        //mark that this one has quotation, so change status if remove from cart, use in history/myorder
+        $quote->status = "Completed - In Cart";
+        $quote->save();
 
         return redirect()->back();
     }

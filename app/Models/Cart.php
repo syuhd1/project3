@@ -21,4 +21,9 @@ class Cart extends Model
         //return prod id to cart on mycart.php
         return $this->hasOne('App\Models\Product','id','product_id');
     }
+
+    public function quotation(){
+        //return prod id to cart on mycart.php
+        return $this->hasOne('App\Models\Quotation','id','quote_id');
+    }
 }

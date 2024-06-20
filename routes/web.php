@@ -90,11 +90,12 @@ route::get('product_details/{id}', [HomeController::class,'product_details']);
 route::get('add_cart/{id}', [HomeController::class,'add_cart'])->middleware(['auth', 'verified']); //for direct add cart homee
 route::post('add_cart2/{id}', [HomeController::class,'add_cart2'])->middleware(['auth', 'verified']);  //user login
 // route::get('add_cart/{id}/{color}/{size}/{quantity}', [HomeController::class,'add_cart'])->middleware(['auth', 'verified']); //for direct add cart homee
+
+// quotation
 route::post('request_quote/{id}', [HomeController::class,'request_quote'])->middleware(['auth', 'verified'])->name('request_quote');
 route::post('send_quote/{id}', [HomeController::class,'send_quote'])->middleware(['auth', 'verified']);
-
-
-
+route::get('add_custom_cart/{id}', [HomeController::class,'add_custom_cart'])->middleware(['auth', 'verified']);  //user login
+// 
 route::get('home_search', [HomeController::class,'home_search'])->middleware(['auth','verified']);
 
 route::get('mycart', [HomeController::class,'mycart'])->middleware(['auth', 'verified']);; 
@@ -104,8 +105,7 @@ route::post('update_cart/{id}', [HomeController::class,'update_cart'])->middlewa
 route::get('checkout/{id}/{price}', [HomeController::class,'checkout'])->middleware(['auth','verified']);
 route::post('confirm_order/{id}', [HomeController::class,'confirm_order'])->middleware(['auth','verified'])->name('confirm_order');
 
-// quotation
-route::post('add_custom_cart/{id}', [HomeController::class,'add_cart2'])->middleware(['auth', 'verified']);  //user login
+
 
 
 // stripe

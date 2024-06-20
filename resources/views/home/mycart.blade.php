@@ -66,6 +66,7 @@
                 <th>Size</th>
                 <th>Price</th>
                 <th>Quantity</th>
+                <th>Customization</th>
                 <th>Remove</th>
             </tr>
 
@@ -90,7 +91,13 @@
                     </div>
                 </td>
                 <td>{{$carts->size}}</td>
-                <td>{{$carts->product->price}}</td>
+                <td>
+                @if($carts->quote_id == null)
+                    {{$carts->product->price}}
+                @else
+                    {{$carts->product->price + $carts->quotation->add_price}}
+                @endif
+                </td>
                 <!-- <td>{{$carts->quantity}}</td> -->
                 <td>
                     <div class="quantity-wrapper">
@@ -101,6 +108,13 @@
                                 <button type="button" class="btn-increment" data-id="{{$carts->id}}">+</button>
                             </form>
                     </div>
+                </td>
+                <td>
+                    @if ($carts->quote_id !== null)
+                    <a href="{{url('myorders')}}">Quotation ID: {{$carts->quote_id}}</a>
+                    @else
+                    None
+                    @endif
                 </td>
                 <td>
                     <a class="btn btn-danger" href="{{url('delete_cart', $carts->id)}}">Remove</a>
@@ -124,7 +138,7 @@
         <h4>Total Price: RM {{$value}}</h4>
         <!-- didnt add url in web.php -->
         <span>
-            <a class ="btn btn-primary" href="{{route('request_quote', ['id' => $carts->id, 'price'=> $value])}}">Request Quote</a>
+            <!-- <a class ="btn btn-primary" href="{{route('request_quote', ['id' => $carts->id, 'price'=> $value])}}">Request Quote</a> -->
         </span>
         <span>
             <a class ="btn btn-success" href="{{url('checkout/{id}', ['price'=> $value])}}">Checkout</a>
