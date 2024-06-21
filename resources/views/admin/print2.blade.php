@@ -9,20 +9,6 @@
             background-color: white;
         }
 
-        .company-info {
-            border: 4px solid black;
-            margin-bottom: 20px;
-            padding: 20px;
-        }
-
-        .company-info h2 {
-            margin: 0;
-        }
-
-        .company-info p {
-            margin: 5px 0;
-        }
-
         .table-container {
             width: 100%;
             overflow-x: auto;
@@ -44,40 +30,18 @@
         }
 
         th {
-            background-color: skyblue;
+            background-color: #f2f2f2;
         }
 
         img {
             max-width: 100%;
             height: auto;
         }
-
-        .summary {
-            border: 4px solid black;
-            padding: 20px;
-            text-align: center;
-            font-size: 14px;
-            margin-top: 20px;
-            font-weight: bold;
-        }
-
-        .summary span {
-            margin: 5px 0;
-        }
     </style>
 </head>
 
 <body>
-
-    <div class="company-info">
-        <h2>T-Hub: Shirt Printing Service System</h2>
-        <p>Persiaran Tun Dr. Ismail, 86400 Parit Raja, Johor</p>
-        <p>Phone:  012-34567890</p>
-        <p>Email: thub001@gmail.com</p>
-        <p>Website: https://t-hub.xyz </p>
-
-    </div>
-    <h3>Order History Report</h3>
+    <h1>Order History Report</h1>
     
     <div class="table-container">
         <table>
@@ -94,12 +58,7 @@
                 <th>Order Time</th>
                 <th>Updated At</th>
             </tr>
-            @php
-                $income = 0; $count = 0; $quantity = 0;
-            @endphp
-
-            @foreach ($data as $order)
-            
+            @foreach ($orders as $order)
             <tr>
                 <td><img width="60" src="{{ public_path('products/'.$order->product->image) }}" alt=""></td>
                 <td>{{ $order->product->title }}</td>
@@ -119,28 +78,8 @@
                 <td>{{ $order->created_at }}</td>
                 <td>{{ $order->updated_at }}</td>
             </tr>
-
-            @php
-                $income = $income + $order->total_price;
-                $count++ ;
-                $quantity = $quantity + $order->quantity;
-                $income= number_format($income,2,'.','');
-            @endphp
-
             @endforeach
         </table>
-    </div>
-
-    <div class="summary" >
-            <span>
-                Total income: RM{{$income}}     |  
-            </span>
-            <span>
-                Total orders: {{$count}}     |  
-            </span>
-            <span>
-                Total quantity sold: {{$quantity}} 
-            </span>
     </div>
 </body>
 

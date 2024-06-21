@@ -50,6 +50,17 @@
         .hidden {
             display: none;
         }
+        .dropdown-container {
+            display: flex;
+            align-items: center;
+        }
+        .dropdown-container select {
+            margin-right: 10px;
+            padding: 5px;
+        }
+        .dropdown-container button {
+            padding: 5px 10px;
+        }
     </style>
 </head>
 <body>
@@ -61,15 +72,29 @@
                 <h2>Generate Report</h2>
                 <div class="col-lg-12">
                     <div class="block">
-                        <div class="div_deg">
+                        <!-- <div class="div_deg">
                             <form action="{{ url('order_search') }}" method="get" class="top-left">
                                 @csrf
                                 <input type="search" name="search" placeholder="Search..." />
                                 <input type="submit" class="btn btn-secondary" value="Search" />
                             </form>
-                        </div>
+                        </div> -->
                         <div class="table-responsive">
-                            <table class="table table-striped table-hover table_deg">
+                        <div class="div_deg dropdown-container">
+                            <form action="{{ url('print_pdf') }}" method="get">
+                                @csrf
+                                <label for="">Please select time range : </label>
+                                <select name="timeline">
+                                    <option value="today">Today</option>
+                                    <option value="last_7_days">Last 7 Days</option>
+                                    <option value="this_month">This Month</option>
+                                    <option value="all_time">All Time</option>
+                                </select>
+                                <button type="submit" class="btn btn-success">Generate Report</button>
+                            </form>
+                        </div>
+
+                            <!-- <table class="table table-striped table-hover table_deg">
                                 <thead>
                                     <tr>
                                         <th>ID</th>
@@ -92,10 +117,16 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                            
                         </div>
+                        
                         <div class="div_deg pagination-wrapper">
                             {{ $data->onEachSide(1)->links() }}
-                        </div>
+                        </div> -->
+
+                        <!-- <div>
+                                <a class="btn btn-success" href="{{url('print2')}}">Print2</a>
+                        </div>  -->
                     </div>
                 </div>
             </div>

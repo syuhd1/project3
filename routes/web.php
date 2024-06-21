@@ -75,11 +75,11 @@ route::get('quotation_search', [AdminController::class,'quotation_search'])->mid
 
 //report
 route::get('generate_report', [AdminController::class,'generate_report'])->middleware(['auth','admin']);
-route::get('print_pdf/{id}', [AdminController::class,'print_pdf'])->middleware(['auth','admin']);
+route::get('print_pdf', [AdminController::class,'print_pdf'])->middleware(['auth','admin']);
+// route::get('print_pdf/{id}', [AdminController::class,'print_pdf'])->middleware(['auth','admin']);
 route::get('view_pdf/{id}', [AdminController::class,'print_pdf'])->middleware(['auth','admin']);
 // test, delete later below
 route::get('print2', [AdminController::class,'print2'])->middleware(['auth','admin']);
-
 
 
 //test for staff , add 28/5 auth

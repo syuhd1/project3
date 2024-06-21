@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 //add every model here
 use App\Models\Product;
@@ -11,38 +12,45 @@ use App\Models\Order;
 use App\Models\Report;
 use App\Models\Quotation;
 
+
 use Barryvdh\DomPDF\Facade\Pdf;
+// use Barryvdh\DomPDF\Facade as PDF;
+use Carbon\Carbon;
 
 class AdminController extends Controller
 {
     //
     public function view_category()
     {
-        return view('admin.category');
+        $identity = Auth::user();
+        return view('admin.category', compact('identity'));
         //under resource>view>admin>category.blade.php
     }
 
     public function manage_product()
     {
+        $identity = Auth::user();
         //call product data from db, compact product is how to call it
         // $product = product::all(); //display all from db in 1 page
         //paginate limit to numbers of item per page
         $product = Product::paginate(6);
-        return view('admin.manage_product',compact('product'));
+        return view('admin.manage_product',compact('product','identity'));
     }
 
     public function add_product()
     {
-        return view('admin.add_product');
+        $identity = Auth::user();
+        return view('admin.add_product','identity');
     }
 
     public function product_search(Request $request)
     {
+        $identity = Auth::user();
         $search = $request->search;
         $product = Product::where('title', 'LIKE', '%'.$search.'%')
         ->orWhere('id', 'LIKE', '%'.$search.'%')->orWhere('category', 'LIKE', '%'.$search.'%')
         ->orWhere('material', 'LIKE', '%'.$search.'%')->paginate(6);
-        return view('admin.manage_product',compact('product'));
+        return view('admin.manage_product',compact('product','identity'));
     }
 
     public function upload_product(Request $request)
@@ -76,8 +84,9 @@ class AdminController extends Controller
 
     public function update_product($id)
     {
+        $identity = Auth::user();
         $data = Product::find($id);
-        return view('admin.update_product',compact('data'));
+        return view('admin.update_product',compact('data','identity'));
     }
 
     public function edit_product(Request $request, $id){
@@ -125,17 +134,20 @@ class AdminController extends Controller
 
     public function manage_profile()
     {
+        $identity = Auth::user();
         return view('admin.manage_profile');
     }
 
     public function manage_order()
     {
+        $identity = Auth::user();
         $data = Order::orderBy('created_at', 'desc')->paginate(6);
-        return view('admin.manage_order', compact('data'));
+        return view('admin.manage_order', compact('data','identity'));
     }
 
     public function update_order(Request $request, $id)
     {
+        $identity = Auth::user();
         $order = Order::find($id);
         $order->status = $request->status;
         $order->save();
@@ -149,14 +161,16 @@ class AdminController extends Controller
 // start quotation
 public function manage_quotation()
     {
+        $identity = Auth::user();
         $data = Quotation::orderBy('created_at', 'desc')->paginate(6);
-        return view('admin.manage_quotation', compact('data'));
+        return view('admin.manage_quotation', compact('data','identity'));
     }
 
     public function update_quotation($id)
     {
+        $identity = Auth::user();
         $data = Quotation::find($id);
-        return view('admin.update_quotation',compact('data'));
+        return view('admin.update_quotation',compact('data','identity'));
     }
 
     public function upload_quotation(Request $request, $id)
@@ -177,13 +191,15 @@ public function manage_quotation()
 
     public function manage_staff()
     {
+        $identity = Auth::user();
         $staff = Staff::paginate(6);
-        return view('admin.manage_staff',compact('staff'));
+        return view('admin.manage_staff',compact('staff','identity'));
     }
 
     public function add_staff()
     {
-        return view('admin.add_staff');
+        $identity = Auth::user();
+        return view('admin.add_staff','identity');
     }
 
     public function upload_staff(Request $request)
@@ -219,8 +235,9 @@ public function manage_quotation()
 
     public function update_staff($id)
     {
+        $identity = Auth::user();
         $data = Staff::find($id);
-        return view('admin.update_staff', compact('data'));
+        return view('admin.update_staff', compact('data','identity'));
     }
 
     public function edit_staff(Request $request, $id)
@@ -271,6 +288,7 @@ public function manage_quotation()
 
     public function staff_search(Request $request)
     {
+        $identity = Auth::user();
         $search = $request->search;
         $staff = Staff::where('name', 'LIKE', '%'.$search.'%')
             ->orWhere('address', 'LIKE', '%'.$search.'%')
@@ -278,7 +296,7 @@ public function manage_quotation()
             ->orWhere('id', 'LIKE', '%'.$search.'%')
             ->paginate(6);
 
-        return view('admin.manage_staff', compact('staff'));
+        return view('admin.manage_staff', compact('staff','identity'));
     }
 
 // end staff manage
@@ -287,14 +305,37 @@ public function manage_quotation()
 
     public function generate_report()
     {
+        $identity = Auth::user();
         $data = Report::paginate(8);
-        return view('admin.generate_report', compact('data'));
+        return view('admin.generate_report', compact('data','identity'));
     }
 
-    public function print_pdf($id){
+    public function print_pdf(Request $request){
 
-        $data = Report::find($id);
-       
+        // $data = Report::find($id);
+        $identity = Auth::user();
+        $timeline = $request->input('timeline');
+        $query = Order::query();
+
+        switch ($timeline) {
+            case 'today':
+                $query->whereDate('created_at', Carbon::today());
+                break;
+            case 'last_7_days':
+                $query->whereDate('created_at', '>=', Carbon::now()->subDays(7));
+                break;
+            case 'this_month':
+                $query->whereMonth('created_at', Carbon::now()->month)
+                    ->whereYear('created_at', Carbon::now()->year);
+                break;
+            case 'all_time':
+            default:
+                // No additional filtering
+                break;
+        }
+
+        $data = $query->get();
+        
         $pdf = Pdf::loadView('admin.print_report', compact('data'));
         return $pdf->download('report.pdf');
 
@@ -309,11 +350,29 @@ public function manage_quotation()
     }
 //delete later
     public function print2(){
+        $orders = Order::all();
 
-        $data = Order::all();
-        $pdf = Pdf::loadView('admin.print2', compact('data'));
-        return $pdf->download('test.pdf');
+        // $data = Order::query();
+
+        // if ($request->has('month')) {
+        //     $data->whereMonth('created_at', $request->month)
+        //           ->whereYear('created_at', $request->year);
+        // }
+
+        // $orders = $data->get();
+
+        // // Prepare data for the view
+        // $data = [
+        //     'orders' => $orders,
+        //     'month' => $request->month,
+        //     'year' => $request->year
+        // ];
+
+        $pdf = Pdf::loadView('admin.print2', compact('orders'));
+        return $pdf->download('testingreport.pdf');
+
     }
+
 
     // public function print_pdf($id){
 
