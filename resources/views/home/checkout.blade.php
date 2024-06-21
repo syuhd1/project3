@@ -172,13 +172,26 @@
                             </form>
                     </div> -->
                 </td>
+                <td>
+                    @if ($carts->quote_id !== null)
+                    <a href="{{url('myorders')}}">Quotation ID: {{$carts->quote_id}}</a>
+                    @else
+                    None
+                    @endif
+                </td>
                 <!-- <td>
                     <a class="btn btn-danger" href="{{url('delete_cart', $carts->id)}}">Remove</a>
                 </td> -->
             </tr>
 
             <?php 
-                $value = $value + ($carts->product->price * $carts->quantity);
+                if($carts->quote_id == null){
+                    $value = $value + ($carts->product->price * $carts->quantity);
+                }else{
+                    $value = $value + ($carts->total_price * $carts->quantity);
+                }
+
+                $value = number_format($value,2,'.','');
             ?>
             @endforeach
         </table>

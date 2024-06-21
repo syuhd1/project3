@@ -87,6 +87,7 @@
                         <th>Color</th>
                         <th>Size</th>
                         <th>Quantity</th>
+                        <th>Customization</th>
                         <th>Total Price</th>
                         <th>Address</th>
                         <th>Status</th>
@@ -110,6 +111,13 @@
                         </td>
                         <td>{{$orders->size}}</td>
                         <td>{{$orders->quantity}}</td>
+                        <td>
+                            @if ($orders->quote_id !== null)
+                            <a href="{{url('myorders')}}">Quotation ID: {{$carts->quote_id}}</a>
+                            @else
+                            None
+                            @endif
+                        </td>
                         <td>{{$orders->total_price}}</td>
                         <td>{{$orders->address}}</td>
                         <td>{{$orders->status}}</td>
@@ -170,12 +178,28 @@
                         <td>{{$quotes->size}}</td>
                         <td>{{$quotes->quantity}}</td>
                         <td>{{$quotes->base_price}}</td>
-                        <td>{{$quotes->add_price}}</td>
-                        <td>{{$quotes->total_price}}</td>
+                        <td>
+                            @if ($quotes->add_price !== null)
+                            {{$quotes->add_price}}
+                            @else
+                            To be updated
+                            @endif
+                        </td>
+                        <td>
+                            @if ($quotes->total_price !== null)
+                                {{$quotes->total_price}}
+                            @else
+                                To be updated
+                            @endif
+                        </td>
                         <td>{{$quotes->status}}</td>
                         <form action="{{url('add_custom_cart', $quotes->id)}}" method="get">
                             <td>
+                            @if ($quotes->add_price !== null && $quotes->status== "Completed" )
                                 <button type="submit" class="btn btn-primary">Add Cart</button>
+                            @else
+                                -
+                            @endif
                             </td>
                         </form>
                     </tr>

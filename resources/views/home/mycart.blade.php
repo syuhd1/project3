@@ -122,7 +122,13 @@
             </tr>
 
             <?php 
-                $value = $value + ($carts->product->price * $carts->quantity);
+                if($carts->quote_id == null){
+                    $value = $value + ($carts->product->price * $carts->quantity);
+                }else{
+                    $value = $value + ($carts->total_price * $carts->quantity);
+                }
+
+                $value = number_format($value,2,'.','');
             ?>
             @endforeach
         </table>
