@@ -113,7 +113,7 @@
                         <td>{{$orders->quantity}}</td>
                         <td>
                             @if ($orders->quote_id !== null)
-                            <a href="{{url('myorders')}}">Quotation ID: {{$carts->quote_id}}</a>
+                            <a href="{{url('myorders')}}">Quotation ID: {{$orders->quote_id}}</a>
                             @else
                             None
                             @endif

@@ -95,7 +95,7 @@
                 @if($carts->quote_id == null)
                     {{$carts->product->price}}
                 @else
-                    {{$carts->product->price + $carts->quotation->add_price}}
+                    {{$carts->base_price}}
                 @endif
                 </td>
                 <!-- <td>{{$carts->quantity}}</td> -->
@@ -125,7 +125,7 @@
                 if($carts->quote_id == null){
                     $value = $value + ($carts->product->price * $carts->quantity);
                 }else{
-                    $value = $value + ($carts->total_price * $carts->quantity);
+                    $value = $value + ($carts->base_price * $carts->quantity);
                 }
 
                 $value = number_format($value,2,'.','');

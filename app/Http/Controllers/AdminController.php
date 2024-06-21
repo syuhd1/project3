@@ -165,6 +165,7 @@ public function manage_quotation()
         $addprice = $request->add_price;
         $quote->add_price = $addprice;
         $quote->total_price = ($addprice + $quote->product->price) * $quote->quantity;
+        $quote->status = "Completed";
         $quote->save();
 
         toastr()->timeOut(5000)->closeButton()->addSuccess('Fee updated successfully');

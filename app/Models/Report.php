@@ -22,5 +22,9 @@ class Report extends Model
     public function order(){
         return $this->hasOne('App\Models\Order', 'id','order_id');
     }
+
+    public function cart(){
+        return $this->hasOne('App\Models\Cart', 'id','cart_id');
+    }
     
 }

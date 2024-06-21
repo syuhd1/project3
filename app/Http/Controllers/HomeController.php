@@ -154,7 +154,7 @@ public function add_cart($id){
         $color = $request->color;
         $size = $request->size;
         $quantity = $request->quantity;
-        $quote_id =
+        // $quote_id =
 
         $existedcart = Cart::where('user_id', $user_id)
         ->where('product_id', $product_id)
@@ -178,6 +178,8 @@ public function add_cart($id){
             $data->color = $color;
             $data->size = $size;
             $data->quantity = $quantity; // Default quantity to 1
+            // bellow commented
+            $data->base_price = $product->price;
             $data->total_price = $product->price * $quantity;
             $data->save();
         }
@@ -263,7 +265,7 @@ public function add_cart($id){
         $address = $request->address;
         $price = $request->price;
         // $paymentmethod = $request->paymentmethod;
-        // shipmethod = $request->shipmethod;
+        $delivery_method = $request->delivery_method;
         // $address = $request->address;
 
 
@@ -279,11 +281,12 @@ public function add_cart($id){
             $order->user_id = $userid;
 
             $order->product_id = $carts->product_id;
+            $order->quote_id = $carts->quote_id;
             $order->quantity = $carts->quantity;
             $order->color = $carts->color;
             $order->size = $carts->size;
-            // $order->price = $carts->price;
-            $order->price = $carts->product->price * $carts->quantity;
+            $order->price = $carts->base_price;
+            $order->total_price = $carts->total_price;
 
             $order->save();
         }
@@ -422,14 +425,15 @@ public function add_cart($id){
             $data->color = $quote->color;
             $data->size = $quote->size;
             $data->quantity = $quote->quantity; // Default quantity to 1
-            $data->total_price = $quote->base_price + $quote->add_price;
+            $data->base_price = $quote->base_price + $quote->add_price;
+            $data->total_price = ($quote->base_price + $quote->add_price) * $quote->quantity;
             $data->save();
         // }
         
 
         toastr()->timeOut(5000)->closeButton()->addSuccess('Product added to cart successfully');
         //mark that this one has quotation, so change status if remove from cart, use in history/myorder
-        $quote->status = "Completed - In Cart";
+        $quote->status = "Completed - Added to Cart";
         $quote->save();
 
         return redirect()->back();
@@ -459,14 +463,12 @@ public function add_cart($id){
     }
 
     public function stripePost(Request $request, $value)
-
     {
+        // try{
+            \Log::info('Stripe Request Data:', $request->all()); // Log request data
+            Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
 
-        Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
-
-    
-
-        Stripe\Charge::create ([
+            Stripe\Charge::create ([
 
                 "amount" => $value * 100,
 
@@ -476,77 +478,58 @@ public function add_cart($id){
 
                 "description" => "Test payment from itsolutionstuff.com." 
 
-        ]);
+            ]);
 
-        // $cart = Cart::find($id);
-        
-        $name = Auth::user()->name;
+             $name = Auth::user()->name;
             $phone = Auth::user()->phone;
             $address = Auth::user()->address;
+            //     $name = $request->name;
+            // $phone = $request->phone;
+            // $address = $request->address;
             $remarks = $request->remarks;
             $delivery_method = $request->delivery_method;
 
-            // $delivery_fee = $request->delivery_fee;
-
             $userid = Auth::user()->id;
             $cart = Cart::where('user_id', $userid)->get();
-    
-            foreach($cart as $carts){
-                $order = new Order;
-                $order->name =$name;
-                $order->phone =$phone;
-                $order->address =$address;
-    
-            //     // same as above, just direct request t
-            //     $order = new Order;
-            //     $order->name =$request->name;
-            //     $order->phone =$request->phone;
-            //     $order->address =$request->address;
-            //     // end of above, comment later
 
+            foreach($cart as $carts) {
+                $order = new Order;
+                $order->name = $name;
+                $order->phone = $phone;
+                $order->address = $address;
                 $order->user_id = $userid;
-    
                 $order->product_id = $carts->product_id;
+
+                if ($carts->quote_id !== null) {
+                    $order->quote_id = $carts->quote_id;
+                }
+
                 $order->quantity = $carts->quantity;
                 $order->color = $carts->color;
                 $order->size = $carts->size;
                 $order->delivery_method = $delivery_method;
-
-                // $order->price = $price;
-                // $order->shipping_fee = $delivery_fee;
-                // $order->shipping_fee =$request->delivery-fee;
-                $order->total_price = $value;
-
-                // $order->total_price = $carts->product->price * $carts->quantity;
+                $order->price = $carts->base_price;
+                $order->total_price = $carts->total_price;
                 $order->payment_method = "Stripe Payment";
-
                 $order->remarks = $remarks;
 
-
-                // $order->price = $carts->price;
-                // $order->price = $carts->product->price * $carts->quantity;
-    
                 $order->save();
             }
+
             $removecart = Cart::where('user_id', $userid)->get();
-            foreach ($removecart as $remove){
+            foreach ($removecart as $remove) {
                 $data = Cart::find($remove->id);
                 $data->delete();
             }
-            
-            toastr()->timeOut(5000)->closeButton()->addSuccess('Order has been placed successfully');
-    
-            // return redirect()->route('home');
-            return redirect()->back();
 
-                
-        // return back()->with('success', 'Payment has been successful');
+            return back()->with('success', 'Payment has been successful');
+            // toastr()->timeOut(5000)->closeButton()->addSuccess('Order has been placed successfully');
+            // return redirect()->back();
+        // } catch (\Exception $e) {
+        //     \Log::error('Stripe Payment Error:', ['error' => $e->getMessage()]);
+        //     return redirect()->back()->withErrors('Payment failed. Please try again.');
+        // }
     }
-        // Session::flash('success', 'Payment successful!');
-
-              
-
-        // return back();
 }
 
     

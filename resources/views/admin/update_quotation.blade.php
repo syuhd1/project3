@@ -143,6 +143,7 @@
                             <th>Description</th>
                             <th>Deadline</th>
                             <th>Reference</th>
+                            <th>Status</th>
                             <th>Customization </br>Fee(1 pcs)</th>
                             <th>Total Value (RM)</th>
                             <th>Updated At</th>
@@ -154,7 +155,15 @@
                             <td>{{ $data->id }}</td>
                             <td>{{ $data->description }}</td>
                             <td>{{ $data->deadline}}</td>
-                            <td>{{ $data->reference }}</td>
+                            <td>
+                            @if(!empty($data->reference))
+                                <a href="{{ url('references/' . $data->reference) }}" target="_blank">{{ $data->reference }}</a>
+                            @else
+                                No Reference
+                            @endif
+                                <!-- {{ $data->reference }} -->
+                            </td>
+                            <td>{{ $data->status }}</td>
                             <td>{{ $data->add_price }}</td>
                             <td>{{ $data->total_price }}</td>
                             <td>{{$data->updated_at}}</td>

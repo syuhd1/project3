@@ -188,6 +188,8 @@
 
             <?php 
                 $value = $value + ($product->price * $quantity);
+                $value = number_format($value,2,'.','');
+
             ?>
           
         </table>

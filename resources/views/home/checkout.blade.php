@@ -159,7 +159,7 @@
                     </div>
                 </td>
                 <td>{{$carts->size}}</td>
-                <td>{{$carts->product->price}}</td>
+                <td>{{$carts->base_price}}</td>
                 <!-- <td>{{$carts->quantity}}</td> -->
                 <td>
                     {{$carts->quantity}}
@@ -188,7 +188,7 @@
                 if($carts->quote_id == null){
                     $value = $value + ($carts->product->price * $carts->quantity);
                 }else{
-                    $value = $value + ($carts->total_price * $carts->quantity);
+                    $value = $value + ($carts->base_price * $carts->quantity);
                 }
 
                 $value = number_format($value,2,'.','');
@@ -203,40 +203,40 @@
 
   <!-- new row -->
   <div class="orderdeg">
-      <form action="{{url('stripe', $value)}}" method="Post" id="payment-form">
+      <form action="{{url('stripe', $value)}}" method="POST" id="payment-form">
           @csrf
           <div class="input_deg">
               <label for="">Name:</label>
-              <input type="text" name="name" value="{{Auth::user()->name}}">
+              <input type="text" name="name" id="name" value="{{Auth::user()->name}}">
           </div>
 
           <div class="input_deg">
               <label for="">Phone:</label>
-              <input type="text" name="phone" value="{{Auth::user()->phone}}">
+              <input type="text" name="phone" id="phone" value="{{Auth::user()->phone}}">
           </div>
 
           <div class="input_deg">
               <label for="">Address:</label>
-              <textarea name="address" id="">{{Auth::user()->address}}</textarea>
+              <textarea name="address" id="address">{{Auth::user()->address}}</textarea>
           </div>
 
-          <div class="input_deg">
+          <!-- <div class="input_deg">
               <label for="">Remarks:</label>
               <textarea name="remarks" id="remarks"></textarea>
-          </div>
+          </div> -->
 
-          <div class="input_deg">
+          <!-- <div class="input_deg">
             <label for="">Delivery Method:</label>
             <div>
                 <input type="radio" id="delivery" name="delivery_method" value="delivery" checked >
                 <label for="delivery">Delivery</label>
-            </div>
+            </div> -->
             <!--onclick="updateDeliveryFee()" -->
-            <div>
+            <!-- <div>
                 <input type="radio" id="pickup" name="delivery_method" value="pickup">
                 <label for="pickup">Pickup from Shop</label>
             </div>
-          </div>
+          </div> -->
 
         <!-- <div>
             <label for="">Delivery Fee:</label>
@@ -245,9 +245,11 @@
 
           
           <input type="hidden" name="price" value="{{$price}}">
+          <input type="hidden" name="delivery_m" id="delivery_method_hidden" value="">
+
           <!-- <input type="hidden" name="delivery_fee" id="delivery_fee_hidden" value="15"> -->
                 
-          <!-- <input type="hidden" name="stripeToken" id="stripeToken"> -->
+          <input type="hidden" name="stripeToken" id="stripeToken">
           <div>
             <span>
             <button class="btn btn-danger" type="button" onclick="window.history.back()">Cancel</button>
@@ -272,6 +274,42 @@
 <!-- scripts -->
 <script src="https://js.stripe.com/v3/"></script>
 <script>
+function updateDeliveryMethod() {
+            // var deliveryMethodElement = document.getElementById('delivery-method');
+            var deliveryMethodHiddenElement = document.getElementById('delivery_method_hidden');
+            var deliveryMethod = document.querySelector('input[name="delivery_method"]:checked').value;
+            
+            if (deliveryMethod === 'delivery') {
+                // deliveryMethodElement.textContent = 'RM15';
+                deliveryMethodHiddenElement.value = 'Delivery';
+            } else {
+                // deliveryMethodElement.textContent = 'RM0';
+                deliveryMethodHiddenElement.value = 'Pick Up';
+            }
+        }
+</script>
+<script>
+    var stripe = Stripe('{{ env('STRIPE_KEY') }}');
+    var elements = stripe.elements();
+    var card = elements.create('card');
+    card.mount('#card-element');
+
+    var form = document.getElementById('payment-form');
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+        stripe.createToken(card).then(function(result) {
+            if (result.error) {
+                // Display error.message in your UI
+                console.error(result.error.message);
+            } else {
+                // Send the token to your server
+                document.getElementById('stripeToken').value = result.token.id;
+                form.submit();
+            }
+        });
+    });
+</script>
+<script>
 function updateDeliveryFee() {
             var deliveryFeeElement = document.getElementById('delivery-fee');
             var deliveryFeeHiddenElement = document.getElementById('delivery_fee_hidden');
@@ -286,105 +324,6 @@ function updateDeliveryFee() {
             }
         }
 </script>
-<!-- <script>
-      var stripe = Stripe('{{ env('STRIPE_KEY') }}');
-      var elements = stripe.elements();
-
-      var style = {
-          base: {
-              color: '#32325d',
-              lineHeight: '18px',
-              fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-              fontSmoothing: 'antialiased',
-              fontSize: '16px',
-              '::placeholder': {
-                  color: '#aab7c4'
-              }
-          },
-          invalid: {
-              color: '#fa755a',
-              iconColor: '#fa755a'
-          }
-      };
-
-      var card = elements.create('card', { style: style });
-      card.mount('#card-element');
-
-      card.addEventListener('change', function(event) {
-          var displayError = document.getElementById('card-errors');
-          if (event.error) {
-              displayError.textContent = event.error.message;
-          } else {
-              displayError.textContent = '';
-          }
-      });
-
-      var form = document.getElementById('payment-form');
-      form.addEventListener('submit', function(event) {
-          event.preventDefault();
-
-          stripe.createToken(card).then(function(result) {
-              if (result.error) {
-                  var errorElement = document.getElementById('card-errors');
-                  errorElement.textContent = result.error.message;
-              } else {
-                  document.getElementById('stripeToken').value = result.token.id;
-                  form.submit();
-              }
-          });
-      });
-  </script> -->
-
-<!-- prev -->
-<!-- <script>
-    var stripe = Stripe('{{ env('STRIPE_KEY') }}');
-    var elements = stripe.elements();
-
-    var style = {
-        base: {
-            color: '#32325d',
-            lineHeight: '18px',
-            fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-            fontSmoothing: 'antialiased',
-            fontSize: '16px',
-            '::placeholder': {
-                color: '#aab7c4'
-            }
-        },
-        invalid: {
-            color: '#fa755a',
-            iconColor: '#fa755a'
-        }
-    };
-
-    var card = elements.create('card', {style: style});
-    card.mount('#card-element');
-
-    card.addEventListener('change', function(event) {
-        var displayError = document.getElementById('card-errors');
-        if (event.error) {
-            displayError.textContent = event.error.message;
-        } else {
-            displayError.textContent = '';
-        }
-    });
-
-    var form = document.getElementById('payment-form');
-    form.addEventListener('submit', function(event) {
-        event.preventDefault();
-
-        stripe.createToken(card).then(function(result) {
-            if (result.error) {
-                var errorElement = document.getElementById('card-errors');
-                errorElement.textContent = result.error.message;
-            } else {
-                // Send the token to your server
-                document.getElementById('stripeToken').value = result.token.id;
-                form.submit();
-            }
-        });
-    });
-</script> -->
 
 </body>
 

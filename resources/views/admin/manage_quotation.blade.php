@@ -77,8 +77,9 @@
                                         <th>ID</th>
                                         <th>Customer</th>
                                         <th>Phone</th>
-                                        <th>Address</th>
+                                        <!-- <th>Address</th> -->
                                         <th>Description</th>
+                                        <th>Status</th>
                                         <th>Quantity</th>
                                         <th>Base Value (RM)</th>
                                         <th>Product</th>
@@ -91,14 +92,15 @@
                                         <td>{{ $quote->id }}</td>
                                         <td>{{ $quote->name }}</td>
                                         <td>{{ $quote->phone }}</td>
-                                        <td>{{ $quote->address }}</td>
+                                        <!-- <td>{{ $quote->address }}</td> -->
                                         <td>{!!Str::limit($quote->description,50)!!}</td>
+                                        <td>{{ $quote->status }}</td>
                                         <td>{{ $quote->quantity }}</td>
                                         
                                         <td>{{ $quote->base_price * $quote->quantity }}</td>
                                         <td>
                                             <span>{{ $quote->product->title }}</span>
-                                            <img height="70" width="70" src="products/{{ $quote->product->image }}" alt="" />
+                                            <img height="70" width="70" src="products/{{$quote->product->image}}" alt="" />
                                         </td>
                                         <td class="boxbtn-vertical">
                                             <a class="btn btn-primary" href="{{url('update_quotation', $quote->id)}}">Details</a>
