@@ -114,7 +114,7 @@
                   <div class="title"> <strong class="d-block">Pending Quotations</strong><span class="d-block">Total of new customization request</span></div>
                   <div class="row d-flex align-items-end justify-content-between">
                     <div class="col-5">
-                      <div class="text"><strong class="d-block dashtext-3">{{$pendingquote}}</strong><span class="d-block">total request(s)</span><small><a href="{{route('manage_quotation')}}" text=>View Here</a></small></div>
+                      <div class="text"><strong class="d-block dashtext-3">{{$pendingquote}}</strong><span class="d-block">Total request(s)</span><small><a href="{{route('manage_quotation')}}" text=>View Here</a></small></div>
                     </div>
                     <div class="col-7">
                       <div class="bar-chart chart">
