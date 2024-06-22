@@ -14,9 +14,15 @@
 
 		<div class="account-settings">
 			<div class="user-profile">
+                @if($user->picture !== null)
 				<div class="user-avatar">
 					<img src="/profiles/{{$user->picture}}" alt="">
 				</div>
+                @else
+                <div class="user-avatar">
+					<img src="/profiles/avatar.jpg" alt="">
+				</div>
+                @endif
 				<h5 class="user-name" >{{ $user->name}}</h5>
 				<h6 class="user-email">{{ $user->email}}</h6>
 			</div>
