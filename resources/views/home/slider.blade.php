@@ -8,8 +8,8 @@
                   <div class="col-md-7">
                     <div class="detail-box"> 
                       <h1>
-                        Welcome To Our <br>
-                        Shop
+                        Get Your Unique <br>
+                        Shirts Now
                       </h1>
                       <p>
                       Transform Your Ideas into Custom Apparel
@@ -24,7 +24,7 @@ printing needs with precision and creativity. Explore our collection and start c
                   </div>
                   <div class="col-md-5 ">
                     <div class="img-box">
-                      <img style="width:600px" src="images/image3.jpeg" alt="" />
+                      <img style="width: 400px"  src="home/pic4.jpg" alt="" />
                     </div>
                   </div>
                 </div>

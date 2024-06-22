@@ -1,7 +1,7 @@
 <header class="header_section">
       <nav class="navbar navbar-expand-lg custom_nav-container ">
         <a class="navbar-brand" href="{{url('/')}}">
-          <span>
+          <span style="font-family: 'Open Sans',sans-serif">
             T-Hub: Shirt Printing Service System
           </span>
         </a>
@@ -16,7 +16,7 @@
             </li>
             <li class="nav-item">
               <a class="nav-link" href="shop.html">
-                Shop
+                Products
               </a>
             </li>
             <!-- <li class="nav-item">

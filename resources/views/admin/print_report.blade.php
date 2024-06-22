@@ -71,7 +71,7 @@
 
     <div class="company-info">
         <h2>T-Hub: Shirt Printing Service System</h2>
-        <p>Persiaran Tun Dr. Ismail, 86400 Parit Raja, Johor</p>
+        <p>Bangunan F3, Universiti Tun Hussein Onn Malaysia, 86400 Parit Raja, Johor</p>
         <p>Phone:  012-34567890</p>
         <p>Email: thub001@gmail.com</p>
         <p>Website: https://t-hub.xyz </p>

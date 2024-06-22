@@ -27,7 +27,7 @@
               ABOUT US
             </h6>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed doLorem ipsum dolor sit amet, consectetur adipiscing elit, sed doLorem ipsum dolor sit amet,
+            At T-Hub, we specialize in providing top-quality custom shirt printing services to bring your unique designs to life. Our commitment to excellence ensures that every print meets the highest standards of fashion.
             </p>
           </div>
           <div class="col-md-6 col-lg-3">
@@ -48,7 +48,7 @@
               NEED HELP
             </h6>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed doLorem ipsum dolor sit amet, consectetur adipiscing elit, sed doLorem ipsum dolor sit amet,
+            Need help or have questions? Send your inquiries to our support team, and we'll get back to you promptly.
             </p>
           </div>
           <div class="col-md-6 col-lg-3">
@@ -58,15 +58,15 @@
             <div class="info_link-box">
               <a href="">
                 <i class="fa fa-map-marker" aria-hidden="true"></i>
-                <span> Gb road 123 london Uk </span>
+                <span> Bangunan F3, </br>Universiti Tun Hussein Onn Malaysia, </br>86400 Parit Raja, Johor </span>
               </a>
               <a href="">
                 <i class="fa fa-phone" aria-hidden="true"></i>
-                <span>+01 12345678901</span>
+                <span>+60 123456789</span>
               </a>
               <a href="">
                 <i class="fa fa-envelope" aria-hidden="true"></i>
-                <span> demo@gmail.com</span>
+                <span> thub001@gmail.com</span>
               </a>
             </div>
           </div>
