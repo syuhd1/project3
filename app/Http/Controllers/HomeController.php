@@ -45,7 +45,28 @@ class HomeController extends Controller
     }
     //route to staff dash
     public function index2(){
-        return view('staff.index2');
+        $identity = Auth::user();
+        $user = User::where('usertype', 'user')->get()->count();
+        $product = Product::all()->count();
+        $order = Order::all()->count();
+        $delivered = Order::where('status', 'completed')->get()->count();
+        $quote = Quotation::all()->count();
+        $staff = Staff::all()->count();
+        $pendingquote = Quotation::where('status', 'in progress')->count();
+        $pendingorder = Order::where('status', 'in progress')
+        ->orWhere('status', 'in production')
+        ->orWhere('status', 'to be delivered')
+        ->count();
+
+        $thismonth= now()->month;
+        $thisyear= now()->year;
+        
+        $sales = Order::whereYear('created_at', $thisyear)
+        ->whereMonth('created_at', $thismonth)
+        ->sum('price');
+
+        return view('staff.index2', compact('identity','user', 'product','order','delivered','staff', 'pendingorder','pendingquote','sales'));
+        // return view('staff.index2');
     }
     //29/5 homepage
     public function home(){

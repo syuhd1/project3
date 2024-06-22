@@ -21,6 +21,11 @@ return Application::configure(basePath: dirname(__DIR__))
             'staff' => \App\Http\Middleware\Staff::class,
         ]);
 
+        // added 22/6 for shared route admin staff, deadline, modify later
+        // $middleware->alias([
+        //     'admin_or_staff' => \App\Http\Middleware\AdminOrStaff::class,
+        // ]);
+
         
         /*$middleware->alias([
             'admin' => \App\Http\Middleware\Admin::class,

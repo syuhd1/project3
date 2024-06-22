@@ -40,7 +40,7 @@ class AdminController extends Controller
     public function add_product()
     {
         $identity = Auth::user();
-        return view('admin.add_product','identity');
+        return view('admin.add_product',compact('identity'));
     }
 
     public function product_search(Request $request)
@@ -170,7 +170,8 @@ public function manage_quotation()
     {
         $identity = Auth::user();
         $data = Quotation::find($id);
-        return view('admin.update_quotation',compact('data','identity'));
+        $product = $data->product;
+        return view('admin.update_quotation',compact('data','identity','product'));
     }
 
     public function upload_quotation(Request $request, $id)
@@ -199,7 +200,7 @@ public function manage_quotation()
     public function add_staff()
     {
         $identity = Auth::user();
-        return view('admin.add_staff','identity');
+        return view('admin.add_staff', compact('identity'));
     }
 
     public function upload_staff(Request $request)

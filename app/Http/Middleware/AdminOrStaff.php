@@ -6,7 +6,8 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
-class Admin
+
+class AdminOrStaff
 {
     /**
      * Handle an incoming request.
@@ -15,13 +16,10 @@ class Admin
      */
     public function handle(Request $request, Closure $next): Response
     {
-
-        //for non admin role detection from accessing admin dashboard , 28/5
-        if(Auth::user()->usertype !='admin'){
-        // if(Auth::user()->usertype =='user'){
-
-            return redirect('/');
-        }
+        if (Auth::check() && (Auth::user()->usertype == 'admin' || Auth::user()->usertype == 'staff')) {
         return $next($request);
+        }
+
+        return redirect('/');
     }
 }

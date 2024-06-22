@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head> 
-    @include('admin.css')
+    @include('staff.css')
   </head>
   <body>
-  @include('admin.header')
+  @include('staff.header')
 
   <style type="text/css">
     .div_deg{
@@ -45,7 +45,7 @@
     }
   </style>
 
-  @include('admin.sidebar')
+  @include('staff.sidebar')
       <!-- Sidebar Navigation end-->
       <div class="page-content">
         <div class="page-header">
@@ -90,7 +90,7 @@
              <h6>--------------[Product Details]--------------</h6>
           <div class="table-responsive">
                 <table class="table table-striped table-hover table_deg" >
-                     @include('admin.colormap')
+                     @include('staff.colormap')
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -109,7 +109,8 @@
                             <td>{{ $data->product->id }}</td>
                             <td>
                                 <span>{{ $data->product->title }}</span>
-                                <img height="80" width="80" src="products/{{$data->product->image}}" alt="" />
+                                <!-- <td><img height="70" width="70" src="products/{{$products->image}}" alt=""></td> -->
+                                <img height="70" width="70" src="products/{{$data->product->image}}" alt="" />
                             </td>
                             <td>{{ $data->quantity }}</td>
                             <td>{{ $data->size }}</td>
@@ -135,7 +136,7 @@
             <!-- start desc table -->
           <div class="table-responsive">
             <h6>--------------[Customization Details]--------------</h6>
-                @include('admin.colormap')
+                @include('staff.colormap')
                 <table class="table table-striped table-hover table_deg" >
                     <thead>
                         <tr>
@@ -157,7 +158,7 @@
                             <td>{{ $data->deadline}}</td>
                             <td>
                             @if(!empty($data->reference))
-                                <a href="{{ url('references/' . $data->reference) }}" target="_blank">{{ $data->reference }}</a>
+                                <a href="{{ url('staff/references/' . $data->reference) }}" target="_blank">{{ $data->reference }}</a>
                             @else
                                 No Reference
                             @endif
@@ -174,7 +175,7 @@
             </div>
 
           <div class="div_deg">
-            <form action="{{url('upload_quotation', $data->id)}}" method="Post" enctype="multipart/form-data">
+            <form action="{{url('staff/upload_quotation', $data->id)}}" method="Post" enctype="multipart/form-data">
                 @csrf 
                 <div class="input_deg">
                     <label for="">Update Customization Fee (1 pcs): </label>
@@ -182,7 +183,7 @@
                 </div>
 
                 <div class="input_deg">
-                    <a class="btn btn-danger" type="button" href="{{url('manage_quotation')}}">Cancel</a>
+                    <a class="btn btn-danger" type="button" href="{{url('staff/manage_quotation')}}">Cancel</a>
                     <input class="btn btn-success" type="submit" value="Update Quotation">
                 </div>
             </form>

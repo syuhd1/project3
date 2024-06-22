@@ -2,6 +2,20 @@
 <html>
   <head> 
     @include('staff.css')
+
+    <style type="text/css">
+        input[type='text']{
+            width: 400px;
+            height: 50px;
+        }
+
+        .div_deg{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 30px;
+        }
+    </style>
   </head>
   <body>
   @include('staff.header')
@@ -11,8 +25,26 @@
       <div class="page-content">
         <div class="page-header">
           <div class="container-fluid">
-          @include('staff.body')
 
+            <!-- change this body to content of page.  -->
+            <!--    "@ include('folder-name/name[.blade.php]') -->
+
+            <h1>Add Category</h1>
+            <!-- maybe can change color to black/white later - style="color: " -->
+
+            <div class="div_deg">
+                <form action="">
+                    
+                    <div>
+                        <!-- field to fill  -->
+                        <input type="text" name="category">
+                    
+                        <!-- button to submit -->
+                        <input class="btn btn-primary" type="submit" value="Add Category">
+                    </div>
+                </form>
+
+            </div>
         </div>   
       </div>
     </div>

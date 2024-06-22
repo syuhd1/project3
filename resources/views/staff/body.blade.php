@@ -114,7 +114,7 @@
                   <div class="title"> <strong class="d-block">Pending Quotations</strong><span class="d-block">Total of new customization request</span></div>
                   <div class="row d-flex align-items-end justify-content-between">
                     <div class="col-5">
-                      <div class="text"><strong class="d-block dashtext-3">{{$pendingquote}}</strong><span class="d-block">Total request(s)</span><small><a href="{{route('manage_quotation')}}" text=>View Here</a></small></div>
+                      <div class="text"><strong class="d-block dashtext-3">{{$pendingquote}}</strong><span class="d-block">Total request(s)</span><small><a href="{{route('staff/manage_quotation')}}" text=>View Here</a></small></div>
                     </div>
                     <div class="col-7">
                       <div class="bar-chart chart">
@@ -129,7 +129,7 @@
                   <div class="title"> <strong class="d-block">Pending Orders</strong><span class="d-block">Total of progressing orders</span></div>
                   <div class="row d-flex align-items-end justify-content-between">
                     <div class="col-4">
-                      <div class="text"><strong class="d-block dashtext-1">{{$pendingorder}}</strong><span class="d-block">Total order(s)</span><small><a href="{{route('manage_order')}}" text=>View Here</a></small></div>
+                      <div class="text"><strong class="d-block dashtext-1">{{$pendingorder}}</strong><span class="d-block">Total order(s)</span><small><a href="{{route('staff/manage_order')}}" text=>View Here</a></small></div>
                     </div>
                     <div class="col-7">
                       <div class="bar-chart chart">
@@ -144,7 +144,7 @@
                   <div class="title"> <strong class="d-block">Sales Activities</strong><span class="d-block">Sales information of this month</span></div>
                   <div class="row d-flex align-items-end justify-content-between">
                     <div class="col-5">
-                      <div class="text"><strong class="d-block dashtext-2">RM{{$sales}}</strong><span class="d-block">On June 2024</span><small><a href="{{route('generate_report')}}" text=>View Here</a></small></div>
+                      <div class="text"><strong class="d-block dashtext-2">RM{{$sales}}</strong><span class="d-block">On June 2024</span><small><a href="{{route('staff/generate_report')" text=>View Here</a></small></div>
                     </div>
                     <div class="col-7">
                       <div class="bar-chart chart">

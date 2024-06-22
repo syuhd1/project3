@@ -11,6 +11,8 @@
       <div class="page-content">
         <div class="page-header">
           <div class="container-fluid">
+            
+          <h2>Manage Profile Details</h2>
           @include('staff.body')
 
         </div>   
