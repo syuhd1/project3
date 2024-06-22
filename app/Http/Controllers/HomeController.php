@@ -10,9 +10,12 @@ use App\Models\Product;
 use App\Models\Cart;
 use App\Models\Order;
 use App\Models\Quotation;
+use App\Models\Staff;
+
 
 use Stripe;
 use Session;
+use Carbon\Carbon;
 
 class HomeController extends Controller
 {
@@ -24,8 +27,21 @@ class HomeController extends Controller
         $order = Order::all()->count();
         $delivered = Order::where('status', 'completed')->get()->count();
         $quote = Quotation::all()->count();
+        $staff = Staff::all()->count();
+        $pendingquote = Quotation::where('status', 'in progress')->count();
+        $pendingorder = Order::where('status', 'in progress')
+        ->orWhere('status', 'in production')
+        ->orWhere('status', 'to be delivered')
+        ->count();
 
-        return view('admin.index', compact('identity','user', 'product','order','delivered'));
+        $thismonth= now()->month;
+        $thisyear= now()->year;
+        
+        $sales = Order::whereYear('created_at', $thisyear)
+        ->whereMonth('created_at', $thismonth)
+        ->sum('price');
+
+        return view('admin.index', compact('identity','user', 'product','order','delivered','staff', 'pendingorder','pendingquote','sales'));
     }
     //route to staff dash
     public function index2(){

@@ -15,9 +15,9 @@
                 <li class="active"><a href="{{url('admin/dashboard')}}"> <i class="icon-home"></i>Home</a></li>
                   <!-- change index.html to route home -->
                   <!-- NEED TO MONITOR!  -->
-                <li>
+                <!-- <li>
                     <a href="{{url('view_category')}}"> <i class="icon-grid"></i>Category</a>
-                </li>
+                </li> -->
 
                 <li>
                     <a href="{{url('manage_product')}}"> <i class="icon-list-1"></i>Manage Product</a>

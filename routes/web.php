@@ -54,7 +54,7 @@ route::get('delete_product/{id}', [AdminController::class,'delete_product'])->mi
 route::get('product_search', [AdminController::class,'product_search'])->middleware(['auth','admin']);
 // profile
 route::get('manage_profile', [AdminController::class,'manage_profile'])->middleware(['auth','admin']);
-route::get('manage_order', [AdminController::class,'manage_order'])->middleware(['auth','admin']);
+route::get('manage_order', [AdminController::class,'manage_order'])->middleware(['auth','admin'])->name('manage_order');
 Route::post('update_order/{id}', [AdminController::class,'update_order'])->middleware(['auth','admin']);
 // mng staff
 route::get('manage_staff', [AdminController::class,'manage_staff'])->middleware(['auth','admin']);
@@ -65,27 +65,26 @@ route::post('edit_staff/{id}', [AdminController::class,'edit_staff'])->middlewar
 route::get('delete_staff/{id}', [AdminController::class,'delete_staff'])->middleware(['auth','admin']);
 route::get('staff_search', [AdminController::class,'staff_search'])->middleware(['auth','admin']);
 //quote
-route::get('manage_quotation', [AdminController::class,'manage_quotation'])->middleware(['auth','admin']);
+route::get('manage_quotation', [AdminController::class,'manage_quotation'])->middleware(['auth','admin'])->name('manage_quotation');
 route::get('add_quotation', [AdminController::class,'add_quotation'])->middleware(['auth','admin']);
 route::post('upload_quotation/{id}', [AdminController::class,'upload_quotation'])->middleware(['auth','admin']);
 route::get('update_quotation/{id}', [AdminController::class,'update_quotation'])->middleware(['auth','admin']);
 route::post('edit_quotation/{id}', [AdminController::class,'edit_quotation'])->middleware(['auth','admin']);
 route::get('delete_quotation/{id}', [AdminController::class,'delete_quotation'])->middleware(['auth','admin']);
 route::get('quotation_search', [AdminController::class,'quotation_search'])->middleware(['auth','admin']);
-
 //report
-route::get('generate_report', [AdminController::class,'generate_report'])->middleware(['auth','admin']);
+route::get('generate_report', [AdminController::class,'generate_report'])->middleware(['auth','admin'])->name('generate_report');
 route::get('print_pdf', [AdminController::class,'print_pdf'])->middleware(['auth','admin']);
 // route::get('print_pdf/{id}', [AdminController::class,'print_pdf'])->middleware(['auth','admin']);
-route::get('view_pdf/{id}', [AdminController::class,'print_pdf'])->middleware(['auth','admin']);
+// route::get('view_pdf/{id}', [AdminController::class,'print_pdf'])->middleware(['auth','admin']);
 // test, delete later below
 route::get('print2', [AdminController::class,'print2'])->middleware(['auth','admin']);
 
 
-//test for staff , add 28/5 auth
+// ///////////test for staff , add 28/5 auth //////////////
 route::get('staff/dashboard', [HomeController::class,'index2'])->middleware(['auth', 'staff']);
 
-//home links
+// //////////////////home links //////////////////
 route::get('product_details/{id}', [HomeController::class,'product_details']);
 route::get('add_cart/{id}', [HomeController::class,'add_cart'])->middleware(['auth', 'verified']); //for direct add cart homee
 route::post('add_cart2/{id}', [HomeController::class,'add_cart2'])->middleware(['auth', 'verified']);  //user login
