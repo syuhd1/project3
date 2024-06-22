@@ -65,11 +65,16 @@
                     <label for="category">Category</label>
                     <select name="category"  value="{{$data->category}}">
                         <option value="">Select a category</option>
-                        <option value="t-shirt" {{ $data->category == 't-shirt' ? 'selected' : '' }}>T-Shirt</option>
-                        <option value="polo" {{ $data->category == 'polo' ? 'selected' : '' }}>Polo</option>
-                        <option value="dress-shirt" {{ $data->category == 'dress-shirt' ? 'selected' : '' }}>Dress Shirt</option>
-                        <option value="casual-shirt" {{ $data->category == 'casual-shirt' ? 'selected' : '' }}>Casual Shirt</option>
-                        <option value="sweatshirt" {{ $data->category == 'sweatshirt' ? 'selected' : '' }}>Sweatshirt</option>
+                        <option value="T-Shirt" {{ $data->category == 'T-Shirt' ? 'selected' : '' }}>T-Shirt</option>
+                        <option value="Polo" {{ $data->category == 'Polo' ? 'selected' : '' }}>Polo</option>
+                        <option value="Dress Shirt" {{ $data->category == 'Dress Shirt' ? 'selected' : '' }}>Dress Shirt</option>
+                        <option value="Casual Shirt" {{ $data->category == 'Casual Shirt' ? 'selected' : '' }}>Casual Shirt</option>
+                        <option value="Sweatshirt" {{ $data->category == 'Sweatshirt' ? 'selected' : '' }}>Sweatshirt</option>
+                        <option value="Hoodie" {{ $data->category == 'Hoodie' ? 'selected' : '' }}>Hoodie</option>
+                        <option value="Tank Top" {{ $data->category == 'Tank Top' ? 'selected' : '' }}>Tank Top</option>
+                        <option value="Flannel Shirt" {{ $data->category == 'Flannel Shirt' ? 'selected' : '' }}>Flannel Shirt</option>
+                        <option value="Denim Shirt" {{ $data->category == 'Denim Shirt' ? 'selected' : '' }}>Denim Shirt</option>
+                        <option value="V-Neck Shirt" {{ $data->category == 'V-Neck Shirt' ? 'selected' : '' }}>V-Neck Shirt</option>
                         <!-- Add more categories as needed -->
                     </select>
                 </div>
@@ -88,13 +93,13 @@
                     <label for="material">Material</label>
                     <select name="material"  value="{{$data->material}}">
                     <option value="">Select a material</option>
-                        <option value="cotton" {{ $data->material == 'cotton' ? 'selected' : '' }}>Cotton</option>
-                        <option value="polyester" {{ $data->material == 'polyester' ? 'selected' : '' }}>Polyester</option>
-                        <option value="wool" {{ $data->material == 'wool' ? 'selected' : '' }}>Wool</option>
-                        <option value="silk" {{ $data->material == 'silk' ? 'selected' : '' }}>Silk</option>
-                        <option value="linen" {{ $data->material == 'linen' ? 'selected' : '' }}>Linen</option>
-                        <option value="denim" {{ $data->material == 'denim' ? 'selected' : '' }}>Denim</option>
-                        
+                    <option value="Cotton" {{ $data->material == 'Cotton' ? 'selected' : '' }}>Cotton</option>
+                    <option value="Polyester" {{ $data->material == 'Polyester' ? 'selected' : '' }}>Polyester</option>
+                    <option value="Wool" {{ $data->material == 'Wool' ? 'selected' : '' }}>Wool</option>
+                    <option value="Silk" {{ $data->material == 'Silk' ? 'selected' : '' }}>Silk</option>
+                    <option value="Linen" {{ $data->material == 'Linen' ? 'selected' : '' }}>Linen</option>
+                    <option value="Denim" {{ $data->material == 'Denim' ? 'selected' : '' }}>Denim</option>
+                                    
                     <!-- Add more materials as needed -->
                     </select>
                 </div>

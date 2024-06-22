@@ -17,6 +17,10 @@ class Order extends Model
         return $this->hasOne('App\Models\Product', 'id','product_id');
     }
 
+    public function quotation(){
+        return $this->hasOne('App\Models\Quotation', 'id','quote_id');
+    }
+
     
 }
 

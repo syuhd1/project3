@@ -70,12 +70,16 @@
                     <label for="category">Category</label>
                     <select name="category">
                         <option value="">Select a category</option>
-                        <option value="t-shirt">T-Shirt</option>
-                        <option value="polo">Polo</option>
-                        <option value="dress-shirt">Dress Shirt</option>
-                        <option value="casual-shirt">Casual Shirt</option>
-                        <option value="sweatshirt">Sweatshirt</option>
-                        <!-- Add more categories as needed -->
+                        <option value="T-Shirt">T-Shirt</option>
+                        <option value="Polo">Polo</option>
+                        <option value="Dress Shirt">Dress Shirt</option>
+                        <option value="Casual Shirt">Casual Shirt</option>
+                        <option value="Sweatshirt">Sweatshirt</option>
+                        <option value="Hoodie">Hoodie</option>
+                        <option value="Tank Top">Tank Top</option>
+                        <option value="Flannel Shirt">Flannel Shirt</option>
+                        <option value="Denim Shirt">Denim Shirt</option>
+                        <option value="V-Neck Shirt">V-Neck Shirt</option>
                     </select>
                 </div>
 
@@ -93,12 +97,12 @@
                     <label for="material">Material</label>
                     <select name="material">
                         <option value="">Select a material</option>
-                        <option value="cotton">Cotton</option>
-                        <option value="polyester">Polyester</option>
-                        <option value="wool">Wool</option>
-                        <option value="silk">Silk</option>
-                        <option value="linen">Linen</option>
-                        <option value="denim">Denim</option>
+                        <option value="Cotton">Cotton</option>
+                        <option value="Polyester">Polyester</option>
+                        <option value="Wool">Wool</option>
+                        <option value="Silk">Silk</option>
+                        <option value="Linen">Linen</option>
+                        <option value="Denim">Denim</option>
                         <!-- Add more materials as needed -->
                     </select>
                 </div>

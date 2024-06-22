@@ -20,7 +20,7 @@
 
     
 
-    <h1>Stripe Payment Gateway Integration Example <br/> ItSolutionStuff.com</h1>
+    <h1>T-Hub: Stripe Payment Gateway</h1>
 
     
 

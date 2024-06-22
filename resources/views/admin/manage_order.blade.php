@@ -83,6 +83,7 @@
                                         <th>Size</th>
                                         <th>Color</th>
                                         <th>Total Price (RM)</th>
+                                        <th>Custom</th>
                                         <th>Product</th>
                                         <th style="text-align: center;">Action</th>
                                     </tr>
@@ -128,6 +129,13 @@
                                             {{ $order->color }}
                                         </td>
                                         <td>{{ $order->price }}</td>
+                                        <td>
+                                        @if ($order->quote_id !== null)
+                                            <a href="{{url('update_quotation', '$order->quote_id')}}">Quotation ID: {{$orders->quote_id}}</a>
+                                            @else
+                                            None
+                                            @endif
+                                        </td>
                                         <td>
                                             <span>{{ $order->product->title }}</span>
                                             <img height="70" width="70" src="products/{{ $order->product->image }}" alt="" />

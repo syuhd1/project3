@@ -88,6 +88,7 @@
                         <th>Size</th>
                         <th>Quantity</th>
                         <th>Customization</th>
+                        <th>Unit Price</th>
                         <th>Total Price</th>
                         <th>Address</th>
                         <th>Status</th>
@@ -118,6 +119,7 @@
                             None
                             @endif
                         </td>
+                        <td>{{$orders->price}}</td>
                         <td>{{$orders->total_price}}</td>
                         <td>{{$orders->address}}</td>
                         <td>{{$orders->status}}</td>
