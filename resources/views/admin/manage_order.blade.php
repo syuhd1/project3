@@ -131,7 +131,7 @@
                                         <td>{{ $order->price }}</td>
                                         <td>
                                         @if ($order->quote_id !== null)
-                                            <a href="{{url('update_quotation', '$order->quote_id')}}">Quotation ID: {{$orders->quote_id}}</a>
+                                            <a href="{{url('update_quotation', $order->quote_id)}}">Quotation ID: {{$order->quote_id}}</a>
                                             @else
                                             None
                                             @endif
