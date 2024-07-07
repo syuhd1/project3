@@ -144,7 +144,7 @@
                   <div class="title"> <strong class="d-block">Sales Activities</strong><span class="d-block">Sales information of this month</span></div>
                   <div class="row d-flex align-items-end justify-content-between">
                     <div class="col-5">
-                      <div class="text"><strong class="d-block dashtext-2">RM{{$sales}}</strong><span class="d-block">On June 2024</span><small><a href="{{route('generate_report')}}" text=>View Here</a></small></div>
+                      <div class="text"><strong class="d-block dashtext-2">RM{{$sales}}</strong><span class="d-block">On July 2024</span><small><a href="{{route('generate_report')}}" text=>View Here</a></small></div>
                     </div>
                     <div class="col-7">
                       <div class="bar-chart chart">

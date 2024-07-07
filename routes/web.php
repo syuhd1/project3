@@ -24,7 +24,7 @@ Route::get('/', [HomeController::class,'home'])->name('home');
 //below added trying to fix the below, may remove
 Route::get('dashboard', [HomeController::class,'login_home'])->middleware(['auth','verified'])->name('dashboard');
 
-Route::get('myorders', [HomeController::class,'myorders'])->middleware(['auth','verified']);
+Route::get('myorders', [HomeController::class,'myorders'])->middleware(['auth','verified'])->name('myorders');
 
 // Route::get('/dashboard', function () {
 //     return redirect()->route('home'); //redirect to home instead of dashboard

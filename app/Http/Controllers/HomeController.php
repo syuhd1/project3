@@ -505,6 +505,29 @@ public function add_cart($id){
             \Log::info('Stripe Request Data:', $request->all()); // Log request data
             Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
 
+            $customer = Stripe\Customer::create(array(
+
+            // "address" => [
+
+            //         "line1" => "Virani Chowk",
+
+            //         "postal_code" => "360001",
+
+            //         "city" => "Rajkot",
+
+            //         "state" => "GJ",
+
+            //         "country" => "IN",
+
+            //     ],
+
+            // "email" => "demo@gmail.com",
+
+            // "name" => "Hardik Savani",
+
+            // "source" => $request->stripeToken
+
+         ));
             Stripe\Charge::create ([
 
                 "amount" => $value * 100,
@@ -513,8 +536,27 @@ public function add_cart($id){
 
                 "source" => $request->stripeToken,
 
-                "description" => "Test payment from itsolutionstuff.com." 
+            //     "description" => "Test payment" ,
 
+            //     "shipping" => [
+
+            //   "name" => "Jenny Rosen",
+
+            //   "address" => [
+
+            //     "line1" => "510 Townsend St",
+
+            //     "postal_code" => "98140",
+
+            //     "city" => "San Francisco",
+
+            //     "state" => "CA",
+
+            //     "country" => "US",
+
+            //   ],
+
+            // ]
             ]);
 
              $name = Auth::user()->name;
@@ -559,9 +601,11 @@ public function add_cart($id){
                 $data->delete();
             }
 
-            return back()->with('success', 'Payment has been successful');
-            // toastr()->timeOut(5000)->closeButton()->addSuccess('Order has been placed successfully');
-            // return redirect()->back();
+            // return back()->with('success', 'Payment has been successful');
+            toastr()->timeOut(5000)->closeButton()->addSuccess('Payment verified. Order has been placed successfully');
+            // return back();
+            // return redirect()->view('home.order');
+            // return redirect()->route('myorders')->with('success', 'Payment has been successful');
         // } catch (\Exception $e) {
         //     \Log::error('Stripe Payment Error:', ['error' => $e->getMessage()]);
         //     return redirect()->back()->withErrors('Payment failed. Please try again.');

@@ -109,7 +109,7 @@
                             <td>{{ $data->product->id }}</td>
                             <td>
                                 <span>{{ $data->product->title }}</span>
-                                <img height="80" width="80" src="products/{{$data->product->image}}" alt="" />
+                                <!-- <img height="80" width="80" src="products/{{$data->product->image}}" alt="" /> -->
                             </td>
                             <td>{{ $data->quantity }}</td>
                             <td>{{ $data->size }}</td>
